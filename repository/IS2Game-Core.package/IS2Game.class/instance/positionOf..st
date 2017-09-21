@@ -1,4 +1,4 @@
 accessing
 positionOf: aPlayer
 
-	^ (playerPositions select: [ :position | position player = aPlayer ]) last
+	^ (self historyFor: aPlayer) last

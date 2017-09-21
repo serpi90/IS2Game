@@ -1,4 +1,4 @@
-tests
+tests - tiles
 testPlayerLandingOnWormholeTileGoesBack4Positions
 
 	| game bob tiles |
@@ -14,9 +14,9 @@ testPlayerLandingOnWormholeTileGoesBack4Positions
 		for: {bob}.
 	self assert: (game positionOf: bob) tileNumber equals: 0.
 	self assert: (game positionOf: bob) lap equals: 0.
-	game throwDiceFor: bob.
+	game playTurnFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 4.
 	self assert: (game positionOf: bob) lap equals: 0.
-	game throwDiceFor: bob.
+	game playTurnFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 1.
 	self assert: (game positionOf: bob) lap equals: 0

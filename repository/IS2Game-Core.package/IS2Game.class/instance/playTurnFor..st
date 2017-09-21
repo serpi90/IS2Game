@@ -1,5 +1,5 @@
 playing
-throwDiceFor: aPlayer
+playTurnFor: aPlayer
 
 	self assertCanPlay: aPlayer.
 	self move: aPlayer tiles: dice roll.

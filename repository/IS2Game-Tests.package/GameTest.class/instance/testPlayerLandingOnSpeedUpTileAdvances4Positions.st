@@ -1,4 +1,4 @@
-tests
+tests - tiles
 testPlayerLandingOnSpeedUpTileAdvances4Positions
 
 	| game bob tiles |
@@ -14,9 +14,9 @@ testPlayerLandingOnSpeedUpTileAdvances4Positions
 		for: {bob}.
 	self assert: (game positionOf: bob) tileNumber equals: 0.
 	self assert: (game positionOf: bob) lap equals: 0.
-	game throwDiceFor: bob.
+	game playTurnFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 5.
 	self assert: (game positionOf: bob) lap equals: 0.
-	game throwDiceFor: bob.
+	game playTurnFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 6.
 	self assert: (game positionOf: bob) lap equals: 0

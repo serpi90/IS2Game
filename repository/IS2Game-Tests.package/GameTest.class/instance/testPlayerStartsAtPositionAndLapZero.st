@@ -1,4 +1,4 @@
-tests
+tests - positions
 testPlayerStartsAtPositionAndLapZero
 
 	| game bob mary |

@@ -1,4 +1,4 @@
-tests
+tests - tiles
 testPlayerLandingOnMoonwalkTileForcesAllPlayersToGoBackANumberOfTiles
 
 	| game bob tiles mary |
@@ -13,13 +13,13 @@ testPlayerLandingOnMoonwalkTileForcesAllPlayersToGoBackANumberOfTiles
 		laps: 3
 		dice: (Dice withSides: 6 source: (SequentialGenerator generating: #(4 3 1 1)))
 		for: (Array with: bob with: mary).
-	game throwDiceFor: bob.
-	game throwDiceFor: mary.
+	game playTurnFor: bob.
+	game playTurnFor: mary.
 	self assert: (game positionOf: bob) tileNumber equals: 4.
 	self assert: (game positionOf: mary) tileNumber equals: 3.
-	game throwDiceFor: bob.
+	game playTurnFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 4 + 1 - 3.
 	self assert: (game positionOf: mary) tileNumber equals: 3 - 3.
-	game throwDiceFor: mary.
+	game playTurnFor: mary.
 	self assert: (game positionOf: bob) tileNumber equals: 4 + 1 - 3 - 1.
 	self assert: (game positionOf: mary) tileNumber equals: 3 - 3 + 1 - 1

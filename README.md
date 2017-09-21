@@ -14,3 +14,21 @@ The game simulates a board game, with multiple players over a circular path of t
 - Number of laps per game can be configured
 - Turn order must be enforced
 - Winner is accessible once the game has ended
+
+## Requirements for second iteration
+
+The game board has randomly generated tiles with effects.
+
+Each tile has probability of bein placed on the board upon generation.
+
+| tile         | effect                                  | probability |
+| :----------- | :-------------------------------------- | ----------: |
+| Empty        | None                                    |         40% |
+| Atomic Bomb  | Everybody goes back to the beginning    |          2% |
+| Wormhole     | Go back 4 tiles                         |          2% |
+| Speed up     | Advance 4 tiles                         |         15% |
+| Moonwalk     | Everybody goes back N tiles             |         15% |
+| Time machine | Player goes back previous turn position |         23% |
+
+- All tile effects implemented
+- Board is randomly generated based on the given probabilities

@@ -3,6 +3,6 @@ move: aPlayer tiles: numberOfTilesToMove
 
 	| newPosition |
 
-	newPosition := (self positionOf: aPlayer) positionWhenMoving: numberOfTilesToMove on: board.
+	newPosition := self positionFor: (self positionOf: aPlayer) whenMoving: numberOfTilesToMove.
 
 	self move: aPlayer to: newPosition
