@@ -1,11 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "Object",
+	"super" : "GameTile",
 	"category" : "IS2Game-Core",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "PositionCalculator",
+	"name" : "AtomicBombTile",
 	"type" : "normal"
 }

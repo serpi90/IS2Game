@@ -1,12 +1,14 @@
 {
 	"instance" : {
-		"player" : "JulianMaestri 9/13/2017 03:11",
-		"tileNumber" : "JulianMaestri 9/20/2017 21:44",
+		"positionWhenMoving:on:" : "JulianMaestri 9/21/2017 17:08",
+		"printOn:" : "JulianMaestri 9/21/2017 15:13",
 		"lap" : "JulianMaestri 9/13/2017 03:11",
+		"tileNumber" : "JulianMaestri 9/20/2017 21:44",
+		"player" : "JulianMaestri 9/13/2017 03:11",
 		"initializeOf:onLap:tileNumber:" : "JulianMaestri 9/20/2017 21:44"
 	},
 	"class" : {
-		"whenMoving:from:on:" : "JulianMaestri 9/21/2017 02:43",
+		"startingOf:" : "JulianMaestri 9/21/2017 17:12",
 		"of:onLap:tileNumber:" : "JulianMaestri 9/21/2017 01:59"
 	}
 }

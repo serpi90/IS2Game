@@ -6,4 +6,6 @@ initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: somePlayers
 	dice := aDice.
 	players := somePlayers.
 	playerTurn := CircularIterator cyclingOver: somePlayers.
-	playerPositions := (players collect: [ :player | PlayerPosition of: player onLap: 0 tileNumber: 0 ]) asOrderedCollection
+	playerPositions := (players
+		collect: [ :player | PlayerPosition startingOf: player ])
+		asOrderedCollection

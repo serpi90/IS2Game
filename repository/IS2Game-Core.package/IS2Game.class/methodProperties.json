@@ -1,11 +1,15 @@
 {
 	"instance" : {
+		"move:tiles:" : "JulianMaestri 9/21/2017 17:10",
 		"hasEnded" : "JulianMaestri 9/13/2017 03:29",
 		"winner" : "JulianMaestri 9/21/2017 02:58",
-		"assertCanPlay:" : "JulianMaestri 9/21/2017 03:04",
-		"throwDiceFor:" : "JulianMaestri 9/21/2017 03:02",
-		"initializeWithBoard:laps:dice:for:" : "JulianMaestri 9/20/2017 21:48",
-		"positionOf:" : "JulianMaestri 9/13/2017 03:11"
+		"assertCanPlay:" : "JulianMaestri 9/21/2017 17:08",
+		"players" : "JulianMaestri 9/21/2017 14:08",
+		"move:to:" : "JulianMaestri 9/21/2017 14:08",
+		"positionOf:" : "JulianMaestri 9/13/2017 03:11",
+		"initializeWithBoard:laps:dice:for:" : "JulianMaestri 9/21/2017 17:12",
+		"throwDiceFor:" : "JulianMaestri 9/21/2017 17:09",
+		"applyTileEfectsOn:" : "JulianMaestri 9/21/2017 16:23"
 	},
 	"class" : {
 		"withBoard:laps:dice:for:" : "JulianMaestri 9/21/2017 03:13",

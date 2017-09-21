@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "GameTile",
+	"category" : "IS2Game-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"tilesToGoBack"
+	],
+	"name" : "MoonWalktile",
+	"type" : "normal"
+}

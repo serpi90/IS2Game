@@ -1,6 +1,6 @@
 {
 	"instance" : {
-		"positionWhenMoving:from:on:" : "JulianMaestri 9/21/2017 01:56"
+		"affectPlayersWhenMovingFrom:on:" : "JulianMaestri 9/21/2017 16:19"
 	},
 	"class" : { }
 }
