@@ -1,0 +1,4 @@
+accessing
+tileNumber
+
+	^ tileNumber

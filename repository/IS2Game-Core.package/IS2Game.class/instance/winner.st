@@ -1,5 +1,5 @@
 accessing
 winner
 
-	AssertionChecker enforce: [ self hasEnded ] because: 'Cant define winner until game has ended'.
+	AssertionChecker enforce: [ self hasEnded ] because: 'Can not define a winner until game has ended'.
 	^ playerPositions last player

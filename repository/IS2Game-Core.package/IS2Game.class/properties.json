@@ -6,11 +6,11 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"boardLength",
 		"laps",
 		"dice",
 		"players",
 		"playerPositions",
+		"board",
 		"playerTurn"
 	],
 	"name" : "IS2Game",

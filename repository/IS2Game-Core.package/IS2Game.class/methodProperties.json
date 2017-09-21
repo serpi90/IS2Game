@@ -1,13 +1,14 @@
 {
 	"instance" : {
-		"assertTurnOf:" : "JulianMaestri 9/21/2017 01:29",
 		"hasEnded" : "JulianMaestri 9/13/2017 03:29",
-		"initializeWithBoardLength:laps:dices:for:" : "JulianMaestri 9/21/2017 01:27",
-		"winner" : "JulianMaestri 9/21/2017 01:34",
-		"throwDiceFor:" : "JulianMaestri 9/21/2017 01:31",
+		"winner" : "JulianMaestri 9/21/2017 02:58",
+		"assertCanPlay:" : "JulianMaestri 9/21/2017 03:04",
+		"throwDiceFor:" : "JulianMaestri 9/21/2017 03:02",
+		"initializeWithBoard:laps:dice:for:" : "JulianMaestri 9/20/2017 21:48",
 		"positionOf:" : "JulianMaestri 9/13/2017 03:11"
 	},
 	"class" : {
-		"withBoardLength:laps:dices:for:" : "JulianMaestri 9/13/2017 03:06"
+		"withBoard:laps:dice:for:" : "JulianMaestri 9/21/2017 03:13",
+		"withBoardOfLength:laps:dices:for:" : "JulianMaestri 9/20/2017 21:08"
 	}
 }

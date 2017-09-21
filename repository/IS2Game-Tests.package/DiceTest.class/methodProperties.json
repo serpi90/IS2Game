@@ -1,9 +1,11 @@
 {
 	"instance" : {
-		"testDiceWithFixedGenerator" : "JulianMaestri 9/13/2017 01:41",
-		"testPrinting" : "JulianMaestri 9/13/2017 02:40",
-		"testDiceSet" : "JulianMaestri 9/13/2017 01:49",
-		"testDiceWithRandomGenerator" : "JulianMaestri 9/13/2017 01:07"
+		"testPrinting" : "JulianMaestri 9/21/2017 01:54",
+		"testDiceWithFixedGenerator" : "JulianMaestri 9/21/2017 01:54",
+		"testDiceSet" : "JulianMaestri 9/21/2017 01:54",
+		"testDiceWithRandomGenerator" : "JulianMaestri 9/21/2017 01:54",
+		"testDiceMustHaveAtLeastTwoSides" : "JulianMaestri 9/21/2017 03:07",
+		"testDiceWithoutSpecifiyngGenerator" : "JulianMaestri 9/21/2017 01:55"
 	},
 	"class" : { }
 }

@@ -8,7 +8,7 @@
 	"instvars" : [
 		"player",
 		"lap",
-		"tile"
+		"tileNumber"
 	],
 	"name" : "PlayerPosition",
 	"type" : "normal"

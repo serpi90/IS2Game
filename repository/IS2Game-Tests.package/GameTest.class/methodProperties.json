@@ -1,9 +1,15 @@
 {
 	"instance" : {
-		"testPlayingUntilWinning" : "JulianMaestri 9/21/2017 01:32",
-		"testPlayerStartsAtPositionAndLapZero" : "JulianMaestri 9/13/2017 03:27",
-		"testAskingForWinnerWhenGameHasNotEndedShouldFail" : "JulianMaestri 9/21/2017 01:33",
-		"testPlayersCanNotPlayOutOfTurn" : "JulianMaestri 9/21/2017 01:26"
+		"testPlayingAfterWinningIsNotAllowed" : "JulianMaestri 9/21/2017 02:59",
+		"testPlayerLandingOnEmptyTile" : "JulianMaestri 9/21/2017 01:54",
+		"testPlayingUntilWinning" : "JulianMaestri 9/21/2017 02:10",
+		"testPlayerLandingOnWormholeTileGoesBack4Positions" : "JulianMaestri 9/21/2017 02:09",
+		"testAskingForWinnerWhenGameHasNotEndedShouldFail" : "JulianMaestri 9/21/2017 02:58",
+		"testPlayerStartsAtPositionAndLapZero" : "JulianMaestri 9/21/2017 02:10",
+		"testPlayersCanNotPlayOutOfTurn" : "JulianMaestri 9/21/2017 02:57",
+		"testGameMustHaveAtLeastOneLap" : "JulianMaestri 9/21/2017 03:11",
+		"testGameMustHaveAtLeastOnePlayer" : "JulianMaestri 9/21/2017 03:11",
+		"testPlayerLandingOnSpeedUpTileAdvances4Positions" : "JulianMaestri 9/21/2017 01:54"
 	},
 	"class" : { }
 }
