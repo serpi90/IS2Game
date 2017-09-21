@@ -23,12 +23,17 @@ Each tile has probability of bein placed on the board upon generation.
 
 | tile         | effect                                  | probability |
 | :----------- | :-------------------------------------- | ----------: |
-| Empty        | None                                    |         40% |
 | Atomic Bomb  | Everybody goes back to the beginning    |          2% |
-| Wormhole     | Go back 4 tiles                         |          2% |
+| Empty        | None                                    |         40% |
+| Moonwalk     | Everybody goes back N tiles             |          5% |
 | Speed up     | Advance 4 tiles                         |         15% |
-| Moonwalk     | Everybody goes back N tiles             |         15% |
 | Time machine | Player goes back previous turn position |         23% |
+| Wormhole     | Go back 4 tiles                         |         15% |
 
 - All tile effects implemented
-- Board is randomly generated based on the given probabilities
+- Moonwalk number of tiles can be configured
+- Time machine goes to previous turn, not at the beginning of the current one:
+  1. Position: 3. Roll: 2, Land on 5 _Empty_, no effects
+  2. Position: 5. Roll: 4, Land on 9 _Time machine_, go back to position 3
+  3. Position: 3. ...
+- Board can be randomly generated based on the given probabilities
