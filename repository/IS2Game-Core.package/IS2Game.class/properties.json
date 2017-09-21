@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "IS2Game-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"boardLength",
+		"laps",
+		"dice",
+		"players",
+		"playerPositions",
+		"playerTurn"
+	],
+	"name" : "IS2Game",
+	"type" : "normal"
+}

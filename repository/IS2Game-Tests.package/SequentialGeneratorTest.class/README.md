@@ -1,0 +1,1 @@
+A SequentialGeneratorTest is a test class for testing the behavior of SequentialGenerator

@@ -1,0 +1,12 @@
+{
+	"instance" : {
+		"printOn:" : "JulianMaestri 9/13/2017 03:17",
+		"lap" : "JulianMaestri 9/13/2017 03:11",
+		"tile" : "JulianMaestri 9/13/2017 03:11",
+		"initializeOf:onLap:tile:" : "JulianMaestri 9/13/2017 03:10",
+		"player" : "JulianMaestri 9/13/2017 03:11"
+	},
+	"class" : {
+		"of:onLap:tile:" : "JulianMaestri 9/13/2017 03:10"
+	}
+}

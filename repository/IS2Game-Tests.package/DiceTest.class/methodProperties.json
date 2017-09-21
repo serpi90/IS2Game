@@ -1,0 +1,9 @@
+{
+	"instance" : {
+		"testDiceWithFixedGenerator" : "JulianMaestri 9/13/2017 01:41",
+		"testPrinting" : "JulianMaestri 9/13/2017 02:40",
+		"testDiceSet" : "JulianMaestri 9/13/2017 01:49",
+		"testDiceWithRandomGenerator" : "JulianMaestri 9/13/2017 01:07"
+	},
+	"class" : { }
+}

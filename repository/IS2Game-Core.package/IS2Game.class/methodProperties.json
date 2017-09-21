@@ -1,0 +1,13 @@
+{
+	"instance" : {
+		"assertTurnOf:" : "JulianMaestri 9/21/2017 01:29",
+		"hasEnded" : "JulianMaestri 9/13/2017 03:29",
+		"initializeWithBoardLength:laps:dices:for:" : "JulianMaestri 9/21/2017 01:27",
+		"winner" : "JulianMaestri 9/21/2017 01:34",
+		"throwDiceFor:" : "JulianMaestri 9/21/2017 01:31",
+		"positionOf:" : "JulianMaestri 9/13/2017 03:11"
+	},
+	"class" : {
+		"withBoardLength:laps:dices:for:" : "JulianMaestri 9/13/2017 03:06"
+	}
+}
