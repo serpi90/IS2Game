@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "Effect",
+	"category" : "IS2Game-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"lap",
+		"tileNumber"
+	],
+	"name" : "RepositionPlayer",
+	"type" : "normal"
+}

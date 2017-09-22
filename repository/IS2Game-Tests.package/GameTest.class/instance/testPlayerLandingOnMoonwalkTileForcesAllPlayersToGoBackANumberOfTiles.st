@@ -3,9 +3,9 @@ testPlayerLandingOnMoonwalkTileForcesAllPlayersToGoBackANumberOfTiles
 
 	| game bob tiles mary |
 
-	tiles := Array new: 10 withAll: EmptyTile new.
-	tiles at: 6 put: (MoonWalktile goingBack: 3).
-	tiles at: 2 put: (MoonWalktile goingBack: 1).
+	tiles := (1 to: 10) collect: [ :e | Tile empty ].
+	tiles at: 6 put: (self moonwalkTileGoingBack: 3).
+	tiles at: 2 put: (self moonwalkTileGoingBack: 1).
 	bob := 'Bob'.
 	mary := 'Mary'.
 	game := IS2Game

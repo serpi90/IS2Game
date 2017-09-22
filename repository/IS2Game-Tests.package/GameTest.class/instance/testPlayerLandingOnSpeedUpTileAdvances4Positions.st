@@ -3,8 +3,8 @@ testPlayerLandingOnSpeedUpTileAdvances4Positions
 
 	| game bob tiles |
 
-	tiles := Array new: 10 withAll: EmptyTile new.
-	tiles at: 2 put: SpeedUpTile new.
+	tiles := (1 to: 10) collect: [ :e | Tile empty ].
+	tiles at: 2 put: self speedUpTile.
 
 	bob := 'Bob'.
 	game := IS2Game

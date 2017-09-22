@@ -1,9 +1,0 @@
-{
-	"instance" : {
-		"initializeGoingBack:" : "JulianMaestri 9/21/2017 15:04",
-		"affectPlayersWhenMovingFrom:on:" : "JulianMaestri 9/21/2017 17:09"
-	},
-	"class" : {
-		"goingBack:" : "JulianMaestri 9/21/2017 15:04"
-	}
-}

@@ -1,4 +1,4 @@
 tests-accessing
 testLength
 
-	self assert: (Board withTiles: (Array with: EmptyTile new with: EmptyTile new)) length equals: 2
+	self assert: (Board withTiles: (Array with: NoEffect new with: NoEffect new)) length equals: 2

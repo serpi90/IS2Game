@@ -10,11 +10,11 @@
 		"positionOf:" : "JulianMaestri 9/21/2017 20:22",
 		"initializeWithBoard:laps:dice:for:" : "JulianMaestri 9/21/2017 17:12",
 		"historyFor:" : "JulianMaestri 9/21/2017 19:55",
-		"applyTileEfectsOn:" : "JulianMaestri 9/21/2017 16:23",
+		"applyTileEfectsOn:" : "JulianMaestri 9/21/2017 23:21",
 		"playTurnFor:" : "JulianMaestri 9/21/2017 19:10"
 	},
 	"class" : {
 		"withBoard:laps:dice:for:" : "JulianMaestri 9/21/2017 03:13",
-		"withBoardOfLength:laps:dices:for:" : "JulianMaestri 9/20/2017 21:08"
+		"withBoardOfLength:laps:dices:for:" : "JulianMaestri 9/22/2017 02:09"
 	}
 }

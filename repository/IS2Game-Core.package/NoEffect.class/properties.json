@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "Effect",
+	"category" : "IS2Game-Core",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "NoEffect",
+	"type" : "normal"
+}

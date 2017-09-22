@@ -3,8 +3,8 @@ testPlayerLandingOnTimeMachineTileGoesBackToLastTurnPosition
 
 	| game bob tiles |
 
-	tiles := Array new: 10 withAll: EmptyTile new.
-	tiles at: 4 put: TimeMachineTile new.
+	tiles := (1 to: 10) collect: [ :e | Tile empty ].
+	tiles at: 4 put: self timeMachineTile.
 
 	bob := 'Bob'.
 	game := IS2Game

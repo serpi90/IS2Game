@@ -1,9 +1,8 @@
 {
 	"instance" : {
-		"positionWhenMoving:on:" : "JulianMaestri 9/21/2017 17:08",
 		"printOn:" : "JulianMaestri 9/21/2017 15:13",
-		"lap" : "JulianMaestri 9/13/2017 03:11",
 		"tileNumber" : "JulianMaestri 9/20/2017 21:44",
+		"lap" : "JulianMaestri 9/13/2017 03:11",
 		"player" : "JulianMaestri 9/13/2017 03:11",
 		"initializeOf:onLap:tileNumber:" : "JulianMaestri 9/20/2017 21:44"
 	},

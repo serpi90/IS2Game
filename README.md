@@ -21,14 +21,14 @@ The game board has randomly generated tiles with effects.
 
 Each tile has probability of bein placed on the board upon generation.
 
-| tile         | effect                                  | probability |
-| :----------- | :-------------------------------------- | ----------: |
-| Atomic Bomb  | Everybody goes back to the beginning    |          2% |
-| Empty        | None                                    |         40% |
-| Moonwalk     | Everybody goes back N tiles             |          5% |
-| Speed up     | Advance 4 tiles                         |         15% |
-| Time machine | Player goes back previous turn position |         23% |
-| Wormhole     | Go back 4 tiles                         |         15% |
+| tile         | effect                                     | probability |
+| :----------- | :----------------------------------------- | ----------: |
+| Atomic Bomb  | Everybody goes back to the beginning       |          2% |
+| Empty        | None                                       |         40% |
+| Moonwalk     | Everybody goes back N tiles                |          5% |
+| Speed up     | Advance 4 tiles                            |         15% |
+| Time machine | Player goes back to previous turn position |         23% |
+| Wormhole     | Go back 4 tiles                            |         15% |
 
 - All tile effects implemented
 - Moonwalk number of tiles can be configured

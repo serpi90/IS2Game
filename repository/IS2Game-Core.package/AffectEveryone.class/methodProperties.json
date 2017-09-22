@@ -1,0 +1,10 @@
+{
+	"instance" : {
+		"printOn:" : "JulianMaestri 9/22/2017 02:57",
+		"affectPlayersWhenMovingFrom:on:" : "JulianMaestri 9/22/2017 02:00",
+		"initializeApplying:" : "JulianMaestri 9/22/2017 02:00"
+	},
+	"class" : {
+		"applying:" : "JulianMaestri 9/22/2017 02:00"
+	}
+}

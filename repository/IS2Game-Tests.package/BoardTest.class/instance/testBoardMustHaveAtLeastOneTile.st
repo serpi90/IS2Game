@@ -1,7 +1,7 @@
 tests-accessing
 testBoardMustHaveAtLeastOneTile
 
-	self shouldnt: [ Board withTiles: {EmptyTile new} ] raise: InstanceCreationFailed.
+	self shouldnt: [ Board withTiles: {NoEffect new} ] raise: InstanceCreationFailed.
 	self
 		should: [ Board withTiles: #() ]
 		raise: InstanceCreationFailed

@@ -1,0 +1,10 @@
+{
+	"instance" : {
+		"initializeRepositioningToLap:tileNumber:" : "JulianMaestri 9/22/2017 02:07",
+		"affectPlayersWhenMovingFrom:on:" : "JulianMaestri 9/22/2017 02:00",
+		"printOn:" : "JulianMaestri 9/22/2017 02:58"
+	},
+	"class" : {
+		"toLap:tileNumber:" : "JulianMaestri 9/22/2017 02:08"
+	}
+}
