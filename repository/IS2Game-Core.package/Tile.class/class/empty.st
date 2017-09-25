@@ -1,4 +1,4 @@
 instance creation
 empty
 
-	^ self doing: NoEffect new named: 'Empty'
+	^ self affecting: AffectPlayer new doing: NoEffect new named: 'Empty'

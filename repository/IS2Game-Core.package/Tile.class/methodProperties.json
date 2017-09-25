@@ -1,11 +1,11 @@
 {
 	"instance" : {
-		"effect" : "JulianMaestri 9/22/2017 02:00",
-		"initializeDoing:named:" : "JulianMaestri 9/22/2017 02:17",
-		"printOn:" : "JulianMaestri 9/22/2017 01:57"
+		"printOn:" : "JulianMaestri 9/22/2017 01:57",
+		"affect:becausePlayerLandedOn:" : "JulianMaestri 9/25/2017 01:15",
+		"initializeAffecting:doing:named:" : "JulianMaestri 9/25/2017 01:11"
 	},
 	"class" : {
-		"empty" : "JulianMaestri 9/22/2017 02:00",
-		"doing:named:" : "JulianMaestri 9/22/2017 02:17"
+		"affecting:doing:named:" : "JulianMaestri 9/25/2017 01:11",
+		"empty" : "JulianMaestri 9/25/2017 01:11"
 	}
 }

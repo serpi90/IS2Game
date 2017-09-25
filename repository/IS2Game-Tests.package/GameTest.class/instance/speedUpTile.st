@@ -1,4 +1,7 @@
 accessing
 speedUpTile
 
-	^ Tile doing: (MovePlayer movingForward: 4) named: 'Speed Up'
+	^ Tile
+		affecting: AffectPlayer new
+		doing: (MovePlayer movingForward: 4)
+		named: 'Speed Up'

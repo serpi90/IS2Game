@@ -1,4 +1,4 @@
 accessing
 moonwalkTileGoingBack: aNumberOfTiles
 
-	^ Tile doing: (AffectEveryone applying: (MovePlayer goingBack: aNumberOfTiles)) named: 'Moonwalk'
+	^ Tile affecting: AffectEveryoneElse new doing: (MovePlayer goingBack: aNumberOfTiles) named: 'Moonwalk'

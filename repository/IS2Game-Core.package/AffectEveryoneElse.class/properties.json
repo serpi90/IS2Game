@@ -1,15 +1,11 @@
 {
 	"commentStamp" : "",
-	"super" : "Object",
+	"super" : "EffectTarget",
 	"category" : "IS2Game-Core",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"effect",
-		"name",
-		"target"
-	],
-	"name" : "Tile",
+	"instvars" : [ ],
+	"name" : "AffectEveryoneElse",
 	"type" : "normal"
 }

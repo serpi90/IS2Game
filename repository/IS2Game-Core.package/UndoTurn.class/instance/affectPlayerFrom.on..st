@@ -1,5 +1,5 @@
 accessing
-affectPlayersWhenMovingFrom: aPlayerPosition on: aGame
+affectPlayerFrom: aPlayerPosition on: aGame
 
 	"Why turns + 2 ?
 	- 1 for the move made in this turn

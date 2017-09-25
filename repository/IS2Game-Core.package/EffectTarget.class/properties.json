@@ -5,11 +5,7 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [
-		"effect",
-		"name",
-		"target"
-	],
-	"name" : "Tile",
+	"instvars" : [ ],
+	"name" : "EffectTarget",
 	"type" : "normal"
 }
