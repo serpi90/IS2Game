@@ -1,4 +1,4 @@
 accessing
 tileFor: aPlayerPosition
 
-	^ tiles at: aPlayerPosition tileNumber + 1
+	^ self tileAt: aPlayerPosition tileNumber

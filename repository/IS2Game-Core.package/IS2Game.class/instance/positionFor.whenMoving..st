@@ -1,7 +1,11 @@
 accessing
 positionFor: aPlayerPosition whenMoving: aNumberOfTiles
 
+	| totalMoves |
+
+	totalMoves := aPlayerPosition lap * board length
+		+ aPlayerPosition tileNumber - 1 + aNumberOfTiles.
 	^ PlayerPosition
 		of: aPlayerPosition player
-		onLap: aPlayerPosition lap + (aPlayerPosition tileNumber + aNumberOfTiles quo: board length)
-		tileNumber: (aPlayerPosition tileNumber + aNumberOfTiles rem: board length)
+		onLap: (totalMoves quo: board length)
+		tileNumber: (totalMoves rem: board length) + 1

@@ -1,10 +1,8 @@
 tests
 testPlayingAfterWinningIsNotAllowed
 
-	| game bob mary |
+	| game |
 
-	bob := 'Bob'.
-	mary := 'Mary'.
 	game := IS2Game
 		withBoardOfLength: 3
 		laps: 1
@@ -13,4 +11,10 @@ testPlayingAfterWinningIsNotAllowed
 	self deny: game hasEnded.
 	game playTurnFor: bob.
 	self assert: game hasEnded.
-	self should: [ game playTurnFor: mary ] raise: AssertionFailed withExceptionDo: [ :signal | self assert: signal messageText equals: 'Mary can not play now, the game has ended' ]
+	self
+		should: [ game playTurnFor: mary ]
+		raise: AssertionFailed
+		withExceptionDo: [ :signal | 
+			self
+				assert: signal messageText
+				equals: 'Mary can not play now, the game has ended' ]

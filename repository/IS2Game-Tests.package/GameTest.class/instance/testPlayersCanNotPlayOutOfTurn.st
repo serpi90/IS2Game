@@ -1,10 +1,8 @@
 tests
 testPlayersCanNotPlayOutOfTurn
 
-	| game bob mary |
+	| game |
 
-	bob := 'Bob'.
-	mary := 'Mary'.
 	game := IS2Game
 		withBoardOfLength: 5
 		laps: 3
@@ -12,8 +10,20 @@ testPlayersCanNotPlayOutOfTurn
 		for: (Array with: bob with: mary).
 
 	game playTurnFor: bob.
-	self should: [ game playTurnFor: bob ] raise: AssertionFailed withExceptionDo: [ :signal | self assert: signal messageText equals: 'Bob can not play now, it''s Mary''s turn' ].
+	self
+		should: [ game playTurnFor: bob ]
+		raise: AssertionFailed
+		withExceptionDo: [ :signal | 
+			self
+				assert: signal messageText
+				equals: 'Bob can not play now, it''s Mary''s turn' ].
 	game playTurnFor: mary.
-	self should: [ game playTurnFor: mary ] raise: AssertionFailed withExceptionDo: [ :signal | self assert: signal messageText equals: 'Mary can not play now, it''s Bob''s turn' ].
+	self
+		should: [ game playTurnFor: mary ]
+		raise: AssertionFailed
+		withExceptionDo: [ :signal | 
+			self
+				assert: signal messageText
+				equals: 'Mary can not play now, it''s Bob''s turn' ].
 	game playTurnFor: bob.
 	game playTurnFor: mary

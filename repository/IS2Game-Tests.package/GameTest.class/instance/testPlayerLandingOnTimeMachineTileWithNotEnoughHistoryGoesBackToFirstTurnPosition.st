@@ -1,17 +1,12 @@
 tests - tiles
 testPlayerLandingOnTimeMachineTileWithNotEnoughHistoryGoesBackToFirstTurnPosition
 
-	| game bob tiles |
+	| game tiles |
 
 	tiles := (1 to: 10) collect: [ :e | Tile empty ].
-	tiles at: 4 put: self timeMachineTile.
+	tiles at: 2 put: self timeMachineTile.
 
-	bob := 'Bob'.
-	game := IS2Game
-		withBoard: (Board withTiles: tiles)
-		laps: 3
-		dice: (Dice withSides: 6 source: (SequentialGenerator generating: #(3)))
-		for: {bob}.
-	self assert: (game positionOf: bob) tileNumber equals: 0.
+	game := self gameWithTiles: tiles.
+	self assert: (game positionOf: bob) tileNumber equals: 1.
 	game playTurnFor: bob.
-	self assert: (game positionOf: bob) tileNumber equals: 0
+	self assert: (game positionOf: bob) tileNumber equals: 1
