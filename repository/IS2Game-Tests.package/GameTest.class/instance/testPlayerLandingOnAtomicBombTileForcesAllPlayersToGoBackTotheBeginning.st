@@ -4,7 +4,7 @@ testPlayerLandingOnAtomicBombTileForcesAllPlayersToGoBackTotheBeginning
 	| game tiles |
 
 	tiles := (1 to: 10) collect: [ :e | Tile empty ].
-	tiles at: 6 put: self atomicBombTile.
+	tiles at: 6 put: (Tile withEffect: Effect atomicBomb).
 	game := self
 		gameWithTiles: tiles
 		rolling: #(4 4 1)

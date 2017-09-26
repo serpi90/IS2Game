@@ -1,6 +1,16 @@
 {
 	"instance" : {
-		"affectPlayerFrom:on:" : "JulianMaestri 9/25/2017 01:20"
+		"affect:becausePlayerLandedOn:" : "JulianMaestri 9/26/2017 17:08",
+		"initializeNamed:affecting:doing:" : "JulianMaestri 9/26/2017 17:08",
+		"printOn:" : "JulianMaestri 9/26/2017 16:59"
 	},
-	"class" : { }
+	"class" : {
+		"named:affecting:doing:" : "JulianMaestri 9/26/2017 17:09",
+		"atomicBomb" : "JulianMaestri 9/26/2017 16:43",
+		"wormhole" : "JulianMaestri 9/26/2017 16:45",
+		"speedUp" : "JulianMaestri 9/26/2017 16:45",
+		"timeMachine" : "JulianMaestri 9/26/2017 16:47",
+		"moonwalkGoingBack:" : "JulianMaestri 9/26/2017 16:46",
+		"none" : "JulianMaestri 9/26/2017 16:44"
+	}
 }

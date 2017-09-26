@@ -5,7 +5,14 @@
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
-	"instvars" : [ ],
+	"instvars" : [
+		"empty",
+		"atomicBomb",
+		"wormhole",
+		"speedUp",
+		"moonwalk",
+		"timeMachine"
+	],
 	"name" : "BoardGeneratorTest",
 	"type" : "normal"
 }

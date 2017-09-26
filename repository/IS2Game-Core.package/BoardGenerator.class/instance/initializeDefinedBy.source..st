@@ -1,15 +1,11 @@
 initialization
-initializeDefinedBy: aDefinitionCollection source: aNumberProvider
+initializeDefinedBy: theEffectProbabilities source: aNumberProvider
 
 	source := aNumberProvider.
-	tileProbabilities := Dictionary new.
-	aDefinitionCollection
+	effectProbabilities := Dictionary new.
+	theEffectProbabilities
 		inject: 0 percent
-		into: [ :accumulatedChance :definition | 
-			| lowerBound upperBound probabilityRange |
-
-			lowerBound := accumulatedChance.
-			upperBound := accumulatedChance + definition chance.
-			probabilityRange := lowerBound -> upperBound.
-			tileProbabilities at: probabilityRange put: definition tile.
-			upperBound ]
+		into: [ :accumulatedProbability :effectProbability | 
+			effectProbabilities at: accumulatedProbability + effectProbability probability put: effectProbability effect.
+			accumulatedProbability + effectProbability probability ].
+	accumulatedEffectProbabilities := effectProbabilities keys asSortedCollection

@@ -4,7 +4,7 @@ testPlayerLandingOnSpeedUpTileAdvances4Positions
 	| game tiles |
 
 	tiles := (1 to: 10) collect: [ :e | Tile empty ].
-	tiles at: 2 put: self speedUpTile.
+	tiles at: 2 put: (Tile withEffect: Effect speedUp).
 
 	game := self gameWithTiles: tiles.
 	self assert: (game positionOf: bob) tileNumber equals: 1.

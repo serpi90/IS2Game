@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "",
-	"super" : "Effect",
+	"super" : "EffectAction",
 	"category" : "IS2Game-Core-Effect",
 	"classinstvars" : [ ],
 	"pools" : [ ],

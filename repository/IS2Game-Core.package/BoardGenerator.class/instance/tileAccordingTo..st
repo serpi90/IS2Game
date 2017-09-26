@@ -1,4 +1,8 @@
 building
-tileAccordingTo: chance
+tileAccordingTo: observedValue
 
-	^ tileProbabilities at: (tileProbabilities keys detect: [ :probabilityRange | self is: chance includedIn: probabilityRange ])
+	| effect |
+
+	effect := effectProbabilities at: (accumulatedEffectProbabilities detect: [ :accumulatedProbability | accumulatedProbability > observedValue ]).
+
+	^ Tile withEffect: effect
