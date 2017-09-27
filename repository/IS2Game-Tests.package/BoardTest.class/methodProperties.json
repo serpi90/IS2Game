@@ -1,7 +1,12 @@
 {
 	"instance" : {
-		"testLength" : "JulianMaestri 9/22/2017 02:00",
-		"testBoardMustHaveAtLeastOneTile" : "JulianMaestri 9/22/2017 02:00"
+		"testTileNumbered" : "JulianMaestri 9/27/2017 01:10",
+		"testBoardGeneration" : "JulianMaestri 9/26/2017 21:22",
+		"testProbabilitiesMustAddUpto100Percent" : "JulianMaestri 9/26/2017 21:26",
+		"setUp" : "JulianMaestri 9/26/2017 21:23",
+		"testTiles" : "JulianMaestri 9/27/2017 00:20",
+		"testBoardMustHaveAtLeastOneTile" : "JulianMaestri 9/26/2017 21:45",
+		"testLength" : "JulianMaestri 9/26/2017 21:45"
 	},
 	"class" : { }
 }

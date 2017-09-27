@@ -1,6 +1,6 @@
 private
 applyTileEfectOn: aPlayerPosition
 
-	(board tileAt: aPlayerPosition tileNumber) effect
+	(board tileNumbered: aPlayerPosition tileNumber) effect
 		affect: self
 		becausePlayerLandedOn: aPlayerPosition

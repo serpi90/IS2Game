@@ -3,7 +3,7 @@ testPlayerLandingOnEmptyTile
 
 	| game tiles |
 
-	tiles := (1 to: 10) collect: [ :e | Tile empty ].
+	tiles := (1 to: 10) collect: [ :n | Tile numbered: n ].
 	game := self gameWithTiles: tiles.
 
 	self assert: (game positionOf: bob) tileNumber equals: 1.

@@ -4,9 +4,9 @@ testPositionForBorderCaseWithBoardLengthedOne
 	| position game newPosition |
 
 	game := IS2Game
-		withBoardOfLength: 1
+		withBoard: (Board withTiles: {(Tile numbered: 1)})
 		laps: 5
-		dices: (Dice withSides: 6)
+		dice: (Dice withSides: 6)
 		for: {bob}.
 
 	position := PlayerPosition startingOf: bob.

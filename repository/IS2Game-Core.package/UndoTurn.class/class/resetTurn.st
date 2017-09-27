@@ -1,4 +1,4 @@
 instance creation
 resetTurn
 
-	^ self new goingBack: 0
+	^ self goingBack: 0

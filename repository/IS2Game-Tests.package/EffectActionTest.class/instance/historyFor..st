@@ -1,0 +1,4 @@
+mocking
+historyFor: aPlayer
+
+	^ playerHistory

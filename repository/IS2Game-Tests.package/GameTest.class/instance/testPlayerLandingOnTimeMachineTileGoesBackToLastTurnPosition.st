@@ -3,8 +3,8 @@ testPlayerLandingOnTimeMachineTileGoesBackToLastTurnPosition
 
 	| game tiles |
 
-	tiles := (1 to: 10) collect: [ :e | Tile empty ].
-	tiles at: 4 put: (Tile withEffect: Effect timeMachine).
+	tiles := self emptyTiles: 10.
+	tiles at: 4 put: (Tile numbered: 4 withEffect: Effect timeMachine).
 
 	game := self gameWithTiles: tiles rolling: #(1 2) for: {bob}.
 	self assert: (game positionOf: bob) tileNumber equals: 1.

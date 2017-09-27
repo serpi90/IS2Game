@@ -4,12 +4,9 @@ testPlayingUntilWinning
 	| game |
 
 	game := IS2Game
-		withBoardOfLength: 5
+		withBoard: (Board withTiles: (self emptyTiles: 5))
 		laps: 3
-		dices:
-			(Dice
-				withSides: 6
-				source: (SequentialGenerator generating: #(1 2 3 4)))
+		dice: (Dice withSides: 6 source: (SequentialGenerator generating: #(1 2 3 4)))
 		for: (Array with: bob with: mary).
 	self deny: game hasEnded.
 	self assert: (game positionOf: bob) lap equals: 0.

@@ -4,9 +4,9 @@ testPositionForWhenMoving
 	| game position newPosition |
 
 	game := IS2Game
-		withBoardOfLength: 5
+		withBoard: (Board withTiles: (self emptyTiles: 5))
 		laps: 3
-		dices: (Dice withSides: 6)
+		dice: (Dice withSides: 6)
 		for: {bob}.
 	position := PlayerPosition startingOf: bob.
 	newPosition := game positionFor: position whenMoving: 2.

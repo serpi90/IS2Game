@@ -1,4 +1,4 @@
 accessing
 affectPlayerFrom: aPlayerPosition on: aGame
 
-	aGame players do: [ :player | aGame move: player to: (PlayerPosition of: player onLap: lap tileNumber: tileNumber) ]
+	aGame move: aPlayerPosition player to: (PlayerPosition of: aPlayerPosition player onLap: lap tileNumber: tileNumber)

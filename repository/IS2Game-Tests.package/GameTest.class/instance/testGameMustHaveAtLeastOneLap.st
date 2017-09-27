@@ -3,12 +3,9 @@ testGameMustHaveAtLeastOneLap
 
 	self
 		should: [ IS2Game
-				withBoardOfLength: 3
+				withBoard: (Board withTiles: (self emptyTiles: 3))
 				laps: 0
-				dices: (Dice withSides: 6)
+				dice: (Dice withSides: 6)
 				for: {bob} ]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | 
-			self
-				assert: signal messageText
-				equals: 'A game must at least have one lap' ]
+		withExceptionDo: [ :signal | self assert: signal messageText equals: 'A game must at least have one lap' ]

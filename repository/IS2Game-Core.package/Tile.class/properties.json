@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"effect"
+		"effect",
+		"number"
 	],
 	"name" : "Tile",
 	"type" : "normal"

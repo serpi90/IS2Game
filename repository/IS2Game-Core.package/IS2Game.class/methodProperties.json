@@ -9,12 +9,11 @@
 		"players" : "JulianMaestri 9/21/2017 14:08",
 		"positionOf:" : "JulianMaestri 9/21/2017 20:22",
 		"initializeWithBoard:laps:dice:for:" : "JulianMaestri 9/21/2017 17:12",
-		"applyTileEfectOn:" : "JulianMaestri 9/26/2017 18:39",
+		"applyTileEfectOn:" : "JulianMaestri 9/27/2017 01:09",
 		"historyFor:" : "JulianMaestri 9/21/2017 19:55",
 		"playTurnFor:" : "JulianMaestri 9/26/2017 11:53"
 	},
 	"class" : {
-		"withBoard:laps:dice:for:" : "JulianMaestri 9/21/2017 03:13",
-		"withBoardOfLength:laps:dices:for:" : "JulianMaestri 9/22/2017 02:09"
+		"withBoard:laps:dice:for:" : "JulianMaestri 9/21/2017 03:13"
 	}
 }

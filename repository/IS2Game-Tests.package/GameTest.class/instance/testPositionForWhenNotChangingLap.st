@@ -5,9 +5,9 @@ testPositionForWhenNotChangingLap
 
 	player := 'bob'.
 	game := IS2Game
-		withBoardOfLength: 10
+		withBoard: (Board withTiles: (self emptyTiles: 10))
 		laps: 5
-		dices: (Dice withSides: 6)
+		dice: (Dice withSides: 6)
 		for: {player}.
 	position := PlayerPosition startingOf: player.
 	newPosition := game positionFor: position whenMoving: 1.

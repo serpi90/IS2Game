@@ -1,0 +1,17 @@
+{
+	"commentStamp" : "<historical>",
+	"super" : "TestCase",
+	"category" : "IS2Game-Tests",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"moveOneTile",
+		"playerPositions",
+		"player1",
+		"player2",
+		"player3"
+	],
+	"name" : "EffectTargetTest",
+	"type" : "normal"
+}

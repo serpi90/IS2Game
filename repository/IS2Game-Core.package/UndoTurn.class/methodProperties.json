@@ -1,12 +1,12 @@
 {
 	"instance" : {
-		"affectPlayerFrom:on:" : "JulianMaestri 9/25/2017 12:26",
+		"affectPlayerFrom:on:" : "JulianMaestri 9/26/2017 23:03",
 		"initializeGoingBack:" : "JulianMaestri 9/22/2017 02:00",
-		"positionOf:toGoBackOn:" : "JulianMaestri 9/25/2017 12:26",
+		"positionOf:toGoBackOn:" : "JulianMaestri 9/26/2017 23:09",
 		"printOn:" : "JulianMaestri 9/22/2017 02:56"
 	},
 	"class" : {
 		"goingBack:" : "JulianMaestri 9/22/2017 12:27",
-		"resetTurn" : "JulianMaestri 9/22/2017 12:25"
+		"resetTurn" : "JulianMaestri 9/27/2017 00:53"
 	}
 }
