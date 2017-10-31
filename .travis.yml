@@ -8,6 +8,7 @@ os:
 # Select compatible Smalltalk image(s)
 smalltalk:
   - Pharo-stable
+  - Pharo(64)-stable
 
 notifications:
   slack:

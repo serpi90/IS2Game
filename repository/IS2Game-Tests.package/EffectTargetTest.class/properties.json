@@ -8,9 +8,9 @@
 	"instvars" : [
 		"moveOneTile",
 		"playerPositions",
-		"player1",
-		"player2",
-		"player3"
+		"currentPlayer",
+		"anotherPlayer",
+		"yetAnotherPlayer"
 	],
 	"name" : "EffectTargetTest",
 	"type" : "normal"

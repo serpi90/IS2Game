@@ -2,9 +2,9 @@ initialization
 setUp
 
 	moveOneTile := MovePlayer movingForward: 1.
-	player1 := 'Player 1'.
-	player2 := 'Player 2'.
-	player3 := 'Player 3'.
-	playerPositions := ({player1.
-	player2.
-	player3} collect: [ :player | player -> (PlayerPosition startingOf: player) ]) asDictionary
+	currentPlayer := 'Player 1'.
+	anotherPlayer := 'Player 2'.
+	yetAnotherPlayer := 'Player 3'.
+	playerPositions := ({currentPlayer.
+	anotherPlayer.
+	yetAnotherPlayer} collect: [ :player | player -> (PlayerPosition startingOf: player) ]) asDictionary

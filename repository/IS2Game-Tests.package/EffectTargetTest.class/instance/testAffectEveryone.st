@@ -1,10 +1,18 @@
 tests
 testAffectEveryone
 
-	self assert: player1 isOnLap: 0 tileNumber: 1.
-	self assert: player2 isOnLap: 0 tileNumber: 1.
-	self assert: player3 isOnLap: 0 tileNumber: 1.
-	AffectEveryone new apply: moveOneTile to: self becauseOf: player1.
-	self assert: player1 isOnLap: 0 tileNumber: 2.
-	self assert: player2 isOnLap: 0 tileNumber: 2.
-	self assert: player3 isOnLap: 0 tileNumber: 2
+	| target |
+
+	target := AffectEveryone new.
+	self assert: (target appliesTo: currentPlayer on: self).
+	self assert: (target appliesTo: anotherPlayer on: self).
+	self assert: (target appliesTo: yetAnotherPlayer on: self).
+
+	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 1.
+
+	target apply: moveOneTile to: self.
+	self assert: currentPlayer isOnLap: 0 tileNumber: 2.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 2.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 2

@@ -1,4 +1,4 @@
 affecting
-apply: anEffect to: aGame becauseOf: aPlayer
+apply: anEffect to: aGame
 
 	anEffect affectTurnOf: target on: aGame

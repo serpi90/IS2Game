@@ -1,8 +1,9 @@
 {
 	"instance" : {
-		"testNumber" : "JulianMaestri 9/26/2017 21:48",
+		"testEffect" : "JulianMaestri 10/31/2017 01:29",
 		"move:tiles:" : "JulianMaestri 9/26/2017 21:59",
-		"testEffect" : "JulianMaestri 10/30/2017 22:07",
+		"currentPlayer" : "JulianMaestri 10/31/2017 01:26",
+		"testNumber" : "JulianMaestri 9/26/2017 21:48",
 		"testPrintOn" : "JulianMaestri 10/30/2017 23:00"
 	},
 	"class" : { }
