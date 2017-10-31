@@ -11,7 +11,8 @@
 		"players",
 		"playerPositions",
 		"board",
-		"playerTurn"
+		"playerTurn",
+		"playerEffects"
 	],
 	"name" : "IS2Game",
 	"type" : "normal"

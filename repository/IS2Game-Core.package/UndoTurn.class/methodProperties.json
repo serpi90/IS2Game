@@ -1,8 +1,8 @@
 {
 	"instance" : {
-		"affectPlayerFrom:on:" : "JulianMaestri 9/26/2017 23:03",
 		"initializeGoingBack:" : "JulianMaestri 9/22/2017 02:00",
 		"positionOf:toGoBackOn:" : "JulianMaestri 9/26/2017 23:09",
+		"affectTurnOf:on:" : "JulianMaestri 10/31/2017 00:29",
 		"printOn:" : "JulianMaestri 9/22/2017 02:56"
 	},
 	"class" : {

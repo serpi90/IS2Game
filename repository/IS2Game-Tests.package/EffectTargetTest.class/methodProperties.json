@@ -1,13 +1,14 @@
 {
 	"instance" : {
-		"testAffectEveryoneElse" : "JulianMaestri 9/27/2017 00:03",
+		"testAffectEveryoneElse" : "JulianMaestri 10/30/2017 22:08",
 		"players" : "JulianMaestri 9/27/2017 00:06",
 		"assert:isOnLap:tileNumber:" : "JulianMaestri 9/26/2017 23:59",
 		"move:tiles:" : "JulianMaestri 9/27/2017 00:05",
 		"setUp" : "JulianMaestri 9/27/2017 00:02",
-		"testAffectEveryone" : "JulianMaestri 9/27/2017 00:03",
+		"testAffectEveryone" : "JulianMaestri 10/30/2017 22:08",
 		"positionOf:" : "JulianMaestri 9/27/2017 00:04",
-		"testAffectPlayer" : "JulianMaestri 9/27/2017 00:03"
+		"testAffectCurrentPlayer" : "JulianMaestri 10/31/2017 00:19",
+		"testAffectSpecificPlayer" : "JulianMaestri 10/31/2017 00:20"
 	},
 	"class" : { }
 }

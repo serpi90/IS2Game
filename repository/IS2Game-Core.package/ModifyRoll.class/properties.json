@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "IS2Game-Core-Effect",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"change"
+	],
+	"name" : "ModifyRoll",
+	"type" : "normal"
+}

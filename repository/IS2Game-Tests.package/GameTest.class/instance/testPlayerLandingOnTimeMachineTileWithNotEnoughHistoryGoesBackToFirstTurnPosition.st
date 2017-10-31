@@ -8,5 +8,5 @@ testPlayerLandingOnTimeMachineTileWithNotEnoughHistoryGoesBackToFirstTurnPositio
 
 	game := self gameWithTiles: tiles.
 	self assert: (game positionOf: bob) tileNumber equals: 1.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 1

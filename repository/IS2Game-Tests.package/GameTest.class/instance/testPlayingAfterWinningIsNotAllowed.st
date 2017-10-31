@@ -9,6 +9,6 @@ testPlayingAfterWinningIsNotAllowed
 		dice: (Dice withSides: 6 source: (SequentialGenerator generating: #(4)))
 		for: (Array with: bob with: mary).
 	self deny: game hasEnded.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: game hasEnded.
-	self should: [ game playTurnFor: mary ] raise: AssertionFailed withExceptionDo: [ :signal | self assert: signal messageText equals: 'Mary can not play now, the game has ended' ]
+	self should: [ game rollDiceFor: mary ] raise: AssertionFailed withExceptionDo: [ :signal | self assert: signal messageText equals: 'Mary can not play now, the game has ended' ]

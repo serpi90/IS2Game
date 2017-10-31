@@ -9,9 +9,9 @@ testPlayerLandingOnSpeedUpTileAdvances4Positions
 	game := self gameWithTiles: tiles.
 	self assert: (game positionOf: bob) tileNumber equals: 1.
 	self assert: (game positionOf: bob) lap equals: 0.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 6.
 	self assert: (game positionOf: bob) lap equals: 0.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 7.
 	self assert: (game positionOf: bob) lap equals: 0

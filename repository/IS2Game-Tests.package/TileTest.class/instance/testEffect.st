@@ -11,9 +11,9 @@ testEffect
 	self assert: tileWithEffect effect equals: effect.
 
 	moved := false.
-	tileWithEffect effect affect: self becausePlayerLandedOn: mockPosition.
+	tileWithEffect effect affect: self becauseOf: mockPosition player.
 	self assert: moved.
 
 	moved := false.
-	tileWithoutEffect effect affect: self becausePlayerLandedOn: mockPosition.
+	tileWithoutEffect effect affect: self becauseOf: mockPosition player.
 	self deny: moved

@@ -2,19 +2,19 @@
 	"instance" : {
 		"setUp" : "JulianMaestri 9/26/2017 23:53",
 		"move:tiles:" : "JulianMaestri 9/26/2017 22:59",
-		"testRepositionPlayer" : "JulianMaestri 9/26/2017 23:53",
-		"testPrintOn" : "JulianMaestri 9/25/2017 01:09",
-		"testResetTurn" : "JulianMaestri 9/27/2017 00:53",
+		"testRepositionPlayer" : "JulianMaestri 10/31/2017 00:29",
+		"testPrintOn" : "JulianMaestri 10/31/2017 00:30",
+		"testResetTurn" : "JulianMaestri 10/31/2017 00:30",
 		"testCanNotMoveForwardOrBackwardZeroTiles" : "JulianMaestri 9/22/2017 12:26",
-		"testUndoTurn" : "JulianMaestri 9/26/2017 23:56",
-		"testMovePlayer" : "JulianMaestri 9/26/2017 23:53",
+		"testUndoTurn" : "JulianMaestri 10/31/2017 00:30",
+		"testMovePlayer" : "JulianMaestri 10/31/2017 00:29",
 		"move:to:" : "JulianMaestri 9/26/2017 22:58",
 		"assert:isOnLap:tileNumber:" : "JulianMaestri 9/26/2017 22:59",
 		"positionOf:" : "JulianMaestri 9/26/2017 22:59",
-		"testNoEffect" : "JulianMaestri 9/26/2017 23:53",
+		"testNoEffect" : "JulianMaestri 10/31/2017 00:29",
 		"historyFor:" : "JulianMaestri 9/26/2017 23:53",
-		"testUndoTurnWithFewerHistoryThanNeded" : "JulianMaestri 9/26/2017 23:56",
-		"testCanNotUndoANegativeNumberOfTurns" : "JulianMaestri 9/22/2017 12:26"
+		"testUndoTurnWithFewerHistoryThanNeded" : "JulianMaestri 10/31/2017 00:30",
+		"testCanNotUndoANegativeNumberOfTurns" : "JulianMaestri 10/31/2017 00:30"
 	},
 	"class" : { }
 }

@@ -1,4 +1,4 @@
-accessing
+private
 positionOf: aPlayer toGoBackOn: aGame
 
 	"Why turns + 2 ?

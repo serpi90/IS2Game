@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "EffectTarget",
+	"category" : "IS2Game-Tests",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"target"
+	],
+	"name" : "AffectSpecificPlayer",
+	"type" : "normal"
+}

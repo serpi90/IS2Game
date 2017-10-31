@@ -13,25 +13,25 @@ testPlayingUntilWinning
 	self assert: (game positionOf: bob) tileNumber equals: 1.
 	self assert: (game positionOf: mary) lap equals: 0.
 	self assert: (game positionOf: mary) tileNumber equals: 1.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 2.
-	game playTurnFor: mary.
+	game rollDiceFor: mary.
 	self assert: (game positionOf: mary) tileNumber equals: 3.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 5.
-	game playTurnFor: mary.
+	game rollDiceFor: mary.
 	self assert: (game positionOf: mary) lap equals: 1.
 	self assert: (game positionOf: mary) tileNumber equals: 2.
-	game playTurnFor: bob.
-	game playTurnFor: mary.
-	game playTurnFor: bob.
-	game playTurnFor: mary.
-	game playTurnFor: bob.
-	game playTurnFor: mary.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
+	game rollDiceFor: mary.
+	game rollDiceFor: bob.
+	game rollDiceFor: mary.
+	game rollDiceFor: bob.
+	game rollDiceFor: mary.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) lap equals: 2.
 	self assert: (game positionOf: bob) tileNumber equals: 3.
-	game playTurnFor: mary.
+	game rollDiceFor: mary.
 	self assert: (game positionOf: mary) lap equals: 3.
 	self assert: (game positionOf: mary) tileNumber equals: 4.
 	self assert: game hasEnded

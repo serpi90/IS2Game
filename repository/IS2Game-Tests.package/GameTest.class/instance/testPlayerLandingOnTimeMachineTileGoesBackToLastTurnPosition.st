@@ -8,7 +8,7 @@ testPlayerLandingOnTimeMachineTileGoesBackToLastTurnPosition
 
 	game := self gameWithTiles: tiles rolling: #(1 2) for: {bob}.
 	self assert: (game positionOf: bob) tileNumber equals: 1.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 2.
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 1

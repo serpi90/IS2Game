@@ -1,4 +1,4 @@
-rolling
+printing
 printOn: aStream
 
 	(dice groupedBy: [ :die | die sides ]) associations

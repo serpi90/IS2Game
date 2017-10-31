@@ -1,16 +1,17 @@
 {
 	"instance" : {
-		"affect:becausePlayerLandedOn:" : "JulianMaestri 9/26/2017 17:08",
+		"affect:becauseOf:" : "JulianMaestri 10/30/2017 22:07",
+		"affectRoll:" : "JulianMaestri 10/31/2017 00:28",
 		"initializeNamed:affecting:doing:" : "JulianMaestri 9/26/2017 17:08",
 		"printOn:" : "JulianMaestri 9/26/2017 16:59"
 	},
 	"class" : {
 		"named:affecting:doing:" : "JulianMaestri 9/26/2017 17:09",
 		"atomicBomb" : "JulianMaestri 9/26/2017 16:43",
-		"wormhole" : "JulianMaestri 9/27/2017 00:38",
-		"speedUp" : "JulianMaestri 9/26/2017 16:45",
-		"timeMachine" : "JulianMaestri 9/26/2017 16:47",
+		"wormhole" : "JulianMaestri 10/31/2017 00:19",
+		"speedUp" : "JulianMaestri 10/31/2017 00:19",
+		"timeMachine" : "JulianMaestri 10/31/2017 00:30",
 		"moonwalkGoingBack:" : "JulianMaestri 9/26/2017 16:46",
-		"none" : "JulianMaestri 9/26/2017 16:44"
+		"none" : "JulianMaestri 10/31/2017 00:19"
 	}
 }

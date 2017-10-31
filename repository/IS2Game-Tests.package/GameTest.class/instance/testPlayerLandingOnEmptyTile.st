@@ -9,6 +9,6 @@ testPlayerLandingOnEmptyTile
 	self assert: (game positionOf: bob) tileNumber equals: 1.
 	self assert: (game positionOf: bob) lap equals: 0.
 
-	game playTurnFor: bob.
+	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 2.
 	self assert: (game positionOf: bob) lap equals: 0

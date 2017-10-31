@@ -14,5 +14,5 @@ testUndoTurn
 	turnsToGoBack := 5.
 	playerHistory := ((1 to: 10) collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ]) asOrderedCollection.
 	self assert: (self positionOf: player) equals: playerHistory last.
-	(UndoTurn goingBack: turnsToGoBack) affectPlayerFrom: (self positionOf: player) on: self.
+	(UndoTurn goingBack: turnsToGoBack) affectTurnOf: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 10 - turnsToGoBack - 2
