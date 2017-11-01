@@ -1,5 +1,8 @@
 # Software Engineering II - 2017
 
+[![Build Status](https://travis-ci.org/uca-is2-2017/IS2Game.svg)](https://travis-ci.org/uca-is2-2017/IS2Game)
+[![Coverage Status](https://coveralls.io/repos/github/uca-is2-2017/IS2Game/badge.svg)](https://coveralls.io/github/uca-is2-2017/IS2Game)
+
 Exercise of modeling a board game for teaching purpouses.
 
 The game simulates a board game, with multiple players over a circular path of tiles, won by the first player to complete a number of laps around the board.
