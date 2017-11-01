@@ -1,4 +1,4 @@
 private
 permanentEffectsFor: aPlayer
 
-	^ playerEffects at: aPlayer ifAbsentPut: [ Set new ]
+	^ permanentEffects select: [ :effect | effect appliesTo: aPlayer on: self ]

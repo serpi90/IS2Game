@@ -12,7 +12,7 @@
 		"playerPositions",
 		"board",
 		"playerTurn",
-		"playerEffects"
+		"permanentEffects"
 	],
 	"name" : "IS2Game",
 	"type" : "normal"

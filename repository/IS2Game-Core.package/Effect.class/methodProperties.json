@@ -1,9 +1,10 @@
 {
 	"instance" : {
-		"affectTurnOf:" : "JulianMaestri 10/31/2017 01:29",
-		"printOn:" : "JulianMaestri 9/26/2017 16:59",
 		"affectRoll:of:on:" : "JulianMaestri 10/31/2017 01:19",
-		"initializeNamed:affecting:doing:" : "JulianMaestri 9/26/2017 17:08"
+		"initializeNamed:affecting:doing:" : "JulianMaestri 9/26/2017 17:08",
+		"printOn:" : "JulianMaestri 9/26/2017 16:59",
+		"appliesTo:on:" : "JulianMaestri 10/31/2017 21:41",
+		"affectTurnOf:" : "JulianMaestri 10/31/2017 01:29"
 	},
 	"class" : {
 		"named:affecting:doing:" : "JulianMaestri 9/26/2017 17:09",

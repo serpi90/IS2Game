@@ -1,4 +1,4 @@
-accessing
+private
 positionFor: aPlayerPosition whenMoving: aNumberOfTiles
 
 	| totalMoves |
