@@ -3,8 +3,8 @@ testTileNumbered
 
 	| firstTile secondTile board |
 
-	firstTile := Tile numbered: 1.
-	secondTile := Tile numbered: 2.
+	firstTile := Tile withoutEffect.
+	secondTile := Tile withoutEffect.
 	board := Board withTiles: (Array with: firstTile with: secondTile).
 
 	self assert: (board tileNumbered: 1) equals: firstTile.

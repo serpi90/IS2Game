@@ -4,7 +4,7 @@ testPositionForBorderCaseWithBoardLengthedOne
 	| position game newPosition |
 
 	game := IS2Game
-		withBoard: (Board withTiles: {(Tile numbered: 1)})
+		withBoard: (Board withTiles: {Tile withoutEffect})
 		laps: 5
 		dice: (Dice withSides: 6)
 		for: {bob}.

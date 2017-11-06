@@ -4,8 +4,11 @@ testPlayerLandingOnAtomicBombTileForcesAllPlayersToGoBackTotheBeginning
 	| game tiles |
 
 	tiles := self emptyTiles: 10.
-	tiles at: 6 put: (Tile numbered: 6 withEffect: Effect atomicBomb).
-	game := self gameWithTiles: tiles rolling: #(4 4 1) for: (Array with: bob with: mary).
+	tiles at: 6 put: (Tile withEffect: Effect atomicBomb).
+	game := self
+		gameWithTiles: tiles
+		rolling: #(4 4 1)
+		for: (Array with: bob with: mary).
 	game rollDiceFor: bob.
 	game rollDiceFor: mary.
 	self assert: (game positionOf: bob) tileNumber equals: 5.

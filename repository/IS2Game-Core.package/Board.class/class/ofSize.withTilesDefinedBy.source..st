@@ -4,6 +4,15 @@ ofSize: aBoardSize withTilesDefinedBy: theEffectProbabilities source: aNumberPro
 	| accumulatedProbabilityTable |
 
 	self assertAddTo100Percent: theEffectProbabilities.
-	accumulatedProbabilityTable := self probabilityTableFrom: theEffectProbabilities.
+	accumulatedProbabilityTable := self
+		probabilityTableFrom: theEffectProbabilities.
 
-	^ self withTiles: ((1 to: aBoardSize) collect: [ :n | Tile numbered: n withEffect: (self effectFrom: accumulatedProbabilityTable given: aNumberProvider next) ])
+	^ self
+		withTiles:
+			((1 to: aBoardSize)
+				collect: [ :n | 
+					Tile
+						withEffect:
+							(self
+								effectFrom: accumulatedProbabilityTable
+								given: aNumberProvider next) ])

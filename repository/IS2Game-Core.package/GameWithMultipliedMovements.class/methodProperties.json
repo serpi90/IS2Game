@@ -1,0 +1,10 @@
+{
+	"instance" : {
+		"doesNotUnderstand:" : "JulianMaestri 11/6/2017 00:48",
+		"initializeOn:by:" : "JulianMaestri 11/6/2017 00:50",
+		"move:tiles:" : "JulianMaestri 11/6/2017 01:14"
+	},
+	"class" : {
+		"on:by:" : "JulianMaestri 11/6/2017 00:50"
+	}
+}

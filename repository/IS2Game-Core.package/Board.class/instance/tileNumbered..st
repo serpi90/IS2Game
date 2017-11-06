@@ -1,4 +1,4 @@
 accessing
 tileNumbered: aTileNumber
 
-	^ tiles detect: [ :tile | tile number = aTileNumber ]
+	^ tiles at: aTileNumber

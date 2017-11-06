@@ -4,7 +4,7 @@ testSpeedCardAffectsTheThrowBeforeApplyingTileEffect
 	| game tiles |
 
 	tiles := self emptyTiles: 10.
-	tiles at: 3 put: (Tile numbered: 3 withEffect: Effect speedUp).
+	tiles at: 3 put: (Tile withEffect: Effect speedUp).
 	game := self gameWithTiles: tiles rolling: #(1) for: {bob}.
 	game playCard: PermanentCard speed for: bob over: bob.
 	game rollDiceFor: bob.

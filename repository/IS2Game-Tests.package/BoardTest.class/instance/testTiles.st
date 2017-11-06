@@ -3,8 +3,8 @@ testTiles
 
 	| board tiles |
 
-	tiles := {(Tile numbered: 1).
-	(Tile numbered: 2)}.
+	tiles := {Tile withoutEffect.
+	Tile withoutEffect}.
 
 	board := Board withTiles: tiles.
 

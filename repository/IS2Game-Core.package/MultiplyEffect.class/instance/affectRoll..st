@@ -1,0 +1,4 @@
+affecting
+affectRoll: aDiceRoll
+
+	^ aDiceRoll

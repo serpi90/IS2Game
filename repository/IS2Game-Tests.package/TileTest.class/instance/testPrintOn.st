@@ -4,4 +4,6 @@ testPrintOn
 	| effect |
 
 	effect := Effect speedUp.
-	self assert: (Tile numbered: 1 withEffect: effect) printString equals: ('1 - <1p>' expandMacrosWith: effect)
+	self
+		assert: (Tile withEffect: effect) printString
+		equals: ('Tile <1p>' expandMacrosWith: effect)

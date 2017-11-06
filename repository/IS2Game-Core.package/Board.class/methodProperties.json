@@ -1,7 +1,7 @@
 {
 	"instance" : {
 		"tiles" : "JulianMaestri 9/26/2017 18:40",
-		"tileNumbered:" : "JulianMaestri 9/27/2017 01:10",
+		"tileNumbered:" : "JulianMaestri 11/6/2017 01:10",
 		"initializeWithTiles:" : "JulianMaestri 9/22/2017 02:41",
 		"length" : "JulianMaestri 9/20/2017 22:01"
 	},
@@ -10,6 +10,6 @@
 		"probabilityTableFrom:" : "JulianMaestri 9/26/2017 21:10",
 		"withTiles:" : "JulianMaestri 9/22/2017 02:41",
 		"effectFrom:given:" : "JulianMaestri 9/26/2017 21:09",
-		"ofSize:withTilesDefinedBy:source:" : "JulianMaestri 9/26/2017 21:39"
+		"ofSize:withTilesDefinedBy:source:" : "JulianMaestri 11/6/2017 01:11"
 	}
 }

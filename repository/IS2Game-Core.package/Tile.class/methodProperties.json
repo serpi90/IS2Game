@@ -1,12 +1,11 @@
 {
 	"instance" : {
-		"printOn:" : "JulianMaestri 10/30/2017 23:01",
+		"initializeWithEffect:" : "JulianMaestri 11/6/2017 01:10",
 		"effect" : "JulianMaestri 9/26/2017 16:59",
-		"initializeNumbered:withEffect:" : "JulianMaestri 9/26/2017 21:44",
-		"number" : "JulianMaestri 9/26/2017 21:46"
+		"printOn:" : "JulianMaestri 11/6/2017 01:12"
 	},
 	"class" : {
-		"numbered:" : "JulianMaestri 9/26/2017 21:45",
-		"numbered:withEffect:" : "JulianMaestri 9/26/2017 21:44"
+		"withoutEffect" : "JulianMaestri 11/6/2017 01:11",
+		"withEffect:" : "JulianMaestri 11/6/2017 01:11"
 	}
 }

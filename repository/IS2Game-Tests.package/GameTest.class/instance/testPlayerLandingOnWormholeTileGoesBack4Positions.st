@@ -4,7 +4,7 @@ testPlayerLandingOnWormholeTileGoesBack4Positions
 	| game tiles |
 
 	tiles := self emptyTiles: 10.
-	tiles at: 6 put: (Tile numbered: 6 withEffect: Effect wormhole).
+	tiles at: 6 put: (Tile withEffect: Effect wormhole).
 
 	game := self gameWithTiles: tiles rolling: #(4 1) for: {bob}.
 	self assert: (game positionOf: bob) tileNumber equals: 1.

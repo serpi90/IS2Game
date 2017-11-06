@@ -2,8 +2,6 @@ printing
 printOn: aStream
 
 	aStream
-		print: number;
-		space;
-		nextPut: $-;
+		nextPutAll: 'Tile';
 		space;
 		print: effect

@@ -5,15 +5,15 @@ testEffect
 
 	effect := Effect speedUp.
 	mockPosition := PlayerPosition startingOf: self.
-	tileWithEffect := Tile numbered: 1 withEffect: effect.
-	tileWithoutEffect := Tile numbered: 1.
+	tileWithEffect := Tile withEffect: effect.
+	tileWithoutEffect := Tile withoutEffect.
 
 	self assert: tileWithEffect effect equals: effect.
 
 	moved := false.
-	tileWithEffect effect affectTurnOf: self.
+	tileWithEffect effect affectTurnOf: mockPosition player in: self considering: #().
 	self assert: moved.
 
 	moved := false.
-	tileWithoutEffect effect affectTurnOf: self.
+	tileWithoutEffect effect affectTurnOf: mockPosition player in: self considering: #().
 	self deny: moved

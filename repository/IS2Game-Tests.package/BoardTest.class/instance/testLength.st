@@ -5,6 +5,6 @@ testLength
 		assert:
 			(Board
 				withTiles:
-					{(Tile numbered: 1).
-					(Tile numbered: 2)}) length
+					{Tile withoutEffect.
+					Tile withoutEffect}) length
 		equals: 2
