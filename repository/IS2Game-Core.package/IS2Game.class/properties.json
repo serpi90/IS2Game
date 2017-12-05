@@ -12,7 +12,8 @@
 		"playerPositions",
 		"board",
 		"playerTurn",
-		"permanentEffects"
+		"permanentEffects",
+		"status"
 	],
 	"name" : "IS2Game",
 	"type" : "normal"

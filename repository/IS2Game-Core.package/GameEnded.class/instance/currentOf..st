@@ -1,0 +1,4 @@
+accessing
+currentOf: aPlayer
+
+	^ self

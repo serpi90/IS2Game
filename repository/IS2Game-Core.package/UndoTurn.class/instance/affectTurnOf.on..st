@@ -5,5 +5,8 @@ affectTurnOf: aPlayer on: aGame
 
 	previousTurnPosition := self positionOf: aPlayer toGoBackOn: aGame.
 	aGame
-		move: aPlayer
-		to: (PlayerPosition of: aPlayer onLap: previousTurnPosition lap tileNumber: previousTurnPosition tileNumber)
+		addPosition:
+			(PlayerPosition
+				of: aPlayer
+				onLap: previousTurnPosition lap
+				tileNumber: previousTurnPosition tileNumber)

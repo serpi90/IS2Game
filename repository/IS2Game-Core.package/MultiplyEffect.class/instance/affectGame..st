@@ -1,4 +1,4 @@
-as yet unclassified
+affecting
 affectGame: aGame
 
 	^ GameWithMultipliedMovements on: aGame by: multiplier

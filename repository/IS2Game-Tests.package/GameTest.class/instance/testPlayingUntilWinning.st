@@ -34,4 +34,5 @@ testPlayingUntilWinning
 	game rollDiceFor: mary.
 	self assert: (game positionOf: mary) lap equals: 3.
 	self assert: (game positionOf: mary) tileNumber equals: 4.
-	self assert: game hasEnded
+	self assert: game hasEnded.
+	self assert: game winner equals: mary

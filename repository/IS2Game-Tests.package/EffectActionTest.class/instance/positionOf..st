@@ -1,4 +1,4 @@
 mocking
 positionOf: aPlayer
 
-	^ (self historyFor: aPlayer) last
+	^ playerHistory last

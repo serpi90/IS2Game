@@ -1,4 +1,4 @@
 accessing
 currentPlayer
 
-	^ playerTurn current
+	^ status currentPlayer

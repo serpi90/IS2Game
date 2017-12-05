@@ -1,4 +1,4 @@
 testing
 hasEnded
 
-	^ playerPositions last lap >= laps
+	^ status hasEnded

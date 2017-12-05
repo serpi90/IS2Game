@@ -1,4 +1,4 @@
 playing
 playCard: aCard for: aPlayer
 
-	permanentEffects add: (aCard effectAffecting: AffectEveryone new)
+	self playPermanent: aCard by: aPlayer over: AffectEveryone new

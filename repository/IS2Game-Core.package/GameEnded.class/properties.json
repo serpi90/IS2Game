@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "GameState",
+	"category" : "IS2Game-Core-Game",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"winner"
+	],
+	"name" : "GameEnded",
+	"type" : "normal"
+}

@@ -1,4 +1,7 @@
 playing
 playCard: aCard for: aPlayer over: aTargetPlayer
 
-	permanentEffects add: (aCard effectAffecting: (AffectSpecificPlayer targeting: aTargetPlayer))
+	self
+		playPermanent: aCard
+		by: aPlayer
+		over: (AffectSpecificPlayer targeting: aTargetPlayer)
