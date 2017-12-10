@@ -7,7 +7,7 @@ testMultiplePermanentCards
 	tiles at: 6 put: (Tile withEffect: Effect speedUp).
 
 	game := self gameWithTiles: tiles rolling: #(4) for: {bob}.
-	game playCard: PermanentCard softening for: bob.
+	game playCard: PermanentCard cushioning for: bob.
 	game playCard: PermanentCard speed for: bob over: bob.
 	game playCard: PermanentCard speed for: bob over: bob.
 	game playCard: PermanentCard speed for: bob over: bob.

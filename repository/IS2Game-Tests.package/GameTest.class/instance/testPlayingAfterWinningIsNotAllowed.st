@@ -20,6 +20,6 @@ testPlayingAfterWinningIsNotAllowed
 				raise: AssertionFailed
 				withExceptionDo: [ :signal | self assert: signal messageText equals: ('<1s> can not play now, the game has ended' expandMacrosWith: player) ].
 			self
-				should: [ game playCard: PermanentCard softening for: player ]
+				should: [ game playCard: PermanentCard cushioning for: player ]
 				raise: AssertionFailed
 				withExceptionDo: [ :signal | self assert: signal messageText equals: ('<1s> can not play now, the game has ended' expandMacrosWith: player) ] ]

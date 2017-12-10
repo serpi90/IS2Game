@@ -1,7 +1,4 @@
 private
 adjustedRollFor: aPlayer whenRolled: aDiceRoll
 
-	^ (self permanentEffectsFor: aPlayer)
-		inject: aDiceRoll
-		into:
-			[ :affectedRoll :effect | effect affectRoll: affectedRoll of: aPlayer on: self ]
+	^ (permanentEffects select: [ :effect | effect appliesTo: aPlayer on: self ]) inject: aDiceRoll into: [ :roll :effect | effect affectRoll: roll of: aPlayer on: self ]

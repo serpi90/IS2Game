@@ -1,5 +1,5 @@
 tests - cards
-testSofteningCardHalvesTileEffectsOfMoonwalk
+testCushioningCardHalvesTileEffectsOfMoonwalk
 
 	| game tiles |
 
@@ -10,7 +10,7 @@ testSofteningCardHalvesTileEffectsOfMoonwalk
 		gameWithTiles: tiles
 		rolling: #(1)
 		for: (Array with: bob with: mary).
-	game playCard: PermanentCard softening for: bob.
+	game playCard: PermanentCard cushioning for: bob.
 	game rollDiceFor: bob.
 	self assert: (game positionOf: bob) tileNumber equals: 2.	"1(current) + 1(roll)"
 	self assert: (game positionOf: bob) lap equals: 0.
