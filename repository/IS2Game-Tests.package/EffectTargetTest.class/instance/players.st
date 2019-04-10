@@ -1,4 +1,0 @@
-mocking
-players
-
-	^ playerPositions keys

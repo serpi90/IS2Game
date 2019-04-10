@@ -1,4 +1,0 @@
-affecting
-affectGame: aGame
-
-	^ aGame

@@ -1,4 +1,0 @@
-accessing
-winner
-
-	^ status winner

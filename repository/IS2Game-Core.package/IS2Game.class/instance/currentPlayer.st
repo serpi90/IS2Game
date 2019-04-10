@@ -1,4 +1,0 @@
-accessing
-currentPlayer
-
-	^ status currentPlayer
