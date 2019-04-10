@@ -5,6 +5,18 @@ Class {
 }
 
 { #category : #tests }
+DiceTest >> d4 [
+
+	^ Dice withSides: 4 source: ( SequentialGenerator generating: #(1 3 6 8) )
+]
+
+{ #category : #tests }
+DiceTest >> d6 [
+
+	^ Dice withSides: 6 source: ( SequentialGenerator generating: #(1 3 6 8) )
+]
+
+{ #category : #tests }
 DiceTest >> testDiceMustHaveAtLeastTwoSides [
 
 	-1 to: 1 do: [ :invalidSides | self should: [ Dice withSides: invalidSides ] raise: InstanceCreationFailed withExceptionDo: [ :signal | self assert: signal messageText equals: 'A dice must at least have 2 sides' ] ]
@@ -40,17 +52,30 @@ DiceTest >> testDiceWithFixedGenerator [
 { #category : #tests }
 DiceTest >> testPrintOn [
 
-	| dice4 dice6 diceSet |
-	dice6 := Dice withSides: 6 source: (SequentialGenerator generating: #(1 3 6 8)).
-	self assert: dice6 printString equals: '1d6'.
-	dice4 := Dice withSides: 4 source: (SequentialGenerator generating: #(1 3 6 8)).
-	self assert: dice4 printString equals: '1d4'.
+	| diceSet |
+
+	self assert: self d6 printString equals: '1d6'.
+	self assert: self d4 printString equals: '1d4'.
 	diceSet := DiceSet
 		withAll:
-			{dice6.
-			dice4.
-			(Dice withSides: 6 source: (SequentialGenerator generating: #(1 3 6 8)))}.
-	self assert: diceSet printString equals: '1d4 2d6'
+			{self d6.
+			self d4.
+			self d6}.
+	self assert: diceSet printString equals: '2d6 1d4'
+]
+
+{ #category : #tests }
+DiceTest >> testPrintOnIsDeterministic [
+
+	self
+		assert: ( DiceSet withAll: ( Array with: self d4 with: self d6 with: self d6 ) ) printString
+			equals: '2d6 1d4';
+		assert: ( DiceSet withAll: ( Array with: self d6 with: self d4 with: self d6 ) ) printString
+			equals: '2d6 1d4';
+		assert: ( DiceSet withAll: ( Array with: self d6 with: self d6 with: self d4 ) ) printString
+			equals: '2d6 1d4';
+		assert: ( DiceSet withAll: ( Array with: self d4 with: self d4 with: self d6 ) ) printString
+			equals: '1d6 2d4'
 ]
 
 { #category : #tests }

@@ -22,12 +22,13 @@ DiceSet >> initializeWithAll: aCollectionOfDice [
 { #category : #printing }
 DiceSet >> printOn: aStream [
 
-	(dice groupedBy: [ :die | die sides ]) associations
+	( ( dice groupedBy: [ :die | die sides ] ) associations sorted: #key descending )
 		do: [ :sidesToDice | 
 			aStream
 				print: sidesToDice value size;
 				nextPut: $d;
-				print: sidesToDice key ]
+				print: sidesToDice key
+			]
 		separatedBy: [ aStream space ]
 ]
 
