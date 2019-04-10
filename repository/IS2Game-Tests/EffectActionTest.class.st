@@ -11,6 +11,12 @@ Class {
 	#category : 'IS2Game-Tests'
 }
 
+{ #category : #mocking }
+EffectActionTest >> addPosition: aPlayerPosition [
+
+	playerHistory add: aPlayerPosition
+]
+
 { #category : #assertions }
 EffectActionTest >> assert: aPlayer isOnLap: aLap tileNumber: aTileNumber [
 
@@ -34,19 +40,18 @@ EffectActionTest >> move: aPlayer tiles: aNumberOfTiles [
 	| position |
 
 	position := self positionOf: aPlayer.
-	self move: aPlayer to: (PlayerPosition of: aPlayer onLap: position lap tileNumber: position tileNumber + aNumberOfTiles)
-]
-
-{ #category : #mocking }
-EffectActionTest >> move: aPlayer to: aPlayerPosition [
-
-	(self historyFor: aPlayer) add: aPlayerPosition
+	self
+		addPosition:
+			(PlayerPosition
+				of: aPlayer
+				onLap: position lap
+				tileNumber: position tileNumber + aNumberOfTiles)
 ]
 
 { #category : #mocking }
 EffectActionTest >> positionOf: aPlayer [
 
-	^ (self historyFor: aPlayer) last
+	^ playerHistory last
 ]
 
 { #category : #initialization }
@@ -79,7 +84,7 @@ EffectActionTest >> testCanNotUndoANegativeNumberOfTurns [
 EffectActionTest >> testMovePlayer [
 
 	self assert: player isOnLap: 0 tileNumber: 1.
-	(MovePlayer movingForward: 3) affectPlayerFrom: (self positionOf: player) on: self.
+	(MovePlayer movingForward: 3) affectTurnOf: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 4
 ]
 
@@ -87,7 +92,7 @@ EffectActionTest >> testMovePlayer [
 EffectActionTest >> testNoEffect [
 
 	self assert: player isOnLap: 0 tileNumber: 1.
-	NoEffect new affectPlayerFrom: (self positionOf: player) on: self.
+	NoEffect new affectTurnOf: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 1
 ]
 
@@ -107,7 +112,7 @@ EffectActionTest >> testPrintOn [
 EffectActionTest >> testRepositionPlayer [
 
 	self assert: player isOnLap: 0 tileNumber: 1.
-	(RepositionPlayer toLap: 3 tileNumber: 5) affectPlayerFrom: (self positionOf: player) on: self.
+	(RepositionPlayer toLap: 3 tileNumber: 5) affectTurnOf: player on: self.
 	self assert: player isOnLap: 3 tileNumber: 5
 ]
 
@@ -120,9 +125,10 @@ EffectActionTest >> testResetTurn [
 	So, the 8th tile is the position at the start of the previous turn.
 	* Undoing 0 turns would leave the player where it was before throwing the dice."
 
-	playerHistory := ((1 to: 10) collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ]) asOrderedCollection.
+	playerHistory := ((1 to: 10) collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ])
+		asOrderedCollection.
 	self assert: (self positionOf: player) equals: playerHistory last.
-	UndoTurn resetTurn affectPlayerFrom: (self positionOf: player) on: self.
+	UndoTurn resetTurn affectTurnOf: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 10 - 2
 ]
 
@@ -142,7 +148,7 @@ EffectActionTest >> testUndoTurn [
 	turnsToGoBack := 5.
 	playerHistory := ((1 to: 10) collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ]) asOrderedCollection.
 	self assert: (self positionOf: player) equals: playerHistory last.
-	(UndoTurn goingBack: turnsToGoBack) affectPlayerFrom: (self positionOf: player) on: self.
+	(UndoTurn goingBack: turnsToGoBack) affectTurnOf: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 10 - turnsToGoBack - 2
 ]
 
@@ -152,8 +158,9 @@ EffectActionTest >> testUndoTurnWithFewerHistoryThanNeded [
 	"History should always have at least 2 elements when the effect is applied (See testUndoTurn comment)"
 
 	2 to: 4 do: [ :historySize | 
-		playerHistory := ((1 to: historySize) collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ]) asOrderedCollection.
+		playerHistory := ((1 to: historySize)
+			collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ]) asOrderedCollection.
 		self assert: (self positionOf: player) equals: playerHistory last.
-		(UndoTurn goingBack: 2) affectPlayerFrom: (self positionOf: player) on: self.
+		(UndoTurn goingBack: 2) affectTurnOf: player on: self.
 		self assert: player isOnLap: 0 tileNumber: 1 ]
 ]

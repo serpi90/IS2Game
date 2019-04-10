@@ -4,9 +4,14 @@ Class {
 	#category : 'IS2Game-Core-Effect'
 }
 
-{ #category : #affecting }
-AffectEveryoneElse >> apply: anEffect to: aGame becausePlayerLandedOn: aPlayerPosition [
+{ #category : #testing }
+AffectEveryoneElse >> appliesTo: aPlayer on: aGame [
 
-	(aGame players copyWithout: aPlayerPosition player)
-		do: [ :player | anEffect affectPlayerFrom: (aGame positionOf: player) on: aGame ]
+	^ aPlayer ~= aGame currentPlayer
+]
+
+{ #category : #affecting }
+AffectEveryoneElse >> apply: anEffect to: aGame [
+
+	(aGame players copyWithout: aGame currentPlayer) do: [ :player | anEffect affectTurnOf: player on: aGame ]
 ]

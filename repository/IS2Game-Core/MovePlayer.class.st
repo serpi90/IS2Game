@@ -20,10 +20,10 @@ MovePlayer class >> movingForward: aNumberOfTiles [
 	^ self new initializeMovingForward: aNumberOfTiles
 ]
 
-{ #category : #accessing }
-MovePlayer >> affectPlayerFrom: aPlayerPosition on: aGame [
+{ #category : #affecting }
+MovePlayer >> affectTurnOf: aPlayer on: aGame [
 
-	aGame move: aPlayerPosition player tiles: tilesToMove
+	aGame move: aPlayer tiles: tilesToMove
 ]
 
 { #category : #initialization }
@@ -32,7 +32,7 @@ MovePlayer >> initializeMovingForward: aNumberOfTiles [
 	tilesToMove := aNumberOfTiles
 ]
 
-{ #category : #initialization }
+{ #category : #printing }
 MovePlayer >> printOn: aStream [
 
 	aStream

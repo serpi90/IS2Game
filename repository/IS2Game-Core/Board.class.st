@@ -34,9 +34,18 @@ Board class >> ofSize: aBoardSize withTilesDefinedBy: theEffectProbabilities sou
 	| accumulatedProbabilityTable |
 
 	self assertAddTo100Percent: theEffectProbabilities.
-	accumulatedProbabilityTable := self probabilityTableFrom: theEffectProbabilities.
+	accumulatedProbabilityTable := self
+		probabilityTableFrom: theEffectProbabilities.
 
-	^ self withTiles: ((1 to: aBoardSize) collect: [ :n | Tile numbered: n withEffect: (self effectFrom: accumulatedProbabilityTable given: aNumberProvider next) ])
+	^ self
+		withTiles:
+			((1 to: aBoardSize)
+				collect: [ :n | 
+					Tile
+						withEffect:
+							(self
+								effectFrom: accumulatedProbabilityTable
+								given: aNumberProvider next) ])
 ]
 
 { #category : #private }
@@ -75,7 +84,7 @@ Board >> length [
 { #category : #accessing }
 Board >> tileNumbered: aTileNumber [
 
-	^ tiles detect: [ :tile | tile number = aTileNumber ]
+	^ tiles at: aTileNumber
 ]
 
 { #category : #accessing }

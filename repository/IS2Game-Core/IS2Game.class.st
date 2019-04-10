@@ -7,7 +7,9 @@ Class {
 		'players',
 		'playerPositions',
 		'board',
-		'playerTurn'
+		'playerTurn',
+		'permanentEffects',
+		'status'
 	],
 	#category : 'IS2Game-Core-Game'
 }
@@ -29,29 +31,39 @@ IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: somePlay
 		for: somePlayers
 ]
 
+{ #category : #playing }
+IS2Game >> addPosition: aPlayerPosition [
+
+	playerPositions add: aPlayerPosition.
+	aPlayerPosition lap >= laps
+		ifTrue: [ status := GameEnded wonBy: aPlayerPosition player ]
+]
+
+{ #category : #private }
+IS2Game >> adjustedRollFor: aPlayer whenRolled: aDiceRoll [
+
+	^ (permanentEffects select: [ :effect | effect appliesTo: aPlayer on: self ]) inject: aDiceRoll into: [ :roll :effect | effect affectRoll: roll of: aPlayer on: self ]
+]
+
 { #category : #private }
 IS2Game >> applyTileEfectOn: aPlayerPosition [
 
 	(board tileNumbered: aPlayerPosition tileNumber) effect
-		affect: self
-		becausePlayerLandedOn: aPlayerPosition
+		affectTurnOf: aPlayerPosition player
+		in: self
+		considering: permanentEffects
 ]
 
-{ #category : #private }
-IS2Game >> assertCanPlay: aPlayer [
+{ #category : #accessing }
+IS2Game >> currentPlayer [
 
-	AssertionCheckerBuilder new
-		checking: [ :asserter | 
-			asserter
-				refuse: [ self hasEnded ] because: ('<1s> can not play now, the game has ended' expandMacrosWith: aPlayer);
-				enforce: [ aPlayer = playerTurn current ] because: ('<1s> can not play now, it''s <2s>''s turn' expandMacrosWith: aPlayer with: playerTurn current) ];
-		buildAndCheck
+	^ status currentPlayer
 ]
 
 { #category : #testing }
 IS2Game >> hasEnded [
 
-	^ playerPositions last lap >= laps
+	^ status hasEnded
 ]
 
 { #category : #accessing }
@@ -68,9 +80,9 @@ IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: some
 	dice := aDice.
 	players := somePlayers.
 	playerTurn := CircularIterator cyclingOver: somePlayers.
-	playerPositions := (players
-		collect: [ :player | PlayerPosition startingOf: player ])
-		asOrderedCollection
+	status := PlayerTurn currentOf: playerTurn current.
+	playerPositions := (players collect: [ :player | PlayerPosition startingOf: player ]) asOrderedCollection.
+	permanentEffects := OrderedCollection new
 ]
 
 { #category : #playing }
@@ -78,24 +90,33 @@ IS2Game >> move: aPlayer tiles: aNumberOfTiles [
 
 	| newPosition |
 
-	newPosition := self positionFor: (self positionOf: aPlayer) whenMoving: aNumberOfTiles.
+	newPosition := self
+		positionFor: (self positionOf: aPlayer)
+		whenMoving: aNumberOfTiles.
 
-	self move: aPlayer to: newPosition
+	self addPosition: newPosition
 ]
 
 { #category : #playing }
-IS2Game >> move: aPlayer to: aPlayerPosition [
+IS2Game >> playCard: aCard for: aPlayer [
 
-	playerPositions add: aPlayerPosition
+	self playPermanent: aCard by: aPlayer over: AffectEveryone new
 ]
 
 { #category : #playing }
-IS2Game >> playTurnFor: aPlayer [
+IS2Game >> playCard: aCard for: aPlayer over: aTargetPlayer [
 
-	self assertCanPlay: aPlayer.
-	self move: aPlayer tiles: dice roll.
-	self applyTileEfectOn: (self positionOf: aPlayer).
-	playerTurn next
+	self
+		playPermanent: aCard
+		by: aPlayer
+		over: (AffectSpecificPlayer targeting: aTargetPlayer)
+]
+
+{ #category : #playing }
+IS2Game >> playPermanent: aCard by: aPlayer over: target [
+
+	status assertCanPlayPermanentCard: aPlayer.
+	permanentEffects add: (aCard effectAffecting: target)
 ]
 
 { #category : #accessing }
@@ -104,17 +125,13 @@ IS2Game >> players [
 	^ players
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 IS2Game >> positionFor: aPlayerPosition whenMoving: aNumberOfTiles [
 
 	| totalMoves |
 
-	totalMoves := aPlayerPosition lap * board length
-		+ aPlayerPosition tileNumber - 1 + aNumberOfTiles.
-	^ PlayerPosition
-		of: aPlayerPosition player
-		onLap: (totalMoves quo: board length)
-		tileNumber: (totalMoves rem: board length) + 1
+	totalMoves := aPlayerPosition lap * board length + aPlayerPosition tileNumber - 1 + aNumberOfTiles.
+	^ PlayerPosition of: aPlayerPosition player onLap: totalMoves // board length tileNumber: totalMoves \\ board length + 1
 ]
 
 { #category : #accessing }
@@ -123,9 +140,20 @@ IS2Game >> positionOf: aPlayer [
 	^ (self historyFor: aPlayer) last
 ]
 
+{ #category : #playing }
+IS2Game >> rollDiceFor: aPlayer [
+
+	| roll |
+
+	status assertCanRollDice: aPlayer.
+	roll := self adjustedRollFor: aPlayer whenRolled: dice roll.
+	self move: aPlayer tiles: roll.
+	self applyTileEfectOn: (self positionOf: aPlayer).
+	status := status currentOf: playerTurn next
+]
+
 { #category : #accessing }
 IS2Game >> winner [
 
-	AssertionChecker enforce: [ self hasEnded ] because: 'Can not define a winner until game has ended'.
-	^ playerPositions last player
+	^ status winner
 ]

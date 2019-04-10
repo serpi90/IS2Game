@@ -20,15 +20,18 @@ UndoTurn class >> resetTurn [
 	^ self goingBack: 0
 ]
 
-{ #category : #accessing }
-UndoTurn >> affectPlayerFrom: aPlayerPosition on: aGame [
+{ #category : #affecting }
+UndoTurn >> affectTurnOf: aPlayer on: aGame [
 
 	| previousTurnPosition |
 
-	previousTurnPosition := self positionOf: aPlayerPosition player toGoBackOn: aGame.
+	previousTurnPosition := self positionOf: aPlayer toGoBackOn: aGame.
 	aGame
-		move: aPlayerPosition player
-		to: (PlayerPosition of: aPlayerPosition player onLap: previousTurnPosition lap tileNumber: previousTurnPosition tileNumber)
+		addPosition:
+			(PlayerPosition
+				of: aPlayer
+				onLap: previousTurnPosition lap
+				tileNumber: previousTurnPosition tileNumber)
 ]
 
 { #category : #initialization }
@@ -37,7 +40,7 @@ UndoTurn >> initializeGoingBack: aNumberOfTurns [
 	turns := aNumberOfTurns
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 UndoTurn >> positionOf: aPlayer toGoBackOn: aGame [
 
 	"Why turns + 2 ?
@@ -53,7 +56,7 @@ UndoTurn >> positionOf: aPlayer toGoBackOn: aGame [
 		ifFalse: [ history first ]
 ]
 
-{ #category : #initialization }
+{ #category : #printing }
 UndoTurn >> printOn: aStream [
 
 	aStream

@@ -7,9 +7,9 @@ Class {
 	#instVars : [
 		'moveOneTile',
 		'playerPositions',
-		'player1',
-		'player2',
-		'player3'
+		'currentPlayer',
+		'anotherPlayer',
+		'yetAnotherPlayer'
 	],
 	#category : 'IS2Game-Tests'
 }
@@ -23,6 +23,12 @@ EffectTargetTest >> assert: aPlayer isOnLap: aLap tileNumber: aTileNumber [
 	self assert: position player equals: aPlayer.
 	self assert: position tileNumber equals: aTileNumber.
 	self assert: position lap equals: aLap
+]
+
+{ #category : #mocking }
+EffectTargetTest >> currentPlayer [
+
+	^ currentPlayer
 ]
 
 { #category : #asserting }
@@ -50,46 +56,87 @@ EffectTargetTest >> positionOf: aPlayer [
 EffectTargetTest >> setUp [
 
 	moveOneTile := MovePlayer movingForward: 1.
-	player1 := 'Player 1'.
-	player2 := 'Player 2'.
-	player3 := 'Player 3'.
-	playerPositions := ({player1.
-	player2.
-	player3} collect: [ :player | player -> (PlayerPosition startingOf: player) ]) asDictionary
+	currentPlayer := 'Player 1'.
+	anotherPlayer := 'Player 2'.
+	yetAnotherPlayer := 'Player 3'.
+	playerPositions := ({currentPlayer.
+	anotherPlayer.
+	yetAnotherPlayer} collect: [ :player | player -> (PlayerPosition startingOf: player) ]) asDictionary
+]
+
+{ #category : #tests }
+EffectTargetTest >> testAffectCurrentPlayer [
+
+	| target |
+
+	target := AffectCurrentPlayer new.
+	self assert: (target appliesTo: currentPlayer on: self).
+	self deny: (target appliesTo: anotherPlayer on: self).
+	self deny: (target appliesTo: yetAnotherPlayer on: self).
+
+	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 1.
+	target apply: moveOneTile to: self.
+	self assert: currentPlayer isOnLap: 0 tileNumber: 2.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 1
 ]
 
 { #category : #tests }
 EffectTargetTest >> testAffectEveryone [
 
-	self assert: player1 isOnLap: 0 tileNumber: 1.
-	self assert: player2 isOnLap: 0 tileNumber: 1.
-	self assert: player3 isOnLap: 0 tileNumber: 1.
-	AffectEveryone new apply: moveOneTile to: self becausePlayerLandedOn: (playerPositions at: player1).
-	self assert: player1 isOnLap: 0 tileNumber: 2.
-	self assert: player2 isOnLap: 0 tileNumber: 2.
-	self assert: player3 isOnLap: 0 tileNumber: 2
+	| target |
+
+	target := AffectEveryone new.
+	self assert: (target appliesTo: currentPlayer on: self).
+	self assert: (target appliesTo: anotherPlayer on: self).
+	self assert: (target appliesTo: yetAnotherPlayer on: self).
+
+	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 1.
+
+	target apply: moveOneTile to: self.
+	self assert: currentPlayer isOnLap: 0 tileNumber: 2.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 2.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 2
 ]
 
 { #category : #tests }
 EffectTargetTest >> testAffectEveryoneElse [
 
-	self assert: player1 isOnLap: 0 tileNumber: 1.
-	self assert: player2 isOnLap: 0 tileNumber: 1.
-	self assert: player3 isOnLap: 0 tileNumber: 1.
-	AffectEveryoneElse new apply: moveOneTile to: self becausePlayerLandedOn: (playerPositions at: player1).
-	self assert: player1 isOnLap: 0 tileNumber: 1.
-	self assert: player2 isOnLap: 0 tileNumber: 2.
-	self assert: player3 isOnLap: 0 tileNumber: 2
+	| target |
+
+	target := AffectEveryoneElse new.
+	self deny: (target appliesTo: currentPlayer on: self).
+	self assert: (target appliesTo: anotherPlayer on: self).
+	self assert: (target appliesTo: yetAnotherPlayer on: self).
+
+	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 1.
+	target apply: moveOneTile to: self.
+	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 2.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 2
 ]
 
 { #category : #tests }
-EffectTargetTest >> testAffectPlayer [
+EffectTargetTest >> testAffectSpecificPlayer [
 
-	self assert: player1 isOnLap: 0 tileNumber: 1.
-	self assert: player2 isOnLap: 0 tileNumber: 1.
-	self assert: player3 isOnLap: 0 tileNumber: 1.
-	AffectPlayer new apply: moveOneTile to: self becausePlayerLandedOn: (playerPositions at: player1).
-	self assert: player1 isOnLap: 0 tileNumber: 2.
-	self assert: player2 isOnLap: 0 tileNumber: 1.
-	self assert: player3 isOnLap: 0 tileNumber: 1
+	| target |
+
+	target := AffectSpecificPlayer targeting: anotherPlayer.
+	self deny: (target appliesTo: currentPlayer on: self).
+	self assert: (target appliesTo: anotherPlayer on: self).
+	self deny: (target appliesTo: yetAnotherPlayer on: self).
+
+	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 1.
+	target apply: moveOneTile to: self.
+	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
+	self assert: anotherPlayer isOnLap: 0 tileNumber: 2.
+	self assert: yetAnotherPlayer isOnLap: 0 tileNumber: 1
 ]

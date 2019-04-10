@@ -9,15 +9,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-Tile class >> numbered: aNumber [
+Tile class >> withEffect: anEffect [
 
-	^ self numbered: aNumber withEffect: Effect none
+	^ self new initializeWithEffect: anEffect
 ]
 
 { #category : #'instance creation' }
-Tile class >> numbered: aNumber withEffect: anEffect [
+Tile class >> withoutEffect [
 
-	^ self new initializeNumbered: aNumber withEffect: anEffect
+	^ self withEffect: Effect none
 ]
 
 { #category : #accessing }
@@ -27,14 +27,16 @@ Tile >> effect [
 ]
 
 { #category : #initialization }
-Tile >> initializeNumbered: aNumber withEffect: anEffect [
+Tile >> initializeWithEffect: anEffect [
 
-	number := aNumber.
 	effect := anEffect
 ]
 
-{ #category : #initialization }
-Tile >> number [
+{ #category : #printing }
+Tile >> printOn: aStream [
 
-	^ number
+	aStream
+		nextPutAll: 'Tile';
+		space;
+		print: effect
 ]

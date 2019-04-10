@@ -28,7 +28,7 @@ Dice >> initializeWithSides: anInteger source: aNumberSource [
 	source := aNumberSource
 ]
 
-{ #category : #rolling }
+{ #category : #printing }
 Dice >> printOn: aStream [
 
 	aStream

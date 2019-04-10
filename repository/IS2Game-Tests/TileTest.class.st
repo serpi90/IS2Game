@@ -11,6 +11,12 @@ Class {
 }
 
 { #category : #mocking }
+TileTest >> currentPlayer [
+
+	^ self
+]
+
+{ #category : #mocking }
 TileTest >> move: aPlayer tiles: aNumberOfTiles [
 
 	moved := true
@@ -23,23 +29,27 @@ TileTest >> testEffect [
 
 	effect := Effect speedUp.
 	mockPosition := PlayerPosition startingOf: self.
-	tileWithEffect := Tile numbered: 1 withEffect: effect.
-	tileWithoutEffect := Tile numbered: 1.
+	tileWithEffect := Tile withEffect: effect.
+	tileWithoutEffect := Tile withoutEffect.
 
 	self assert: tileWithEffect effect equals: effect.
 
 	moved := false.
-	tileWithEffect effect affect: self becausePlayerLandedOn: mockPosition.
+	tileWithEffect effect affectTurnOf: mockPosition player in: self considering: #().
 	self assert: moved.
 
 	moved := false.
-	tileWithoutEffect effect affect: self becausePlayerLandedOn: mockPosition.
+	tileWithoutEffect effect affectTurnOf: mockPosition player in: self considering: #().
 	self deny: moved
 ]
 
-{ #category : #'tests-initialization' }
-TileTest >> testNumber [
+{ #category : #'tests-accessing' }
+TileTest >> testPrintOn [
 
-	self assert: (Tile numbered: 1) number equals: 1.
-	self assert: (Tile numbered: 2) number equals: 2
+	| effect |
+
+	effect := Effect speedUp.
+	self
+		assert: (Tile withEffect: effect) printString
+		equals: ('Tile <1p>' expandMacrosWith: effect)
 ]

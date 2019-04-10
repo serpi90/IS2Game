@@ -19,7 +19,7 @@ DiceSet >> initializeWithAll: aCollectionOfDice [
 	dice := aCollectionOfDice
 ]
 
-{ #category : #rolling }
+{ #category : #printing }
 DiceSet >> printOn: aStream [
 
 	(dice groupedBy: [ :die | die sides ]) associations

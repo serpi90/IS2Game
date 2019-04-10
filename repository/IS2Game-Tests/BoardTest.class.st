@@ -55,8 +55,16 @@ BoardTest >> testBoardGeneration [
 { #category : #'tests-accessing' }
 BoardTest >> testBoardMustHaveAtLeastOneTile [
 
-	self shouldnt: [ Board withTiles: {(Tile numbered: 1)} ] raise: InstanceCreationFailed.
-	self should: [ Board withTiles: #() ] raise: InstanceCreationFailed withExceptionDo: [ :signal | self assert: signal messageText equals: 'A Board has at least one tile' ]
+	self
+		shouldnt: [ Board withTiles: {Tile withoutEffect} ]
+		raise: InstanceCreationFailed.
+	self
+		should: [ Board withTiles: #() ]
+		raise: InstanceCreationFailed
+		withExceptionDo: [ :signal | 
+			self
+				assert: signal messageText
+				equals: 'A Board has at least one tile' ]
 ]
 
 { #category : #'tests-accessing' }
@@ -66,8 +74,8 @@ BoardTest >> testLength [
 		assert:
 			(Board
 				withTiles:
-					{(Tile numbered: 1).
-					(Tile numbered: 2)}) length
+					{Tile withoutEffect.
+					Tile withoutEffect}) length
 		equals: 2
 ]
 
@@ -94,8 +102,8 @@ BoardTest >> testTileNumbered [
 
 	| firstTile secondTile board |
 
-	firstTile := Tile numbered: 1.
-	secondTile := Tile numbered: 2.
+	firstTile := Tile withoutEffect.
+	secondTile := Tile withoutEffect.
 	board := Board withTiles: (Array with: firstTile with: secondTile).
 
 	self assert: (board tileNumbered: 1) equals: firstTile.
@@ -109,8 +117,8 @@ BoardTest >> testTiles [
 
 	| board tiles |
 
-	tiles := {(Tile numbered: 1).
-	(Tile numbered: 2)}.
+	tiles := {Tile withoutEffect.
+	Tile withoutEffect}.
 
 	board := Board withTiles: tiles.
 

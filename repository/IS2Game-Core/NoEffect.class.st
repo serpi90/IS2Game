@@ -4,13 +4,13 @@ Class {
 	#category : 'IS2Game-Core-Effect'
 }
 
-{ #category : #accessing }
-NoEffect >> affectPlayerFrom: aPlayerPosition on: aGame [
+{ #category : #affecting }
+NoEffect >> affectTurnOf: aPlayer on: aGame [
 
 	
 ]
 
-{ #category : #accessing }
+{ #category : #printing }
 NoEffect >> printOn: aStream [
 
 	aStream nextPutAll: 'No effect'

@@ -4,8 +4,8 @@ Class {
 	#category : 'IS2Game-Core-Effect'
 }
 
-{ #category : #accessing }
-EffectAction >> affectPlayerFrom: aPlayerPosition on: aGame [
+{ #category : #affecting }
+EffectAction >> affectTurnOf: aPlayer on: aGame [
 
 	self subclassResponsibility
 ]
