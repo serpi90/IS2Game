@@ -1,4 +1,0 @@
-initialization
-number
-
-	^ number
