@@ -7,4 +7,6 @@ os:
 
 # Select compatible Smalltalk image(s)
 smalltalk:
-  - Pharo-stable
+  - Pharo32-stable
+  - Pharo64-stable
+  - Pharo64-7.0
