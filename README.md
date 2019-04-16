@@ -1,4 +1,4 @@
-# Software Engineering II - 2017
+# Software Engineering II - IS2Game
 
 [![Build Status](https://travis-ci.org/uca-is2/IS2Game.svg)](https://travis-ci.org/uca-is2/IS2Game)
 [![Coverage Status](https://coveralls.io/repos/github/uca-is2/IS2Game/badge.svg)](https://coveralls.io/github/uca-is2/IS2Game)
@@ -6,66 +6,138 @@
 Exercise of modeling a board game for teaching purpouses.
 
 The game simulates a board game, with multiple players over a circular path of tiles, won by the first player to complete a number of laps around the board.
-- Movement is determinated by dice rolls
-- Some tiles may have effects over the player/players
-- Some tiles will make the player draw cards, which also have effects over the player/players
 
-## Requirements for first iteration
+- Movement is determinated by dice rolls.
+- Some tiles may have effects over the player/players.
+- Some tiles will make the player draw cards, which also have effects over the player/players.
 
-- Support N sided dice
-- Support M dices with varying sizes
-- Game supports more than one player
-- Number of laps per game can be configured
-- Turn order must be enforced
-- Winner is accessible once the game has ended
+## Version 1
 
-## Requirements for second iteration
+On the board game, several players play in sequence, these players throw dice and advance by the sum of the dice.
 
-The game board has randomly generated tiles with effects.
+The game is won by the first player to get to the end of the board.
+
+The board has N tiles in sequence. The amount of dice, the number faces of those and the board length can vary from game to game, but remain constant during the same game.
+
+### Requirements for version 1
+
+- Support N sided dice.
+- Support M dices with varying sizes.
+- Game supports more than one player.
+- Number of laps per game can be configured.
+- Turn order must be enforced.
+- You can tell if the game ended.
+- You can know who was the winner of the game.
+- You can know the position in the board of any player during the game and when the game finished.
+- You can know the ranking (1st, 2nd, 3rd, etc.) of any player during the game and when the game finished.
+
+## Versión 2
+
+The board is now circular, after crossing the finish line, you get back to the first tile.
+The winner is the first one to do X laps around the board.
+
+Also, some tiles now have an effect.
+When a player lands on the tile, the effect of that tile is applied.
+If a player is moved by effect of a tile, and lands on another tile, this does **NOT** cause a new effect.
+
+The game board has randomly generated tiles with effects, these may vary from game to game, but remain the same during a game.
 
 Each tile has probability of bein placed on the board upon generation.
 
-| tile         | effect                                     | probability |
+| Tile         | Effect                                     | Probability |
 | :----------- | :----------------------------------------- | ----------: |
 | Atomic Bomb  | Everybody goes back to the beginning       |          2% |
-| Empty        | None                                       |         40% |
+| Empty        | None                                       |         45% |
 | Moonwalk     | Everybody else goes back N tiles           |          5% |
 | Speed up     | Advance 4 tiles                            |         15% |
-| Time machine | Player goes back to previous turn position |         23% |
+| Time machine | Player goes back to previous turn position |          8% |
 | Wormhole     | Go back 4 tiles                            |         15% |
 
-- All tile effects implemented
-- Moonwalk number of tiles can be configured
-- Time machine goes to previous turn, not at the beginning of the current one:
-  1. Position: 3. Roll: 2, Land on 5 _Empty_, no effects
-  2. Position: 5. Roll: 4, Land on 9 _Time machine_, go back to position 3
-  3. Position: 3. ...
-- Board can be randomly generated based on the given probabilities
+- Wormhole
+  - If it makes the player go back from the beginning, it's considered to be on a negative lap.
+- Moonwalk
+  - Every other player goes back N tiles.
+  - Does not affect the player landing on the tile.
+  - The numer N of tiles to go back goes back varies from tile to tile, meaning different tiles can have different N on the same board, but the number remains constant for every tile.
+- AtomicBomb
+  - Every goes back to the first tile of the board.
+  - The number of laps done by each players does not change.
+- Time Machine
+  - Player goes back to previous turn, not at the beginning of the current one.
+  - Example
+    1. Position: 3. Roll: 2, Land on 5 _Empty_, no effect.
+    2. Position: 5. Roll: 4, Land on 9 _Time machine_, go back to position 3.
 
-## Requirements for third iteration
+### Requirements for version 2
+
+- Everything indicated for version 1
+- Implemented circular board with X laps, X can be configured for every game.
+- You can know the lap of any player during the game and when the game finished.
+- Atomic Bomb is implemented.
+- Empty is implemented.
+- Moonwalk is implemented.
+- Speed up is implemented.
+- Time machine is implemented.
+- Wormhole is implemented.
+- Board can be randomly generated based on the given probabilities.
+
+## Version 3
 
 Each player starts the game with 2 random cards.
-More can be gained by landing on a tile that grants a random card.
+More can be gained by landing on a tile that grants a random card to the player landing on that tile.
 
-| card         | type      | effect                                  | target           |
-| :----------- | :-------- | :-------------------------------------- | :--------------- |
-| Cushioning   | Permanent | Halves the effects of every tile        | global           |
-| Overload     | Permanent | A player dice rolls are decreased by 2  | single player    |
-| Speed        | Permanent | A player dice rolls are increased by 1  | single player    |
-| Cancellation | Instant   | Removes an active permanent card in use | single card      |
-| Redo         | Instant   | Reapplies last tile or instant card     | last effect      |
-| Undo         | Instant   | Reverts last tile or instant card       | last effect      |
+- Empty tile has now 45% probability of appearing.
+- Card giving tile has 10% probability of appearing.
+- Card giving tile gives cards with uniform probability.
 
-- Permanent cards affect the game from the moment they are played until they are
-removed with a cancellation card. Instant cards only affect once when used.
-- Single palyer targets affect a player selected by the player.
-- Single card targets affect an active card selected by the player.
-- Last effect targets affect the effect of the last tile or instant card effect.
-This includes the _None_ effect of empty tiles (playing _Undo_/_Redo_ after
-landing on an empty tile does nothing)
-- _Cushioning_, _Overload_ and _Speed_ speed effect are cumulative.
-  - 3x _Cushioning_ active means effects are halved three times = 1/8 effect.
-  - 3x _Speed_ increases the player rolls by 3
-  - 3x _Overload_ decreases the player rolls by 6
-- _Undo_ and _Undo_ is possible, resulting in reaplying the lost effect.
-- _Redo_ is valid after _Undo_ doing the same effect of _Undo_ after _Undo_.
+There are 2 card types, instant and permanent. This affects when they can be used, and when the effect it's applied.
+
+- **Instant cards:** Can be played at any time (regardless of whether it is the player's turn or not, but not when the game is over). They take effect only when they are used.
+- **Permanent cards:** Can be played only during the player's turn. Once used, they remain in play making an effect until they are removed.
+
+### Considerations
+
+- The cards in the player's hand have no effect on the game.
+- Once a card is played, it stops being in the player's hand.
+  - If it is instantaneous, it is discarded.
+  - If it is permanent, apply its effect until it is removed.
+- In order to play a card, it has to be in the player's hand.
+- There is no limit to the number of cards in the hand, or to the number of cards in play, or to the number of cards that can be obtained (the deck is infinite and generates random cards with uniform distribution).
+
+### Cards
+
+- Overload: Permanent card that reduces the total roll of a player of choice by 2.
+  - It affects the total roll, not each individual die.
+  - If the result is negative, go back.
+  - The effect is cumulative.
+
+- Speed: Permanent card that increases by 1 the total roll of a player of his choice.
+  - It affects the total roll, not each individual die.
+  - The effect is cumulative.
+
+- Acceleration: Permanent card that increases in 1 the total roll of all the players.
+  - It affects the total roll, not each individual die.
+  - The effect is cumulative.
+
+- Cancellation: Instant card that removes an active permanent card from the game.
+  - The letter is chosen, it is not random.
+  - You can not play if there are no permanent cards in effect.
+
+- Redo: Card that has the same effect as the last letter that was played.
+  - If the last letter is instantaneous, it acts as an instant card.
+  - If the last letter is permanent, it acts as permanent card.
+  - If the card indicates that a player or card must be chosen, it does not have to be the same.
+
+- Repeat: Instant Card reapplies the effect of the last tile on which a player fell after rolling the dice.
+  - If the tile has no effect, then this card has no effect.
+  - If nobody has thrown the dice, then this card can not be used.
+
+### Requirements for version 3
+
+- Everything indicated for versions 1 and 2.
+- Implemented Overload card.
+- Implemented Speed chart.
+- Implemented Acceleration card.
+- Implemented Cancellation card.
+- Implemented Redo card.
+- Implemented Repeat card.
