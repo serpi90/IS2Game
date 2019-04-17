@@ -66,28 +66,15 @@ Effect >> affectRoll: aDiceRoll of: aPlayer on: aGame [
 ]
 
 { #category : #affecting }
-Effect >> affectTurnOf: aPlayer in: aGame considering: permanentEffects [
+Effect >> affectTurnOf: aPlayer in: aGame [
 
-	target
-		apply: action
-		to:
-			( permanentEffects
-				inject: aGame
-				into: [ :theGame :permanentEffect | permanentEffect applyOver: theGame inTurnOf: aPlayer ] )
+	target apply: action to: aGame
 ]
 
 { #category : #testing }
 Effect >> appliesTo: aPlayer on: aGame [
 
 	^ target appliesTo: aPlayer on: aGame
-]
-
-{ #category : #affecting }
-Effect >> applyOver: aGame inTurnOf: aPlayer [
-
-	^ ( target appliesTo: aPlayer on: aGame )
-		ifTrue: [ action affectGame: aGame ]
-		ifFalse: [ aGame ]
 ]
 
 { #category : #initialization }

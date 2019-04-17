@@ -8,12 +8,6 @@ Class {
 	#category : 'IS2Game-Core-Board'
 }
 
-{ #category : #'well known cards' }
-PermanentCard class >> cushioning [
-
-	^ self named: 'Softening' doing: ( MultiplyEffect by: 1 / 2 )
-]
-
 { #category : #'instance creation' }
 PermanentCard class >> named: aName doing: anAction [
 

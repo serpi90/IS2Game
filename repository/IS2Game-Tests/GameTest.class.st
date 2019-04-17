@@ -56,68 +56,6 @@ GameTest >> testAskingForWinnerWhenGameHasNotEndedShouldFail [
 		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Can not define a winner until game has ended' ]
 ]
 
-{ #category : #'tests - cards' }
-GameTest >> testCushioningCardHalvesTileEffectsOfMoonwalk [
-
-	| game tiles |
-
-	tiles := self emptyTiles: 10.
-	tiles at: 2 put: ( Tile withEffect: ( Effect moonwalkGoingBack: 2 ) ).
-
-	game := self gameWithTiles: tiles rolling: #(1) for: ( Array with: bob with: mary ).
-	game playCard: PermanentCard cushioning for: bob.
-	game rollDiceFor: bob.
-	self assert: ( game positionOf: bob ) tileNumber equals: 2.	"1(current) + 1(roll)"
-	self assert: ( game positionOf: bob ) lap equals: 0.
-	self assert: ( game positionOf: mary ) tileNumber equals: 10.	"1(current) - 2(moonwalk)/2(softening)"
-	self assert: ( game positionOf: mary ) lap equals: -1
-]
-
-{ #category : #'tests - cards' }
-GameTest >> testCushioningCardHalvesTileEffectsOfSpeedUp [
-
-	| game tiles |
-
-	tiles := self emptyTiles: 10.
-	tiles at: 2 put: ( Tile withEffect: Effect speedUp ).
-
-	game := self gameWithTiles: tiles rolling: #(1) for: {bob}.
-	game playCard: PermanentCard cushioning for: bob.
-	game rollDiceFor: bob.
-	self assert: ( game positionOf: bob ) tileNumber equals: 4	"1(current) + 1(roll) + 4(speedUp)/2(softening)"
-]
-
-{ #category : #'tests - cards' }
-GameTest >> testCushioningCardHalvesTileEffectsOfWormhole [
-
-	| game tiles |
-
-	tiles := self emptyTiles: 10.
-	tiles at: 2 put: ( Tile withEffect: Effect wormhole ).
-
-	game := self gameWithTiles: tiles rolling: #(1) for: {bob}.
-	game playCard: PermanentCard cushioning for: bob.
-	game rollDiceFor: bob.
-	self assert: ( game positionOf: bob ) tileNumber equals: 10.	"1(current) + 1(roll) - 4(wormhole)/2(softening)"
-	self assert: ( game positionOf: bob ) lap equals: -1
-]
-
-{ #category : #'tests - cards' }
-GameTest >> testCushioningCardTwiceDividesBy4eEffectsOfWormhole [
-
-	| game tiles |
-
-	tiles := self emptyTiles: 10.
-	tiles at: 2 put: ( Tile withEffect: Effect wormhole ).
-
-	game := self gameWithTiles: tiles rolling: #(1) for: {bob}.
-	game playCard: PermanentCard cushioning for: bob.
-	game playCard: PermanentCard cushioning for: bob.
-	game rollDiceFor: bob.
-	self assert: ( game positionOf: bob ) tileNumber equals: 1.	"1(current) + 1(roll) - 4(wormhole)/2(softening)/2(softening)"
-	self assert: ( game positionOf: bob ) lap equals: 0
-]
-
 { #category : #tests }
 GameTest >> testGameMustHaveAtLeastOneLap [
 
@@ -155,13 +93,12 @@ GameTest >> testMultiplePermanentCards [
 	tiles at: 6 put: ( Tile withEffect: Effect speedUp ).
 
 	game := self gameWithTiles: tiles rolling: #(4) for: {bob}.
-	game playCard: PermanentCard cushioning for: bob.
 	game playCard: PermanentCard speed for: bob over: bob.
 	game playCard: PermanentCard speed for: bob over: bob.
 	game playCard: PermanentCard speed for: bob over: bob.
 	game playCard: PermanentCard overload for: bob over: bob.
 	game rollDiceFor: bob.
-	self assert: ( game positionOf: bob ) tileNumber equals: 8.	"1(current) + 4(roll) - 2(overload) + 3(speed) + 4(SpeedUp)/2(softening)"
+	self assert: ( game positionOf: bob ) tileNumber equals: 10.	"1(current) + 4(roll) - 2(overload) + 3(speed) + 4(SpeedUp)"
 	self assert: ( game positionOf: bob ) lap equals: 0
 ]
 
@@ -399,7 +336,7 @@ GameTest >> testPlayingAfterWinningIsNotAllowed [
 						equals: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
 					].
 			self
-				should: [ game playCard: PermanentCard cushioning for: player ]
+				should: [ game playCard: PermanentCard speed for: player ]
 				raise: AssertionFailed
 				withExceptionDo: [ :signal | 
 					self
