@@ -10,9 +10,6 @@ SmalltalkCISpec {
   #testing : {
     #coverage : {
       #packages : [ 'IS2Game-Core' ]
-    },
-    #include : {  
-      #packages : [ 'IS2Game.*' ]
-    }    
+    }
   }
 }
