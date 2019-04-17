@@ -17,8 +17,7 @@ RepositionPlayer class >> toLap: aLap tileNumber: aNumberOfTiles [
 { #category : #affecting }
 RepositionPlayer >> affectTurnOf: aPlayer on: aGame [
 
-	aGame
-		addPosition: (PlayerPosition of: aPlayer onLap: lap tileNumber: tileNumber)
+	aGame addPosition: ( PlayerPosition of: aPlayer onLap: lap tileNumber: tileNumber )
 ]
 
 { #category : #initialization }
@@ -31,5 +30,5 @@ RepositionPlayer >> initializeRepositioningToLap: aLap tileNumber: aNumberOfTile
 { #category : #printing }
 RepositionPlayer >> printOn: aStream [
 
-	aStream nextPutAll: ('Go to lap <1p> tile <2p>' expandMacrosWith: lap with: tileNumber)
+	aStream nextPutAll: ( 'Go to lap <1p> tile <2p>' expandMacrosWith: lap with: tileNumber )
 ]

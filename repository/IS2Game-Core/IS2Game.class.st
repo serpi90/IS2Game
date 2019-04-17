@@ -22,7 +22,8 @@ IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: somePlay
 		checking: [ :asserter | 
 			asserter
 				enforce: [ aNumberOfLaps > 0 ] because: 'A game must at least have one lap';
-				enforce: [ somePlayers notEmpty ] because: 'A game must at least have one player' ];
+				enforce: [ somePlayers notEmpty ] because: 'A game must at least have one player'
+			];
 		buildAndCheck.
 	^ self new
 		initializeWithBoard: aBoard
@@ -42,13 +43,15 @@ IS2Game >> addPosition: aPlayerPosition [
 { #category : #private }
 IS2Game >> adjustedRollFor: aPlayer whenRolled: aDiceRoll [
 
-	^ (permanentEffects select: [ :effect | effect appliesTo: aPlayer on: self ]) inject: aDiceRoll into: [ :roll :effect | effect affectRoll: roll of: aPlayer on: self ]
+	^ ( permanentEffects select: [ :effect | effect appliesTo: aPlayer on: self ] )
+		inject: aDiceRoll
+		into: [ :roll :effect | effect affectRoll: roll of: aPlayer on: self ]
 ]
 
 { #category : #private }
 IS2Game >> applyTileEfectOn: aPlayerPosition [
 
-	(board tileNumbered: aPlayerPosition tileNumber) effect
+	( board tileNumbered: aPlayerPosition tileNumber ) effect
 		affectTurnOf: aPlayerPosition player
 		in: self
 		considering: permanentEffects
@@ -81,7 +84,8 @@ IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: some
 	players := somePlayers.
 	playerTurn := CircularIterator cyclingOver: somePlayers.
 	status := PlayerTurn currentOf: playerTurn current.
-	playerPositions := (players collect: [ :player | PlayerPosition startingOf: player ]) asOrderedCollection.
+	playerPositions := ( players collect: [ :player | PlayerPosition startingOf: player ] )
+		asOrderedCollection.
 	permanentEffects := OrderedCollection new
 ]
 
@@ -90,9 +94,7 @@ IS2Game >> move: aPlayer tiles: aNumberOfTiles [
 
 	| newPosition |
 
-	newPosition := self
-		positionFor: (self positionOf: aPlayer)
-		whenMoving: aNumberOfTiles.
+	newPosition := self positionFor: ( self positionOf: aPlayer ) whenMoving: aNumberOfTiles.
 
 	self addPosition: newPosition
 ]
@@ -106,17 +108,14 @@ IS2Game >> playCard: aCard for: aPlayer [
 { #category : #playing }
 IS2Game >> playCard: aCard for: aPlayer over: aTargetPlayer [
 
-	self
-		playPermanent: aCard
-		by: aPlayer
-		over: (AffectSpecificPlayer targeting: aTargetPlayer)
+	self playPermanent: aCard by: aPlayer over: ( AffectSpecificPlayer targeting: aTargetPlayer )
 ]
 
 { #category : #playing }
 IS2Game >> playPermanent: aCard by: aPlayer over: target [
 
 	status assertCanPlayPermanentCard: aPlayer.
-	permanentEffects add: (aCard effectAffecting: target)
+	permanentEffects add: ( aCard effectAffecting: target )
 ]
 
 { #category : #accessing }
@@ -131,13 +130,16 @@ IS2Game >> positionFor: aPlayerPosition whenMoving: aNumberOfTiles [
 	| totalMoves |
 
 	totalMoves := aPlayerPosition lap * board length + aPlayerPosition tileNumber - 1 + aNumberOfTiles.
-	^ PlayerPosition of: aPlayerPosition player onLap: totalMoves // board length tileNumber: totalMoves \\ board length + 1
+	^ PlayerPosition
+		of: aPlayerPosition player
+		onLap: totalMoves // board length
+		tileNumber: totalMoves \\ board length + 1
 ]
 
 { #category : #accessing }
 IS2Game >> positionOf: aPlayer [
 
-	^ (self historyFor: aPlayer) last
+	^ ( self historyFor: aPlayer ) last
 ]
 
 { #category : #playing }
@@ -148,7 +150,7 @@ IS2Game >> rollDiceFor: aPlayer [
 	status assertCanRollDice: aPlayer.
 	roll := self adjustedRollFor: aPlayer whenRolled: dice roll.
 	self move: aPlayer tiles: roll.
-	self applyTileEfectOn: (self positionOf: aPlayer).
+	self applyTileEfectOn: ( self positionOf: aPlayer ).
 	status := status currentOf: playerTurn next
 ]
 

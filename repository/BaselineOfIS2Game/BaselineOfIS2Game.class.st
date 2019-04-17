@@ -8,11 +8,7 @@ Class {
 BaselineOfIS2Game >> baseline: spec [
 
 	<baseline>
-	spec
-		baseline: 'Buoy'
-		with: [ spec
-				repository: 'github://ba-st/Buoy:v5/source';
-				loads: #('Deployment') ].
+	self setUpDependencies: spec.
 	spec
 		for: #common
 		do: [ spec
@@ -21,5 +17,17 @@ BaselineOfIS2Game >> baseline: spec [
 			spec
 				group: 'Deployment' with: #('IS2Game-Core');
 				group: 'Development' with: #('IS2Game-Tests');
-				group: 'default' with: #('Deployment') ]
+				group: 'default' with: #('Deployment')
+			]
+]
+
+{ #category : #baselines }
+BaselineOfIS2Game >> setUpDependencies: spec [
+
+	spec
+		baseline: 'Buoy'
+		with: [ spec
+				repository: 'github://ba-st/Buoy:v5/source';
+				loads: #('Deployment')
+			]
 ]

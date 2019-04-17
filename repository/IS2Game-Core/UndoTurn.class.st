@@ -10,7 +10,10 @@ Class {
 { #category : #'instance creation' }
 UndoTurn class >> goingBack: aNumberOfTurns [
 
-	AssertionChecker enforce: [ aNumberOfTurns >= 0 ] because: 'Can not undo a negative player of turns' raising: InstanceCreationFailed.
+	AssertionChecker
+		enforce: [ aNumberOfTurns positive ]
+		because: 'Can not undo a negative player of turns'
+		raising: InstanceCreationFailed.
 	^ self new initializeGoingBack: aNumberOfTurns
 ]
 
@@ -28,10 +31,10 @@ UndoTurn >> affectTurnOf: aPlayer on: aGame [
 	previousTurnPosition := self positionOf: aPlayer toGoBackOn: aGame.
 	aGame
 		addPosition:
-			(PlayerPosition
+			( PlayerPosition
 				of: aPlayer
 				onLap: previousTurnPosition lap
-				tileNumber: previousTurnPosition tileNumber)
+				tileNumber: previousTurnPosition tileNumber )
 ]
 
 { #category : #initialization }
@@ -51,20 +54,20 @@ UndoTurn >> positionOf: aPlayer toGoBackOn: aGame [
 	| history |
 
 	history := aGame historyFor: aPlayer.
-	^ history size > (2 + turns)
-		ifTrue: [ (history allButLast: 2 + turns) last ]
+	^ history size > ( 2 + turns )
+		ifTrue: [ ( history allButLast: 2 + turns ) last ]
 		ifFalse: [ history first ]
 ]
 
 { #category : #printing }
 UndoTurn >> printOn: aStream [
 
-	aStream
-		nextPutAll:
-			('Go back <1p> turn<2s>'
-				expandMacrosWith: turns
-				with:
-					(turns = 1
-						ifTrue: [ '' ]
-						ifFalse: [ 's' ]))
+	| pluralizedTurns |
+
+	pluralizedTurns := turns = 1
+		ifTrue: [ 'turn' ]
+		ifFalse: [ 'turns' ].
+
+	aStream nextPutAll:
+		( 'Go back <1p> <2s>' expandMacrosWith: turns with: pluralizedTurns )
 ]

@@ -50,6 +50,6 @@ TileTest >> testPrintOn [
 
 	effect := Effect speedUp.
 	self
-		assert: (Tile withEffect: effect) printString
-		equals: ('Tile <1p>' expandMacrosWith: effect)
+		assert: ( Tile withEffect: effect ) printString
+		equals: ( 'Tile <1p>' expandMacrosWith: effect )
 ]

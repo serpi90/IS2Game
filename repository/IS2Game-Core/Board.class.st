@@ -12,20 +12,25 @@ Board class >> assertAddTo100Percent: tileProbabilities [
 
 	| totalProbability |
 
-	totalProbability := Percentage ratio: (tileProbabilities sumNumbers: [ :definition | definition probability ]).
+	totalProbability := Percentage
+		ratio: ( tileProbabilities sumNumbers: [ :definition | definition key ] ).
 	AssertionChecker
 		enforce: [ totalProbability = 100 percent ]
-		because: ('Effect probabilities must add to <1p> they add to <2p>' expandMacrosWith: 100 percent with: totalProbability)
+		because:
+			( 'Effect probabilities must add to <1p> they add to <2p>'
+				expandMacrosWith: 100 percent
+				with: totalProbability )
 		raising: InstanceCreationFailed
 ]
 
 { #category : #private }
 Board class >> effectFrom: accumulatedProbabilityTable given: observedValue [
 
-	| accumulatedProbabilities |
+	| bucket |
 
-	accumulatedProbabilities := accumulatedProbabilityTable keys sorted.
-	^ accumulatedProbabilityTable at: (accumulatedProbabilities detect: [ :accumulatedProbability | accumulatedProbability > observedValue ])
+	bucket := accumulatedProbabilityTable keys
+		detect: [ :accumulatedProbability | accumulatedProbability > observedValue ].
+	^ ( accumulatedProbabilityTable at: bucket ) value
 ]
 
 { #category : #'instance creation' }
@@ -34,18 +39,13 @@ Board class >> ofSize: aBoardSize withTilesDefinedBy: theEffectProbabilities sou
 	| accumulatedProbabilityTable |
 
 	self assertAddTo100Percent: theEffectProbabilities.
-	accumulatedProbabilityTable := self
-		probabilityTableFrom: theEffectProbabilities.
+	accumulatedProbabilityTable := self probabilityTableFrom: theEffectProbabilities.
 
 	^ self
 		withTiles:
-			((1 to: aBoardSize)
-				collect: [ :n | 
-					Tile
-						withEffect:
-							(self
-								effectFrom: accumulatedProbabilityTable
-								given: aNumberProvider next) ])
+			( ( 1 to: aBoardSize )
+				collect:
+					[ :n | Tile withEffect: ( self effectFrom: accumulatedProbabilityTable given: aNumberProvider next ) ] )
 ]
 
 { #category : #private }
@@ -53,19 +53,23 @@ Board class >> probabilityTableFrom: effectProbabilities [
 
 	| probabilityTable |
 
-	probabilityTable := Dictionary new.
+	probabilityTable := OrderedDictionary new.
 	effectProbabilities
 		inject: 0 percent
 		into: [ :accumulatedProbability :effectProbability | 
-			probabilityTable at: accumulatedProbability + effectProbability probability put: effectProbability effect.
-			accumulatedProbability + effectProbability probability ].
+			probabilityTable at: accumulatedProbability + effectProbability key put: effectProbability value.
+			accumulatedProbability + effectProbability key
+			].
 	^ probabilityTable
 ]
 
 { #category : #'instance creation' }
 Board class >> withTiles: aTileCollection [
 
-	AssertionChecker enforce: [ aTileCollection notEmpty ] because: 'A Board has at least one tile' raising: InstanceCreationFailed.
+	AssertionChecker
+		enforce: [ aTileCollection notEmpty ]
+		because: 'A Board has at least one tile'
+		raising: InstanceCreationFailed.
 	^ self new initializeWithTiles: aTileCollection
 ]
 

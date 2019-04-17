@@ -22,7 +22,7 @@ DiceSet >> initializeWithAll: aCollectionOfDice [
 { #category : #printing }
 DiceSet >> printOn: aStream [
 
-	( ( dice groupedBy: [ :die | die sides ] ) associations sorted: #key descending )
+	( ( dice groupedBy: #sides ) associations sorted: #key descending )
 		do: [ :sidesToDice | 
 			aStream
 				print: sidesToDice value size;
@@ -35,5 +35,5 @@ DiceSet >> printOn: aStream [
 { #category : #rolling }
 DiceSet >> roll [
 
-	^ dice sumNumbers: [ :die | die roll ]
+	^ dice sumNumbers: #roll
 ]
