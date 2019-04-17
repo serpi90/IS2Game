@@ -7,60 +7,48 @@ Class {
 	#category : 'IS2Game-Core-Board'
 }
 
-{ #category : #preconditions }
-Board class >> assertAddTo100Percent: tileProbabilities [
+{ #category : #'instance creation' }
+Board class >> accumulatedProbabilityTableFor: theEffectProbabilities [
 
-	| totalProbability |
+	| table total |
 
-	totalProbability := Percentage
-		ratio: ( tileProbabilities sumNumbers: [ :definition | definition key ] ).
+	table := OrderedDictionary new.
+	theEffectProbabilities
+		inject: 0 percent
+		into: [ :accumulatedProbability :each | 
+			| probability effectProvider |
+
+			probability := each key.
+			effectProvider := each value.
+			table at: accumulatedProbability + probability put: effectProvider.
+			accumulatedProbability + probability
+			].
+
+	total := table keys last.
 	AssertionChecker
-		enforce: [ totalProbability = 100 percent ]
+		enforce: [ total = 100 percent ]
 		because:
-			( 'Effect probabilities must add to <1p> they add to <2p>'
-				expandMacrosWith: 100 percent
-				with: totalProbability )
-		raising: InstanceCreationFailed
-]
-
-{ #category : #private }
-Board class >> effectFrom: accumulatedProbabilityTable given: observedValue [
-
-	| bucket |
-
-	bucket := accumulatedProbabilityTable keys
-		detect: [ :accumulatedProbability | accumulatedProbability > observedValue ].
-	^ ( accumulatedProbabilityTable at: bucket ) value
+			( 'Effect probabilities must add to <1p> they add to <2p>' expandMacrosWith: 100 percent with: total )
+		raising: InstanceCreationFailed.
+	^ table
 ]
 
 { #category : #'instance creation' }
 Board class >> ofSize: aBoardSize withTilesDefinedBy: theEffectProbabilities source: aNumberProvider [
 
-	| accumulatedProbabilityTable |
+	| table tiles |
 
-	self assertAddTo100Percent: theEffectProbabilities.
-	accumulatedProbabilityTable := self probabilityTableFrom: theEffectProbabilities.
+	table := self accumulatedProbabilityTableFor: theEffectProbabilities.
+	tiles := ( 1 to: aBoardSize )
+		collect: [ :n | 
+			| bucket observedValue effectProvider |
 
-	^ self
-		withTiles:
-			( ( 1 to: aBoardSize )
-				collect:
-					[ :n | Tile withEffect: ( self effectFrom: accumulatedProbabilityTable given: aNumberProvider next ) ] )
-]
-
-{ #category : #private }
-Board class >> probabilityTableFrom: effectProbabilities [
-
-	| probabilityTable |
-
-	probabilityTable := OrderedDictionary new.
-	effectProbabilities
-		inject: 0 percent
-		into: [ :accumulatedProbability :effectProbability | 
-			probabilityTable at: accumulatedProbability + effectProbability key put: effectProbability value.
-			accumulatedProbability + effectProbability key
+			observedValue := aNumberProvider next.
+			bucket := table keys detect: [ :accumulatedProbability | accumulatedProbability > observedValue ].
+			effectProvider := table at: bucket.
+			Tile withEffect: effectProvider value
 			].
-	^ probabilityTable
+	^ self withTiles: tiles
 ]
 
 { #category : #'instance creation' }
