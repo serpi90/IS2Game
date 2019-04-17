@@ -32,7 +32,7 @@ GameTest >> gameWithTiles: tiles rolling: diceRolls for: players [
 	^ IS2Game
 		withBoard: ( Board withTiles: tiles )
 		laps: 3
-		dice: ( Dice withSides: 6 source: ( SequentialGenerator generating: diceRolls ) )
+		dice: ( Die withSides: 6 source: ( SequentialGenerator generating: diceRolls ) )
 		for: players
 ]
 
@@ -125,7 +125,7 @@ GameTest >> testGameMustHaveAtLeastOneLap [
 		should: [ IS2Game
 				withBoard: ( Board withTiles: ( self emptyTiles: 3 ) )
 				laps: 0
-				dice: ( Dice withSides: 6 )
+				dice: ( Die withSides: 6 )
 				for: {bob}
 			]
 		raise: InstanceCreationFailed
@@ -139,7 +139,7 @@ GameTest >> testGameMustHaveAtLeastOnePlayer [
 		should: [ IS2Game
 				withBoard: ( Board withTiles: ( self emptyTiles: 3 ) )
 				laps: 1
-				dice: ( Dice withSides: 6 )
+				dice: ( Die withSides: 6 )
 				for: #()
 			]
 		raise: InstanceCreationFailed
@@ -383,7 +383,7 @@ GameTest >> testPlayingAfterWinningIsNotAllowed [
 	game := IS2Game
 		withBoard: ( Board withTiles: ( self emptyTiles: 3 ) )
 		laps: 1
-		dice: ( Dice withSides: 6 source: ( SequentialGenerator generating: #(4) ) )
+		dice: ( Die withSides: 6 source: ( SequentialGenerator generating: #(4) ) )
 		for: players.
 	self deny: game hasEnded.
 	game rollDiceFor: bob.
@@ -417,7 +417,7 @@ GameTest >> testPlayingUntilWinning [
 	game := IS2Game
 		withBoard: ( Board withTiles: ( self emptyTiles: 5 ) )
 		laps: 3
-		dice: ( Dice withSides: 6 source: ( SequentialGenerator generating: #(1 2 3 4) ) )
+		dice: ( Die withSides: 6 source: ( SequentialGenerator generating: #(1 2 3 4) ) )
 		for: ( Array with: bob with: mary ).
 	self deny: game hasEnded.
 	self assert: ( game positionOf: bob ) lap equals: 0.
@@ -457,7 +457,7 @@ GameTest >> testPositionForBorderCaseWithBoardLengthedOne [
 	game := IS2Game
 		withBoard: ( Board withTiles: {Tile withoutEffect} )
 		laps: 5
-		dice: ( Dice withSides: 6 )
+		dice: ( Die withSides: 6 )
 		for: {bob}.
 
 	position := PlayerPosition startingOf: bob.
@@ -478,7 +478,7 @@ GameTest >> testPositionForWhenChangingLap [
 	game := IS2Game
 		withBoard: ( Board withTiles: ( self emptyTiles: 10 ) )
 		laps: 5
-		dice: ( Dice withSides: 6 )
+		dice: ( Die withSides: 6 )
 		for: {bob}.
 	position := PlayerPosition of: bob onLap: 0 tileNumber: 10.
 	newPosition := game positionFor: position whenMoving: 1.
@@ -516,7 +516,7 @@ GameTest >> testPositionForWhenMoving [
 	game := IS2Game
 		withBoard: ( Board withTiles: ( self emptyTiles: 5 ) )
 		laps: 3
-		dice: ( Dice withSides: 6 )
+		dice: ( Die withSides: 6 )
 		for: {bob}.
 	position := PlayerPosition startingOf: bob.
 	newPosition := game positionFor: position whenMoving: 2.
@@ -544,7 +544,7 @@ GameTest >> testPositionForWhenNotChangingLap [
 	game := IS2Game
 		withBoard: ( Board withTiles: ( self emptyTiles: 10 ) )
 		laps: 5
-		dice: ( Dice withSides: 6 )
+		dice: ( Die withSides: 6 )
 		for: {player}.
 	position := PlayerPosition startingOf: player.
 	newPosition := game positionFor: position whenMoving: 1.
