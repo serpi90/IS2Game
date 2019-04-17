@@ -43,6 +43,77 @@ GameTest >> setUp [
 	mary := 'Mary'
 ]
 
+{ #category : #'tests - cards' }
+GameTest >> testAccelerationCardAffectsAllPlayersAffectedPlayer [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
+	game playCard: PermanentCard acceleration for: bob.
+	game rollDiceFor: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 1(roll) + 1(acceleration)"
+	game rollDiceFor: mary.
+	self assert: ( game positionOf: mary ) tileNumber equals: 3	"1(current) + 1(roll) + 1(acceleration)"
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testAccelerationCardAffectsTheThrowBeforeApplyingTileEffect [
+
+	| game tiles |
+
+	tiles := self emptyTiles: 10.
+	tiles at: 3 put: ( Tile withEffect: Effect speedUp ).
+	game := self gameWithTiles: tiles rolling: #(1) for: {bob}.
+	game playCard: PermanentCard acceleration for: bob over: bob.
+	game rollDiceFor: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 7.	"1(current) + 1(roll) + 1(acceleration) + 4(SpeedUp)"
+	game rollDiceFor: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 9	"7(current) + 1(roll) + 1(acceleration)"
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testAccelerationCardCanNotBeUsedOverAPlayer [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
+	self
+		should: [ game playCard: PermanentCard acceleration for: bob over: mary ]
+		raise: AssertionFailed
+		withExceptionDo: [ :signal | 
+			self
+				assert: signal messageText
+				equals: 'Acceleration is a global card, can not be played over a player.'
+			]
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testAccelerationCardMakesThePlayerAdvance1MoreThanRolled [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: {bob}.
+	game playCard: PermanentCard acceleration for: bob.
+	game rollDiceFor: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 1(roll) + 1(acceleration)"
+	game rollDiceFor: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 5	"3(current) + 1(roll) + 1(acceleration)"
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testAccelerationCardTiwceMakesThePlayerAdvance2MoreThanRolled [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: {bob}.
+	game playCard: PermanentCard acceleration for: bob.
+	game playCard: PermanentCard acceleration for: bob.
+	game rollDiceFor: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 4.	"1(current) + 1(roll) + 1(acceleration) + 1(acceleration)"
+	game rollDiceFor: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 7	"4(current) + 1(roll) + 1(acceleration) + 1(acceleration)"
+]
+
 { #category : #tests }
 GameTest >> testAskingForWinnerWhenGameHasNotEndedShouldFail [
 
@@ -126,6 +197,22 @@ GameTest >> testOverloadCardCanBeUsedOnSelf [
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 10.	"1(current) + 1(roll) - 2(overload) = -1 -> last of board of 10, so 10"
 	self assert: ( game positionOf: bob ) lap equals: -1
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testOverloadCardCanNotBeUsedGlobally [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
+	self
+		should: [ game playCard: PermanentCard overload for: bob ]
+		raise: AssertionFailed
+		withExceptionDo: [ :signal | 
+			self
+				assert: signal messageText
+				equals: 'Overload is a targeted card, can not be played over everybody.'
+			]
 ]
 
 { #category : #'tests - cards' }
@@ -542,6 +629,22 @@ GameTest >> testSpeedCardCanBeUsedOnAnotherPlayer [
 	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"2(current) + 1(roll)"
 	game rollDiceFor: mary.
 	self assert: ( game positionOf: mary ) tileNumber equals: 5	"3(current) + 1(roll) + 1(speed)"
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testSpeedCardCanNotBeUsedGlobally [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
+	self
+		should: [ game playCard: PermanentCard speed for: bob ]
+		raise: AssertionFailed
+		withExceptionDo: [ :signal | 
+			self
+				assert: signal messageText
+				equals: 'Speed is a targeted card, can not be played over everybody.'
+			]
 ]
 
 { #category : #'tests - cards' }

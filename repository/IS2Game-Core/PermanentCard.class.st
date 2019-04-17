@@ -8,6 +8,12 @@ Class {
 	#category : 'IS2Game-Core-Board'
 }
 
+{ #category : #'well known cards' }
+PermanentCard class >> acceleration [
+
+	^ self named: 'Acceleration' doing: ( ModifyRoll increaseBy: 1 )
+]
+
 { #category : #'instance creation' }
 PermanentCard class >> named: aName doing: anAction [
 
