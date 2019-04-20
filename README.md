@@ -31,7 +31,7 @@ The board has N tiles in sequence. The amount of dice, the number faces of those
 - You can know the position in the board of any player during the game and when the game finished.
 - You can know the ranking (1st, 2nd, 3rd, etc.) of any player during the game and when the game finished.
 
-## Versión 2
+## Version 2
 
 The board is now circular, after crossing the finish line, you get back to the first tile.
 The winner is the first one to do X laps around the board.
@@ -106,6 +106,15 @@ There are 2 card types, instant and permanent. This affects when they can be use
 
 ### Cards
 
+| Card         | Type        | Effect                          |
+| :----------- | ----------: | :------------------------------ |
+| Overload     | Permanent   | Player roll - 2                 |
+| Speed        | Permanent   | Player roll + 1                 |
+| Acceleration | Permanent   | Everybody rolls + 1             |
+| Cancellation | Instant     | Remove an active permanent card |
+| Redo         | Instant     | Same effect as last card played |
+| Repeat       | Mixed       | Apply the last tile efect again |
+
 - Overload: Permanent card that reduces the total roll of a player of choice by 2.
   - It affects the total roll, not each individual die.
   - If the result is negative, go back.
@@ -120,12 +129,12 @@ There are 2 card types, instant and permanent. This affects when they can be use
   - The effect is cumulative.
 
 - Cancellation: Instant card that removes an active permanent card from the game.
-  - The letter is chosen, it is not random.
+  - The card is chosen, it is not random.
   - You can not play if there are no permanent cards in effect.
 
-- Redo: Card that has the same effect as the last letter that was played.
-  - If the last letter is instantaneous, it acts as an instant card.
-  - If the last letter is permanent, it acts as permanent card.
+- Redo: Card that has the same effect as the last card that was played.
+  - If the last card is instantant, it acts as an instant card.
+  - If the last card is permanent, it acts as permanent card.
   - If the card indicates that a player or card must be chosen, it does not have to be the same.
 
 - Repeat: Instant Card reapplies the effect of the last tile on which a player fell after rolling the dice.

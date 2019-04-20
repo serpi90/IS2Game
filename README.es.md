@@ -106,6 +106,15 @@ Hay 2 tipos de cartas, instantaneas y permanentes. Esto afecta cuando pueden uti
 
 ### Cartas
 
+| Carta       | Tipo        | Efecto                                           |
+| :---------- | ----------: | :----------------------------------------------- |
+| Sobrecarga  | Permanente  | Tirada de 1 jugador - 2                          |
+| Velocidad   | Permanente  | Tirada de 1 jugador + 1                          |
+| Aceleración | Permanente  | Tirada de todos + 1                              |
+| Cancelación | Instantánea | Remueve una carta permanente activa              |
+| Rehacer     | Instantánea | Mismo efecto que la última carta jugada          |
+| Repetir     | Mixed       | Aplica nuevamente el efecto del último casillero |
+
 - Sobrecarga: Carta permanente que reduce en 2 la tirada total de un jugador a elección.
   - Afecta la tirada total, no cada dado individual.
   - Si el resultado es negativo, retrocede.
@@ -115,11 +124,11 @@ Hay 2 tipos de cartas, instantaneas y permanentes. Esto afecta cuando pueden uti
   - Afecta la tirada total, no cada dado individual.
   - El efecto es acumulativo.
 
-- Aceleracion: Carta permanente que incrementa en 1 la tirada total de todos los jugadores.
+- Aceleración: Carta permanente que incrementa en 1 la tirada total de todos los jugadores.
   - Afecta la tirada total, no cada dado individual.
   - El efecto es acumulativo.
 
-- Cancelacion: Carta Instantánea que remueve del juego una carta permanente activa.
+- Cancelación: Carta Instantánea que remueve del juego una carta permanente activa.
   - La carta se elige, no es al azar.
   - No se puede jugar si no hay cartas permanentes en efecto.
 
@@ -137,7 +146,7 @@ Hay 2 tipos de cartas, instantaneas y permanentes. Esto afecta cuando pueden uti
 - Todo lo indicado para las versiones 1 y 2.
 - Implementada carta Sobrecarga.
 - Implementada carta Velocidad.
-- Implementada carta Aceleracion.
-- Implementada carta Cancelacion.
+- Implementada carta Aceleración.
+- Implementada carta Cancelación.
 - Implementada carta Rehacer.
 - Implementada carta Repetir.
