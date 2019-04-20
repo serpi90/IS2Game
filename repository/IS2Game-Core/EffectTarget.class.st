@@ -4,6 +4,12 @@ Class {
 	#category : 'IS2Game-Core-Effect'
 }
 
+{ #category : #visitor }
+EffectTarget >> accept: aVisitor [
+
+	self subclassResponsibility
+]
+
 { #category : #testing }
 EffectTarget >> appliesTo: aPlayer on: aGame [
 
