@@ -1,46 +1,29 @@
 Class {
 	#name : #PermanentCard,
 	#superclass : #Object,
-	#instVars : [
-		'name',
-		'action'
-	],
-	#category : 'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Board'
 }
 
-{ #category : #'well known cards' }
-PermanentCard class >> cushioning [
+{ #category : #visitor }
+PermanentCard >> acceptAffectEveryone: anAffectEveryone [
 
-	^ self named: 'Softening' doing: (MultiplyEffect by: 1 / 2)
+	
 ]
 
-{ #category : #'instance creation' }
-PermanentCard class >> named: aName doing: anAction [
+{ #category : #visitor }
+PermanentCard >> acceptAffectSpecificPlayer: anAffectSpecificPlayer [
 
-	^ self new initializeNamed: aName doing: anAction
+	
 ]
 
-{ #category : #'well known cards' }
-PermanentCard class >> overload [
+{ #category : #affecting }
+PermanentCard >> assertValidTarget: aTarget [
 
-	^ self named: 'Overload' doing: (ModifyRoll decreaseBy: 2)
-]
-
-{ #category : #'well known cards' }
-PermanentCard class >> speed [
-
-	^ self named: 'Speed' doing: (ModifyRoll increaseBy: 1)
+	aTarget accept: self
 ]
 
 { #category : #affecting }
 PermanentCard >> effectAffecting: aTarget [
 
-	^ Effect named: name affecting: aTarget doing: action
-]
-
-{ #category : #initialization }
-PermanentCard >> initializeNamed: aName doing: anAction [
-
-	name := aName.
-	action := anAction
+	^ self subclassResponsibility
 ]

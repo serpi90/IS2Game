@@ -16,7 +16,10 @@ MovePlayer class >> goingBack: aNumberOfTiles [
 { #category : #'instance creation' }
 MovePlayer class >> movingForward: aNumberOfTiles [
 
-	AssertionChecker enforce: [ aNumberOfTiles ~= 0 ] because: 'Move effect can not be 0' raising: InstanceCreationFailed.
+	AssertionChecker
+		refuse: [ aNumberOfTiles isZero ]
+		because: 'Move effect can not be 0'
+		raising: InstanceCreationFailed.
 	^ self new initializeMovingForward: aNumberOfTiles
 ]
 
@@ -35,14 +38,14 @@ MovePlayer >> initializeMovingForward: aNumberOfTiles [
 { #category : #printing }
 MovePlayer >> printOn: aStream [
 
-	aStream
-		nextPutAll:
-			((tilesToMove positive
-				ifTrue: [ 'Move forward <1p> tile<2s>' ]
-				ifFalse: [ 'Go back <1p> tile<2s>' ])
-				expandMacrosWith: tilesToMove abs
-				with:
-					(tilesToMove abs = 1
-						ifTrue: [ '' ]
-						ifFalse: [ 's' ]))
+	| message pluralizedTiles |
+
+	message := tilesToMove positive
+		ifTrue: [ 'Move forward <1p> <2s>' ]
+		ifFalse: [ 'Go back <1p> <2s>' ].
+	pluralizedTiles := tilesToMove abs = 1
+		ifTrue: [ 'tile' ]
+		ifFalse: [ 'tiles' ].
+
+	aStream nextPutAll: ( message expandMacrosWith: tilesToMove abs with: pluralizedTiles )
 ]

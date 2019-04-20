@@ -36,3 +36,11 @@ ModifyRoll >> initializeModifyingRollBy: anInteger [
 
 	change := anInteger
 ]
+
+{ #category : #printing }
+ModifyRoll >> printOn: aStream [
+
+	aStream
+		nextPutAll: 'Modify roll by: ';
+		print: change
+]

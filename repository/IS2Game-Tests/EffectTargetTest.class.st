@@ -37,7 +37,13 @@ EffectTargetTest >> move: aPlayer tiles: aNumberOfTiles [
 	| position |
 
 	position := playerPositions at: aPlayer.
-	playerPositions at: aPlayer put: (PlayerPosition of: position player onLap: position lap tileNumber: position tileNumber + aNumberOfTiles)
+	playerPositions
+		at: aPlayer
+		put:
+			( PlayerPosition
+				of: position player
+				onLap: position lap
+				tileNumber: position tileNumber + aNumberOfTiles )
 ]
 
 { #category : #mocking }
@@ -59,9 +65,10 @@ EffectTargetTest >> setUp [
 	currentPlayer := 'Player 1'.
 	anotherPlayer := 'Player 2'.
 	yetAnotherPlayer := 'Player 3'.
-	playerPositions := ({currentPlayer.
+	playerPositions := ( {currentPlayer.
 	anotherPlayer.
-	yetAnotherPlayer} collect: [ :player | player -> (PlayerPosition startingOf: player) ]) asDictionary
+	yetAnotherPlayer} collect: [ :player | player -> ( PlayerPosition startingOf: player ) ] )
+		asDictionary
 ]
 
 { #category : #tests }
@@ -70,9 +77,9 @@ EffectTargetTest >> testAffectCurrentPlayer [
 	| target |
 
 	target := AffectCurrentPlayer new.
-	self assert: (target appliesTo: currentPlayer on: self).
-	self deny: (target appliesTo: anotherPlayer on: self).
-	self deny: (target appliesTo: yetAnotherPlayer on: self).
+	self assert: ( target appliesTo: currentPlayer on: self ).
+	self deny: ( target appliesTo: anotherPlayer on: self ).
+	self deny: ( target appliesTo: yetAnotherPlayer on: self ).
 
 	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
 	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
@@ -89,9 +96,9 @@ EffectTargetTest >> testAffectEveryone [
 	| target |
 
 	target := AffectEveryone new.
-	self assert: (target appliesTo: currentPlayer on: self).
-	self assert: (target appliesTo: anotherPlayer on: self).
-	self assert: (target appliesTo: yetAnotherPlayer on: self).
+	self assert: ( target appliesTo: currentPlayer on: self ).
+	self assert: ( target appliesTo: anotherPlayer on: self ).
+	self assert: ( target appliesTo: yetAnotherPlayer on: self ).
 
 	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
 	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
@@ -109,9 +116,9 @@ EffectTargetTest >> testAffectEveryoneElse [
 	| target |
 
 	target := AffectEveryoneElse new.
-	self deny: (target appliesTo: currentPlayer on: self).
-	self assert: (target appliesTo: anotherPlayer on: self).
-	self assert: (target appliesTo: yetAnotherPlayer on: self).
+	self deny: ( target appliesTo: currentPlayer on: self ).
+	self assert: ( target appliesTo: anotherPlayer on: self ).
+	self assert: ( target appliesTo: yetAnotherPlayer on: self ).
 
 	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
 	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.
@@ -128,9 +135,9 @@ EffectTargetTest >> testAffectSpecificPlayer [
 	| target |
 
 	target := AffectSpecificPlayer targeting: anotherPlayer.
-	self deny: (target appliesTo: currentPlayer on: self).
-	self assert: (target appliesTo: anotherPlayer on: self).
-	self deny: (target appliesTo: yetAnotherPlayer on: self).
+	self deny: ( target appliesTo: currentPlayer on: self ).
+	self assert: ( target appliesTo: anotherPlayer on: self ).
+	self deny: ( target appliesTo: yetAnotherPlayer on: self ).
 
 	self assert: currentPlayer isOnLap: 0 tileNumber: 1.
 	self assert: anotherPlayer isOnLap: 0 tileNumber: 1.

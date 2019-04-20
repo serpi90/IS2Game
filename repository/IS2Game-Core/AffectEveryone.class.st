@@ -4,6 +4,12 @@ Class {
 	#category : 'IS2Game-Core-Effect'
 }
 
+{ #category : #visitor }
+AffectEveryone >> accept: aVisitor [
+
+	^ aVisitor acceptAffectEveryone: self
+]
+
 { #category : #testing }
 AffectEveryone >> appliesTo: aPlayer on: aGame [
 

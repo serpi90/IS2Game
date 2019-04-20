@@ -35,11 +35,11 @@ TileTest >> testEffect [
 	self assert: tileWithEffect effect equals: effect.
 
 	moved := false.
-	tileWithEffect effect affectTurnOf: mockPosition player in: self considering: #().
+	tileWithEffect effect affectTurnOf: mockPosition player in: self.
 	self assert: moved.
 
 	moved := false.
-	tileWithoutEffect effect affectTurnOf: mockPosition player in: self considering: #().
+	tileWithoutEffect effect affectTurnOf: mockPosition player in: self.
 	self deny: moved
 ]
 
@@ -50,6 +50,6 @@ TileTest >> testPrintOn [
 
 	effect := Effect speedUp.
 	self
-		assert: (Tile withEffect: effect) printString
-		equals: ('Tile <1p>' expandMacrosWith: effect)
+		assert: ( Tile withEffect: effect ) printString
+		equals: ( 'Tile <1p>' expandMacrosWith: effect )
 ]

@@ -13,6 +13,12 @@ AffectSpecificPlayer class >> targeting: aPlayer [
 	^ self new initializeTargeting: aPlayer
 ]
 
+{ #category : #visitor }
+AffectSpecificPlayer >> accept: aVisitor [
+
+	^ aVisitor acceptAffectSpecificPlayer: self
+]
+
 { #category : #testing }
 AffectSpecificPlayer >> appliesTo: aPlayer on: aGame [
 

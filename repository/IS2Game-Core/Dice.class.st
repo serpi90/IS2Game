@@ -2,48 +2,38 @@ Class {
 	#name : #Dice,
 	#superclass : #Object,
 	#instVars : [
-		'sides',
-		'source'
+		'dice'
 	],
-	#category : 'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Board'
 }
 
 { #category : #'instance creation' }
-Dice class >> withSides: anInteger [
+Dice class >> withAll: aCollectionOfDie [
 
-	^ self withSides: anInteger source: Random new
-]
-
-{ #category : #'instance creation' }
-Dice class >> withSides: anInteger source: aNumberSource [
-
-	AssertionChecker enforce: [ anInteger >= 2 ] because: 'A dice must at least have 2 sides' raising: InstanceCreationFailed.
-	^ self new initializeWithSides: anInteger source: aNumberSource
+	^ self new initializeWithAll: aCollectionOfDie
 ]
 
 { #category : #initialization }
-Dice >> initializeWithSides: anInteger source: aNumberSource [
+Dice >> initializeWithAll: aCollectionOfDie [
 
-	sides := anInteger.
-	source := aNumberSource
+	dice := aCollectionOfDie
 ]
 
 { #category : #printing }
 Dice >> printOn: aStream [
 
-	aStream
-		nextPutAll: '1d';
-		print: sides
+	( ( dice groupedBy: #sides ) associations sorted: #key descending )
+		do: [ :sidesToDice | 
+			aStream
+				print: sidesToDice value size;
+				nextPut: $d;
+				print: sidesToDice key
+			]
+		separatedBy: [ aStream space ]
 ]
 
 { #category : #rolling }
 Dice >> roll [
 
-	^ source nextInt: sides
-]
-
-{ #category : #accessing }
-Dice >> sides [
-
-	^ sides
+	^ dice sumNumbers: #roll
 ]
