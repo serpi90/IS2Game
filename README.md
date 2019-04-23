@@ -46,7 +46,7 @@ Each tile has probability of bein placed on the board upon generation.
 | Tile         | Effect                                     | Probability |
 | :----------- | :----------------------------------------- | ----------: |
 | Atomic Bomb  | Everybody goes back to the beginning       |          2% |
-| Empty        | None                                       |         45% |
+| Empty        | None                                       |         55% |
 | Moonwalk     | Everybody else goes back N tiles           |          5% |
 | Speed up     | Advance 4 tiles                            |         15% |
 | Time machine | Player goes back to previous turn position |          8% |
