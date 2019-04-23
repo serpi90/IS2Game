@@ -111,8 +111,8 @@ Hay 2 tipos de cartas, instantaneas y permanentes. Esto afecta cuando pueden uti
 | Velocidad   | Permanente  | Tirada de 1 jugador + 1                          |
 | Aceleración | Permanente  | Tirada de todos + 1                              |
 | Cancelación | Instantánea | Remueve una carta permanente activa              |
-| Rehacer     | Instantánea | Mismo efecto que la última carta jugada          |
-| Repetir     | Mixed       | Aplica nuevamente el efecto del último casillero |
+| Rehacer     | Mixta       | Mismo efecto que la última carta jugada          |
+| Repetir     | Instantánea | Aplica nuevamente el efecto del último casillero |
 
 - Sobrecarga: Carta permanente que reduce en 2 la tirada total de un jugador a elección.
   - Afecta la tirada total, no cada dado individual.

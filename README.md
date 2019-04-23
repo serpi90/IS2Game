@@ -111,8 +111,8 @@ There are 2 card types, instant and permanent. This affects when they can be use
 | Speed        | Permanent   | Player roll + 1                 |
 | Acceleration | Permanent   | Everybody rolls + 1             |
 | Cancellation | Instant     | Remove an active permanent card |
-| Redo         | Instant     | Same effect as last card played |
-| Repeat       | Mixed       | Apply the last tile efect again |
+| Redo         | Mixed       | Same effect as last card played |
+| Repeat       | Instant     | Apply the last tile efect again |
 
 - Overload: Permanent card that reduces the total roll of a player of choice by 2.
   - It affects the total roll, not each individual die.
