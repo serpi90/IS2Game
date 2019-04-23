@@ -24,7 +24,6 @@ The board has N tiles in sequence. The amount of dice, the number faces of those
 - Support N sided dice.
 - Support M dices with varying sizes.
 - Game supports more than one player.
-- Number of laps per game can be configured.
 - Turn order must be enforced.
 - You can tell if the game ended.
 - You can know who was the winner of the game.

@@ -24,7 +24,6 @@ El tablero tiene N casilleros en secuencia. La cantidad de dados, las caras de l
 - Dados de N caras.
 - Posibilidad de usar M dados, no necesariamente con la misma cantidad de caras.
 - El juego puede jugarse con más de un jugador.
-- La cantidad de casilleros del tablero puede variar de un juego a otro.
 - Se respeta el orden de turnos.
 - Se puede saber si terminó el juego.
 - Se puede sabre quien fue el ganador del juego.'
