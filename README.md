@@ -21,14 +21,14 @@ The board has N tiles in sequence. The amount of dice, the number faces of those
 
 ### Requirements for version 1
 
-- Support N sided dice.
-- Support M dices with varying sizes.
-- Game supports more than one player.
-- Turn order must be enforced.
-- You can tell if the game ended.
-- You can know who was the winner of the game.
-- You can know the position in the board of any player during the game and when the game finished.
-- You can know the ranking (1st, 2nd, 3rd, etc.) of any player during the game and when the game finished.
+- [x] Support N sided dice.
+- [x] Support M dices with varying sizes.
+- [x] Game supports more than one player.
+- [x] Turn order must be enforced.
+- [x] You can tell if the game ended.
+- [x] You can know who was the winner of the game.
+- [x] You can know the position in the board of any player during the game and when the game finished.
+- [x] You can know the ranking (1st, 2nd, 3rd, etc.) of any player during the game and when the game finished.
 
 ## Version 2
 
@@ -69,16 +69,16 @@ Each tile has probability of bein placed on the board upon generation.
 
 ### Requirements for version 2
 
-- Everything indicated for version 1
-- Implemented circular board with X laps, X can be configured for every game.
-- You can know the lap of any player during the game and when the game finished.
-- Atomic Bomb is implemented.
-- Empty is implemented.
-- Moonwalk is implemented.
-- Speed up is implemented.
-- Time machine is implemented.
-- Wormhole is implemented.
-- Board can be randomly generated based on the given probabilities.
+- [x] Everything indicated for version 1
+- [x] Implemented circular board with X laps, X can be configured for every game.
+- [x] You can know the lap of any player during the game and when the game finished.
+- [x] Atomic Bomb is implemented.
+- [x] Empty is implemented.
+- [x] Moonwalk is implemented.
+- [x] Speed up is implemented.
+- [x] Time machine is implemented.
+- [x] Wormhole is implemented.
+- [x] Board can be randomly generated based on the given probabilities.
 
 ## Version 3
 
@@ -142,10 +142,10 @@ There are 2 card types, instant and permanent. This affects when they can be use
 
 ### Requirements for version 3
 
-- Everything indicated for versions 1 and 2.
-- Implemented Overload card.
-- Implemented Speed chart.
-- Implemented Acceleration card.
-- Implemented Cancellation card.
-- Implemented Redo card.
-- Implemented Repeat card.
+- [x] Everything indicated for versions 1 and 2.
+- [x] Implemented Overload card.
+- [x] Implemented Speed chart.
+- [x] Implemented Acceleration card.
+- [ ] Implemented Cancellation card.
+- [ ] Implemented Redo card.
+- [ ] Implemented Repeat card.

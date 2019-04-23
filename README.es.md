@@ -21,14 +21,14 @@ El tablero tiene N casilleros en secuencia. La cantidad de dados, las caras de l
 
 ### Requisitos de aprobación para la versión 1
 
-- Dados de N caras.
-- Posibilidad de usar M dados, no necesariamente con la misma cantidad de caras.
-- El juego puede jugarse con más de un jugador.
-- Se respeta el orden de turnos.
-- Se puede saber si terminó el juego.
-- Se puede sabre quien fue el ganador del juego.'
-- Se puede saber la posición en el tablero de cualquier jugador durante el juego y cuando haya terminado.
-- Se puede saber el puesto (1ro, 2do, 3ro, etc) de cualquier jugador durante el juego y cuando haya terminado.
+- [x] Dados de N caras.
+- [x] Posibilidad de usar M dados, no necesariamente con la misma cantidad de caras.
+- [x] El juego puede jugarse con más de un jugador.
+- [x] Se respeta el orden de turnos.
+- [x] Se puede saber si terminó el juego.
+- [x] Se puede sabre quien fue el ganador del juego.'
+- [x] Se puede saber la posición en el tablero de cualquier jugador durante el juego y cuando haya terminado.
+- [x] Se puede saber el puesto (1ro, 2do, 3ro, etc) de cualquier jugador durante el juego y cuando haya terminado.
 
 ## Versión 2
 
@@ -69,16 +69,16 @@ Los casilleros en promedio tienen la siguiente distibución:
 
 ### Requisitos de aprobación para la versión 2
 
-- Todo lo indicado para la versión 1.
-- Implementado el tablero circular de X vueltas, X configurable segun el juego.
-- Se puede saber en que vuelta esta cada jugador.
-- Implementado Bomba Atómica
-- Implementado Vacío
-- Implementado Moonwalk
-- Implementado Speed up
-- Implementado Máquina del tiempo
-- Implementado Agujero de Gusano
-- Los casilleros se distribuyen en la probabilidad indicada.
+- [x] Todo lo indicado para la versión 1.
+- [x] Implementado el tablero circular de X vueltas, X configurable segun el juego.
+- [x] Se puede saber en que vuelta esta cada jugador.
+- [x] Implementado Bomba Atómica
+- [x] Implementado Vacío
+- [x] Implementado Moonwalk
+- [x] Implementado Speed up
+- [x] Implementado Máquina del tiempo
+- [x] Implementado Agujero de Gusano
+- [x] Los casilleros se distribuyen en la probabilidad indicada.
 
 ## Versión 3
 
@@ -142,10 +142,10 @@ Hay 2 tipos de cartas, instantaneas y permanentes. Esto afecta cuando pueden uti
 
 ### Requisitos de aprobación para la versión 3
 
-- Todo lo indicado para las versiones 1 y 2.
-- Implementada carta Sobrecarga.
-- Implementada carta Velocidad.
-- Implementada carta Aceleración.
-- Implementada carta Cancelación.
-- Implementada carta Rehacer.
-- Implementada carta Repetir.
+- [x] Todo lo indicado para las versiones 1 y 2.
+- [x] Implementada carta Sobrecarga.
+- [x] Implementada carta Velocidad.
+- [x] Implementada carta Aceleración.
+- [ ] Implementada carta Cancelación.
+- [ ] Implementada carta Rehacer.
+- [ ] Implementada carta Repetir.
