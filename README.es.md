@@ -26,7 +26,7 @@ El tablero tiene N casilleros en secuencia. La cantidad de dados, las caras de l
 - [x] El juego puede jugarse con más de un jugador.
 - [x] Se respeta el orden de turnos.
 - [x] Se puede saber si terminó el juego.
-- [x] Se puede sabre quien fue el ganador del juego.'
+- [x] Se puede sabre quien fue el ganador del juego.
 - [x] Se puede saber la posición en el tablero de cualquier jugador durante el juego y cuando haya terminado.
 - [x] Se puede saber el puesto (1ro, 2do, 3ro, etc) de cualquier jugador durante el juego y cuando haya terminado.
 
