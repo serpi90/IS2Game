@@ -162,15 +162,19 @@ GameTest >> testCancellationCardOverPlayerIsNotAllowed [
 { #category : #'tests - cards - cancellation' }
 GameTest >> testCancellationCardOverSpeedCard [
 
-	| game targetCard |
+	| game targetCard notTargetCard |
 
 	targetCard := SpeedCard new.
-	game := self gameWithBoardLength: 10 for: {bob}.
+	notTargetCard := OverloadCard new.
+	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
 	game playCard: targetCard for: bob over: bob.
+	game playCard: notTargetCard for: bob over: mary.
 	self assertCollection: ( game cardsAffecting: bob ) equals: {targetCard}.
+	self assertCollection: ( game cardsAffecting: mary ) equals: {notTargetCard}.
 
 	game playCard: CancellationCard new for: bob over: targetCard.
-	self assert: ( game cardsAffecting: bob ) isEmpty
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assertCollection: ( game cardsAffecting: mary ) equals: {notTargetCard}
 ]
 
 { #category : #'tests - cards - cancellation' }
