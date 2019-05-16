@@ -127,6 +127,21 @@ GameTest >> testAskingForWinnerWhenGameHasNotEndedShouldFail [
 		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Can not define a winner until game has ended' ]
 ]
 
+{ #category : #'tests - cards' }
+GameTest >> testCancellationCardOverSpeedCard [
+
+	| game targetCard |
+
+	targetCard := SpeedCard new.
+	game := self gameWithBoardLength: 10 for: {bob}.
+	game playCard: targetCard for: bob over: bob.
+	self assertCollection: ( game cardsAffecting: bob ) equals: {targetCard}.
+	game playCard: CancellationCard new for: bob over: targetCard.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	game rollDiceFor: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 2	"1(current) + 1(roll)"
+]
+
 { #category : #tests }
 GameTest >> testGameMustHaveAtLeastOneLap [
 

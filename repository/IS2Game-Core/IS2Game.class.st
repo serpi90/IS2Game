@@ -57,6 +57,13 @@ IS2Game >> applyTileEfectOn: aPlayerPosition [
 ]
 
 { #category : #accessing }
+IS2Game >> cardsAffecting: aPlayer [
+
+	^ permanentEffects keys
+		select: [ :card | ( permanentEffects at: card ) appliesTo: aPlayer on: self ]
+]
+
+{ #category : #accessing }
 IS2Game >> currentPlayer [
 
 	^ status currentPlayer
@@ -85,7 +92,7 @@ IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: some
 	status := PlayerTurn currentOf: playerTurn current.
 	playerPositions := ( players collect: [ :player | PlayerPosition startingOf: player ] )
 		asOrderedCollection.
-	permanentEffects := OrderedCollection new
+	permanentEffects := Dictionary new
 ]
 
 { #category : #playing }
@@ -101,20 +108,26 @@ IS2Game >> move: aPlayer tiles: aNumberOfTiles [
 { #category : #playing }
 IS2Game >> playCard: aCard for: aPlayer [
 
-	self playPermanent: aCard by: aPlayer over: AffectEveryone new
+	aCard bePlayedOn: self by: aPlayer over: AffectEveryone new
 ]
 
 { #category : #playing }
 IS2Game >> playCard: aCard for: aPlayer over: aTargetPlayer [
 
-	self playPermanent: aCard by: aPlayer over: ( AffectSpecificPlayer targeting: aTargetPlayer )
+	aCard bePlayedOn: self by: aPlayer over: ( AffectSpecificTarget targeting: aTargetPlayer )
 ]
 
 { #category : #playing }
-IS2Game >> playPermanent: aCard by: aPlayer over: target [
+IS2Game >> playInstant: anInstantCard by: aPlayer over: anEffectTarget [
+
+	anInstantCard affect: anEffectTarget on: self
+]
+
+{ #category : #playing }
+IS2Game >> playPermanent: aPermanentCard by: aPlayer over: target [
 
 	status assertCanPlayPermanentCard: aPlayer.
-	permanentEffects add: ( aCard effectAffecting: target )
+	permanentEffects at: aPermanentCard put: ( aPermanentCard effectAffecting: target )
 ]
 
 { #category : #accessing }
@@ -139,6 +152,12 @@ IS2Game >> positionFor: aPlayerPosition whenMoving: aNumberOfTiles [
 IS2Game >> positionOf: aPlayer [
 
 	^ ( self historyFor: aPlayer ) last
+]
+
+{ #category : #playing }
+IS2Game >> removeActivePermanentCard: aPermanentCard [
+
+	permanentEffects removeKey: aPermanentCard ifAbsent: [ AssertionFailed signal: '' ]
 ]
 
 { #category : #playing }

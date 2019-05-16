@@ -11,8 +11,7 @@ SpeedCard >> acceptAffectEveryone: aTarget [
 ]
 
 { #category : #affecting }
-SpeedCard >> effectAffecting: aTarget [
+SpeedCard >> basicEffectAffecting: aTarget [
 
-	self assertValidTarget: aTarget.
 	^ Effect named: 'Speed' affecting: aTarget doing: ( ModifyRoll increaseBy: 1 )
 ]

@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #affecting }
-EffectAction >> affectTurnOf: aPlayer on: aGame [
+EffectAction >> affect: aTarget on: aGame [
 
 	self subclassResponsibility
 ]

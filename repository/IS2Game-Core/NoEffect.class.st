@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #affecting }
-NoEffect >> affectTurnOf: aPlayer on: aGame [
+NoEffect >> affect: aPlayer on: aGame [
 
 	
 ]

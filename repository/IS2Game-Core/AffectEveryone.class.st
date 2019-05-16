@@ -19,5 +19,5 @@ AffectEveryone >> appliesTo: aPlayer on: aGame [
 { #category : #affecting }
 AffectEveryone >> apply: anEffect to: aGame [
 
-	aGame players do: [ :player | anEffect affectTurnOf: player on: aGame ]
+	aGame players do: [ :player | anEffect affect: player on: aGame ]
 ]

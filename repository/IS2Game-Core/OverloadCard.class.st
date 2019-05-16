@@ -11,8 +11,7 @@ OverloadCard >> acceptAffectEveryone: aTarget [
 ]
 
 { #category : #affecting }
-OverloadCard >> effectAffecting: aTarget [
+OverloadCard >> basicEffectAffecting: aTarget [
 
-	self assertValidTarget: aTarget.
 	^ Effect named: 'Overload' affecting: aTarget doing: ( ModifyRoll decreaseBy: 2 )
 ]

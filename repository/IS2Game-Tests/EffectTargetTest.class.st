@@ -134,7 +134,7 @@ EffectTargetTest >> testAffectSpecificPlayer [
 
 	| target |
 
-	target := AffectSpecificPlayer targeting: anotherPlayer.
+	target := AffectSpecificTarget targeting: anotherPlayer.
 	self deny: ( target appliesTo: currentPlayer on: self ).
 	self assert: ( target appliesTo: anotherPlayer on: self ).
 	self deny: ( target appliesTo: yetAnotherPlayer on: self ).

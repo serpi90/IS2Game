@@ -19,5 +19,5 @@ AffectCurrentPlayer >> appliesTo: aPlayer on: aGame [
 { #category : #affecting }
 AffectCurrentPlayer >> apply: anEffect to: aGame [
 
-	anEffect affectTurnOf: aGame currentPlayer on: aGame
+	anEffect affect: aGame currentPlayer on: aGame
 ]

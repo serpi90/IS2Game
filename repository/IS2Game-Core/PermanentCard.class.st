@@ -11,7 +11,7 @@ PermanentCard >> acceptAffectEveryone: anAffectEveryone [
 ]
 
 { #category : #visitor }
-PermanentCard >> acceptAffectSpecificPlayer: anAffectSpecificPlayer [
+PermanentCard >> acceptAffectSpecificTarget: anAffectSpecificPlayer [
 
 	
 ]
@@ -22,8 +22,21 @@ PermanentCard >> assertValidTarget: aTarget [
 	aTarget accept: self
 ]
 
+{ #category : #accessing }
+PermanentCard >> basicEffectAffecting: arg1 [
+
+	^ self subclassResponsibility
+]
+
+{ #category : #'game - double dispatch' }
+PermanentCard >> bePlayedOn: aGame by: aPlayer over: anEffectTarget [
+
+	aGame playPermanent: self by: aPlayer over: anEffectTarget
+]
+
 { #category : #affecting }
 PermanentCard >> effectAffecting: aTarget [
 
-	^ self subclassResponsibility
+	self assertValidTarget: aTarget.
+	^ self basicEffectAffecting: aTarget
 ]
