@@ -10,8 +10,14 @@ SpeedCard >> acceptAffectEveryone: aTarget [
 	AssertionFailed signal: 'Speed is a targeted card, can not be played over everybody'
 ]
 
+{ #category : #visitor }
+SpeedCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
+
+	
+]
+
 { #category : #affecting }
-SpeedCard >> basicEffectAffecting: aTarget [
+SpeedCard >> effectAffecting: aTarget [
 
 	^ Effect named: 'Speed' affecting: aTarget doing: ( ModifyRoll increaseBy: 1 )
 ]

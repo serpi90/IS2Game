@@ -5,13 +5,19 @@ Class {
 }
 
 { #category : #visitor }
-AccelerationCard >> acceptAffectSpecificTarget: aTarget [
+AccelerationCard >> acceptAffectEveryone: anAffectEveryone [
+
+	
+]
+
+{ #category : #visitor }
+AccelerationCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 
 	AssertionFailed signal: 'Acceleration is a global card, can not be played over a player'
 ]
 
 { #category : #affecting }
-AccelerationCard >> basicEffectAffecting: aTarget [
+AccelerationCard >> effectAffecting: aTarget [
 
 	^ Effect named: 'Acceleration' affecting: aTarget doing: ( ModifyRoll increaseBy: 1 )
 ]

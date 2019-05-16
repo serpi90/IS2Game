@@ -157,7 +157,10 @@ IS2Game >> positionOf: aPlayer [
 { #category : #playing }
 IS2Game >> removeActivePermanentCard: aPermanentCard [
 
-	permanentEffects removeKey: aPermanentCard ifAbsent: [ AssertionFailed signal: '' ]
+	permanentEffects
+		removeKey: aPermanentCard
+		ifAbsent: [ AssertionFailed
+				signal: ( '<1p> is not an active permanent card' expandMacrosWith: aPermanentCard ) ]
 ]
 
 { #category : #playing }

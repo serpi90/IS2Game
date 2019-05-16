@@ -124,6 +124,33 @@ GameTest >> testAskingForWinnerWhenGameHasNotEndedShouldFail [
 ]
 
 { #category : #'tests - cards' }
+GameTest >> testCancellationCardOverAlreadyRemovedCardIsNotAllowed [
+
+	| game playedCard |
+
+	playedCard := SpeedCard new.
+	game := self gameWithBoardLength: 10 for: {bob}.
+	game playCard: playedCard for: bob over: bob.
+	game playCard: CancellationCard new for: bob over: playedCard.
+	self
+		should: [ game playCard: CancellationCard new for: bob over: playedCard ]
+		raise: AssertionFailed
+		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: playedCard )
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testCancellationCardOverPlayerIsNotAllowed [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: {bob}.
+	self
+		should: [ game playCard: CancellationCard new for: bob over: bob ]
+		raise: AssertionFailed
+		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: bob )
+]
+
+{ #category : #'tests - cards' }
 GameTest >> testCancellationCardOverSpeedCard [
 
 	| game targetCard |
@@ -136,6 +163,32 @@ GameTest >> testCancellationCardOverSpeedCard [
 	self assert: ( game cardsAffecting: bob ) isEmpty.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 2	"1(current) + 1(roll)"
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testCancellationCardOverUnplayedCardIsNotAllowed [
+
+	| game nonPlayedCard |
+
+	nonPlayedCard := SpeedCard new.
+	game := self gameWithBoardLength: 10 for: {bob}.
+	self
+		should: [ game playCard: CancellationCard new for: bob over: nonPlayedCard ]
+		raise: AssertionFailed
+		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: nonPlayedCard )
+]
+
+{ #category : #'tests - cards' }
+GameTest >> testCancellationCardWithoutSpecifyingTargetIsNotAllowed [
+
+	| game nonPlayedCard |
+
+	nonPlayedCard := SpeedCard new.
+	game := self gameWithBoardLength: 10 for: {bob}.
+	self
+		should: [ game playCard: CancellationCard new for: bob ]
+		raise: AssertionFailed
+		withMessageText: 'Cancellation must be played over a specific card'
 ]
 
 { #category : #tests }

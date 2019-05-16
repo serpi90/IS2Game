@@ -10,8 +10,14 @@ OverloadCard >> acceptAffectEveryone: aTarget [
 	AssertionFailed signal: 'Overload is a targeted card, can not be played over everybody'
 ]
 
+{ #category : #visitor }
+OverloadCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
+
+	
+]
+
 { #category : #affecting }
-OverloadCard >> basicEffectAffecting: aTarget [
+OverloadCard >> effectAffecting: aTarget [
 
 	^ Effect named: 'Overload' affecting: aTarget doing: ( ModifyRoll decreaseBy: 2 )
 ]
