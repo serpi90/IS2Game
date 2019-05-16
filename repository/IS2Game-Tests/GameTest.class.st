@@ -44,20 +44,28 @@ GameTest >> setUp [
 	mary := 'Mary'
 ]
 
-{ #category : #'tests - cards' }
-GameTest >> testAccelerationCardAffectsAllPlayersAffectedPlayer [
+{ #category : #'tests - cards - acceleration' }
+GameTest >> testAccelerationCardAffectsAllPlayers [
 
-	| game |
+	| game card |
+
+	card := AccelerationCard new.
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
-	game playCard: AccelerationCard new for: bob.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assert: ( game cardsAffecting: mary ) isEmpty.
+
+	game playCard: card for: bob.
+	self assertCollection: ( game cardsAffecting: bob ) equals: {card}.
+	self assertCollection: ( game cardsAffecting: mary ) equals: {card}.
+
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 1(roll) + 1(acceleration)"
 	game rollDiceFor: mary.
 	self assert: ( game positionOf: mary ) tileNumber equals: 3	"1(current) + 1(roll) + 1(acceleration)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - acceleration' }
 GameTest >> testAccelerationCardAffectsTheThrowBeforeApplyingTileEffect [
 
 	| game tiles |
@@ -72,7 +80,7 @@ GameTest >> testAccelerationCardAffectsTheThrowBeforeApplyingTileEffect [
 	self assert: ( game positionOf: bob ) tileNumber equals: 9	"7(current) + 1(roll) + 1(acceleration)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - acceleration' }
 GameTest >> testAccelerationCardCanNotBeUsedOverAPlayer [
 
 	| game |
@@ -84,7 +92,7 @@ GameTest >> testAccelerationCardCanNotBeUsedOverAPlayer [
 		withMessageText: 'Acceleration is a global card, can not be played over a player'
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - acceleration' }
 GameTest >> testAccelerationCardMakesThePlayerAdvance1MoreThanRolled [
 
 	| game |
@@ -97,7 +105,7 @@ GameTest >> testAccelerationCardMakesThePlayerAdvance1MoreThanRolled [
 	self assert: ( game positionOf: bob ) tileNumber equals: 5	"3(current) + 1(roll) + 1(acceleration)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - acceleration' }
 GameTest >> testAccelerationCardTiwceMakesThePlayerAdvance2MoreThanRolled [
 
 	| game |
@@ -124,7 +132,7 @@ GameTest >> testAskingForWinnerWhenGameHasNotEndedShouldFail [
 		withMessageText: 'Can not define a winner until game has ended'
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - cancellation' }
 GameTest >> testCancellationCardOverAlreadyRemovedCardIsNotAllowed [
 
 	| game playedCard |
@@ -139,7 +147,7 @@ GameTest >> testCancellationCardOverAlreadyRemovedCardIsNotAllowed [
 		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: playedCard )
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - cancellation' }
 GameTest >> testCancellationCardOverPlayerIsNotAllowed [
 
 	| game |
@@ -151,7 +159,7 @@ GameTest >> testCancellationCardOverPlayerIsNotAllowed [
 		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: bob )
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - cancellation' }
 GameTest >> testCancellationCardOverSpeedCard [
 
 	| game targetCard |
@@ -160,13 +168,12 @@ GameTest >> testCancellationCardOverSpeedCard [
 	game := self gameWithBoardLength: 10 for: {bob}.
 	game playCard: targetCard for: bob over: bob.
 	self assertCollection: ( game cardsAffecting: bob ) equals: {targetCard}.
+
 	game playCard: CancellationCard new for: bob over: targetCard.
-	self assert: ( game cardsAffecting: bob ) isEmpty.
-	game rollDiceFor: bob.
-	self assert: ( game positionOf: bob ) tileNumber equals: 2	"1(current) + 1(roll)"
+	self assert: ( game cardsAffecting: bob ) isEmpty
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - cancellation' }
 GameTest >> testCancellationCardOverUnplayedCardIsNotAllowed [
 
 	| game nonPlayedCard |
@@ -179,7 +186,7 @@ GameTest >> testCancellationCardOverUnplayedCardIsNotAllowed [
 		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: nonPlayedCard )
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - cancellation' }
 GameTest >> testCancellationCardWithoutSpecifyingTargetIsNotAllowed [
 
 	| game |
@@ -237,13 +244,20 @@ GameTest >> testMultiplePermanentCards [
 	self assert: ( game positionOf: bob ) lap equals: 0
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadCardAffectsOnlyAffectedPlayer [
 
-	| game |
+	| game card |
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
-	game playCard: OverloadCard new for: bob over: mary.
+	card := OverloadCard new.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assert: ( game cardsAffecting: mary ) isEmpty.
+
+	game playCard: card for: bob over: mary.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assertCollection: ( game cardsAffecting: mary ) equals: {card}.
+
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 2.	"1(current) + 1(roll)"
 	game rollDiceFor: mary.
@@ -251,7 +265,7 @@ GameTest >> testOverloadCardAffectsOnlyAffectedPlayer [
 	self assert: ( game positionOf: mary ) lap equals: -1
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadCardCanBeUsedOnSelf [
 
 	| game |
@@ -263,7 +277,7 @@ GameTest >> testOverloadCardCanBeUsedOnSelf [
 	self assert: ( game positionOf: bob ) lap equals: -1
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadCardCanNotBeUsedGlobally [
 
 	| game |
@@ -275,7 +289,7 @@ GameTest >> testOverloadCardCanNotBeUsedGlobally [
 		withMessageText: 'Overload is a targeted card, can not be played over everybody'
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadCardMakesThePlayerAdvance2LessThanRolled [
 
 	| game |
@@ -290,7 +304,7 @@ GameTest >> testOverloadCardMakesThePlayerAdvance2LessThanRolled [
 	self assert: ( game positionOf: bob ) tileNumber equals: 2	"3(current) + 1(roll) - 2(overload)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadResetsLapIfGoingBackward [
 
 	| game |
@@ -637,20 +651,27 @@ GameTest >> testPositionForWhenNotChangingLap [
 	self assert: newPosition lap equals: 2
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardAffectsOnlyAffectedPlayer [
 
-	| game |
+	| game card |
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
-	game playCard: SpeedCard new for: bob over: bob.
+	card := SpeedCard new.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assert: ( game cardsAffecting: mary ) isEmpty.
+
+	game playCard: card for: bob over: bob.
+	self assertCollection: ( game cardsAffecting: bob ) equals: {card}.
+	self assert: ( game cardsAffecting: mary ) isEmpty.
+
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 1(roll) + 1(speed)"
 	game rollDiceFor: mary.
 	self assert: ( game positionOf: mary ) tileNumber equals: 2	"1(current) + 1(roll)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardAffectsTheThrowBeforeApplyingTileEffect [
 
 	| game tiles |
@@ -665,7 +686,7 @@ GameTest >> testSpeedCardAffectsTheThrowBeforeApplyingTileEffect [
 	self assert: ( game positionOf: bob ) tileNumber equals: 9	"5(current) + 1(roll) + 1(speed)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardCanBeUsedOnAnotherPlayer [
 
 	| game |
@@ -682,7 +703,7 @@ GameTest >> testSpeedCardCanBeUsedOnAnotherPlayer [
 	self assert: ( game positionOf: mary ) tileNumber equals: 5	"3(current) + 1(roll) + 1(speed)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardCanNotBeUsedGlobally [
 
 	| game |
@@ -694,7 +715,7 @@ GameTest >> testSpeedCardCanNotBeUsedGlobally [
 		withMessageText: 'Speed is a targeted card, can not be played over everybody'
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardMakesThePlayerAdvance1MoreThanRolled [
 
 	| game |
@@ -707,7 +728,7 @@ GameTest >> testSpeedCardMakesThePlayerAdvance1MoreThanRolled [
 	self assert: ( game positionOf: bob ) tileNumber equals: 5	"3(current) + 1(roll) + 1(speed)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardTiwceMakesThePlayerAdvance2MoreThanRolled [
 
 	| game |
