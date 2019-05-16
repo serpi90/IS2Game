@@ -80,11 +80,7 @@ GameTest >> testAccelerationCardCanNotBeUsedOverAPlayer [
 	self
 		should: [ game playCard: AccelerationCard new for: bob over: mary ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | 
-			self
-				assert: signal messageText
-				equals: 'Acceleration is a global card, can not be played over a player'
-			]
+		withMessageText: 'Acceleration is a global card, can not be played over a player'
 ]
 
 { #category : #'tests - cards' }
@@ -124,7 +120,7 @@ GameTest >> testAskingForWinnerWhenGameHasNotEndedShouldFail [
 	self
 		should: [ game winner ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Can not define a winner until game has ended' ]
+		withMessageText: 'Can not define a winner until game has ended'
 ]
 
 { #category : #'tests - cards' }
@@ -153,7 +149,7 @@ GameTest >> testGameMustHaveAtLeastOneLap [
 				for: {bob}
 			]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'A game must at least have one lap' ]
+		withMessageText: 'A game must at least have one lap'
 ]
 
 { #category : #tests }
@@ -167,7 +163,7 @@ GameTest >> testGameMustHaveAtLeastOnePlayer [
 				for: #()
 			]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'A game must at least have one player' ]
+		withMessageText: 'A game must at least have one player'
 ]
 
 { #category : #'tests - cards' }
@@ -223,11 +219,7 @@ GameTest >> testOverloadCardCanNotBeUsedGlobally [
 	self
 		should: [ game playCard: OverloadCard new for: bob ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | 
-			self
-				assert: signal messageText
-				equals: 'Overload is a targeted card, can not be played over everybody'
-			]
+		withMessageText: 'Overload is a targeted card, can not be played over everybody'
 ]
 
 { #category : #'tests - cards' }
@@ -409,7 +401,7 @@ GameTest >> testPlayersCanNotPlayOutOfTurn [
 	self
 		should: [ game playCard: SpeedCard new for: mary over: bob ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Mary can not play now, it''s Bob''s turn' ]
+		withMessageText: 'Mary can not play now, it''s Bob''s turn'
 ]
 
 { #category : #tests }
@@ -431,20 +423,11 @@ GameTest >> testPlayingAfterWinningIsNotAllowed [
 		do: [ :player | 
 			self
 				should: [ game rollDiceFor: player ]
-				raise: AssertionFailed
-				withExceptionDo: [ :signal | 
-					self
-						assert: signal messageText
-						equals: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
-					].
-			self
-				should: [ game playCard: SpeedCard new for: player ]
-				raise: AssertionFailed
-				withExceptionDo: [ :signal | 
-					self
-						assert: signal messageText
-						equals: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
-					]
+					raise: AssertionFailed
+					withMessageText: ( '<1s> can not play now, the game has ended' expandMacrosWith: player );
+				should: [ game playCard: SpeedCard new for: player over: player ]
+					raise: AssertionFailed
+					withMessageText: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
 			]
 ]
 
@@ -655,11 +638,7 @@ GameTest >> testSpeedCardCanNotBeUsedGlobally [
 	self
 		should: [ game playCard: SpeedCard new for: bob ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | 
-			self
-				assert: signal messageText
-				equals: 'Speed is a targeted card, can not be played over everybody'
-			]
+		withMessageText: 'Speed is a targeted card, can not be played over everybody'
 ]
 
 { #category : #'tests - cards' }

@@ -63,12 +63,11 @@ EffectActionTest >> testCanNotMoveForwardOrBackwardZeroTiles [
 
 	self
 		should: [ MovePlayer movingForward: 0 ]
-		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Move effect can not be 0' ].
-	self
+			raise: InstanceCreationFailed
+			withMessageText: 'Move effect can not be 0';
 		should: [ MovePlayer goingBack: 0 ]
-		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Move effect can not be 0' ]
+			raise: InstanceCreationFailed
+			withMessageText: 'Move effect can not be 0'
 ]
 
 { #category : #tests }
@@ -77,7 +76,7 @@ EffectActionTest >> testCanNotUndoANegativeNumberOfTurns [
 	self
 		should: [ UndoTurn goingBack: -3 ]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Can not undo a negative player of turns' ]
+		withMessageText: 'Can not undo a negative player of turns'
 ]
 
 { #category : #tests }

@@ -71,7 +71,7 @@ BoardTest >> testBoardMustHaveAtLeastOneTile [
 	self
 		should: [ Board withTiles: #() ]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'A Board has at least one tile' ]
+		withMessageText: 'A Board has at least one tile'
 ]
 
 { #category : #'tests-accessing' }
@@ -98,13 +98,11 @@ BoardTest >> testProbabilitiesMustAddUpto100Percent [
 				source: Random new
 			]
 		raise: InstanceCreationFailed
-		withExceptionDo:
-			[ :signal | self assert: signal messageText equals: 'Effect probabilities must add to 100% they add to 30%' ].
+		withMessageText: 'Effect probabilities must add to 100% they add to 30%'.
 	self
 		should: [ Board ofSize: 5 withTilesDefinedBy: {( 130 percent -> Effect none )} source: Random new ]
 		raise: InstanceCreationFailed
-		withExceptionDo:
-			[ :signal | self assert: signal messageText equals: 'Effect probabilities must add to 100% they add to 130%' ]
+		withMessageText: 'Effect probabilities must add to 100% they add to 130%'
 ]
 
 { #category : #'tests-accessing' }
