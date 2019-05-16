@@ -16,7 +16,7 @@ AccelerationCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 	AssertionFailed signal: 'Acceleration is a global card, can not be played over a player'
 ]
 
-{ #category : #affecting }
+{ #category : #accessing }
 AccelerationCard >> effectAffecting: aTarget [
 
 	^ Effect named: 'Acceleration' affecting: aTarget doing: ( ModifyRoll increaseBy: 1 )

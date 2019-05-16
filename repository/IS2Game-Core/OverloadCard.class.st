@@ -16,7 +16,7 @@ OverloadCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 	
 ]
 
-{ #category : #affecting }
+{ #category : #accessing }
 OverloadCard >> effectAffecting: aTarget [
 
 	^ Effect named: 'Overload' affecting: aTarget doing: ( ModifyRoll decreaseBy: 2 )

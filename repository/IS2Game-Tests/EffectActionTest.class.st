@@ -51,9 +51,10 @@ EffectActionTest >> positionOf: aPlayer [
 	^ playerHistory last
 ]
 
-{ #category : #initialization }
+{ #category : #running }
 EffectActionTest >> setUp [
 
+	super setUp.
 	player := 'A Player'.
 	playerHistory := OrderedCollection with: ( PlayerPosition startingOf: player )
 ]

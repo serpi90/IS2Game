@@ -16,7 +16,7 @@ SpeedCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 	
 ]
 
-{ #category : #affecting }
+{ #category : #accessing }
 SpeedCard >> effectAffecting: aTarget [
 
 	^ Effect named: 'Speed' affecting: aTarget doing: ( ModifyRoll increaseBy: 1 )

@@ -36,9 +36,10 @@ GameTest >> gameWithTiles: tiles rolling: diceRolls for: players [
 		for: players
 ]
 
-{ #category : #initialization }
+{ #category : #running }
 GameTest >> setUp [
 
+	super setUp.
 	bob := 'Bob'.
 	mary := 'Mary'
 ]
@@ -181,9 +182,8 @@ GameTest >> testCancellationCardOverUnplayedCardIsNotAllowed [
 { #category : #'tests - cards' }
 GameTest >> testCancellationCardWithoutSpecifyingTargetIsNotAllowed [
 
-	| game nonPlayedCard |
+	| game |
 
-	nonPlayedCard := SpeedCard new.
 	game := self gameWithBoardLength: 10 for: {bob}.
 	self
 		should: [ game playCard: CancellationCard new for: bob ]

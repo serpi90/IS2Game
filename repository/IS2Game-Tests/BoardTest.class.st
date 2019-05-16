@@ -4,29 +4,8 @@ A BoardTest is a test class for testing the behavior of Board
 Class {
 	#name : #BoardTest,
 	#superclass : #TestCase,
-	#instVars : [
-		'empty',
-		'atomicBomb',
-		'wormhole',
-		'speedUp',
-		'moonwalk',
-		'timeMachine'
-	],
-	#category : 'IS2Game-Tests'
+	#category : #'IS2Game-Tests'
 }
-
-{ #category : #running }
-BoardTest >> setUp [
-
-	super setUp.
-
-	empty := Effect none.
-	atomicBomb := Effect atomicBomb.
-	wormhole := Effect wormhole.
-	speedUp := Effect speedUp.
-	moonwalk := Effect moonwalkGoingBack: 3.
-	timeMachine := Effect timeMachine
-]
 
 { #category : #'tests-accessing' }
 BoardTest >> testBoardGeneration [
