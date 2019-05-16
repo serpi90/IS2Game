@@ -4,29 +4,8 @@ A BoardTest is a test class for testing the behavior of Board
 Class {
 	#name : #BoardTest,
 	#superclass : #TestCase,
-	#instVars : [
-		'empty',
-		'atomicBomb',
-		'wormhole',
-		'speedUp',
-		'moonwalk',
-		'timeMachine'
-	],
-	#category : 'IS2Game-Tests'
+	#category : #'IS2Game-Tests'
 }
-
-{ #category : #running }
-BoardTest >> setUp [
-
-	super setUp.
-
-	empty := Effect none.
-	atomicBomb := Effect atomicBomb.
-	wormhole := Effect wormhole.
-	speedUp := Effect speedUp.
-	moonwalk := Effect moonwalkGoingBack: 3.
-	timeMachine := Effect timeMachine
-]
 
 { #category : #'tests-accessing' }
 BoardTest >> testBoardGeneration [
@@ -71,7 +50,7 @@ BoardTest >> testBoardMustHaveAtLeastOneTile [
 	self
 		should: [ Board withTiles: #() ]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'A Board has at least one tile' ]
+		withMessageText: 'A Board has at least one tile'
 ]
 
 { #category : #'tests-accessing' }
@@ -98,13 +77,11 @@ BoardTest >> testProbabilitiesMustAddUpto100Percent [
 				source: Random new
 			]
 		raise: InstanceCreationFailed
-		withExceptionDo:
-			[ :signal | self assert: signal messageText equals: 'Effect probabilities must add to 100% they add to 30%' ].
+		withMessageText: 'Effect probabilities must add to 100% they add to 30%'.
 	self
 		should: [ Board ofSize: 5 withTilesDefinedBy: {( 130 percent -> Effect none )} source: Random new ]
 		raise: InstanceCreationFailed
-		withExceptionDo:
-			[ :signal | self assert: signal messageText equals: 'Effect probabilities must add to 100% they add to 130%' ]
+		withMessageText: 'Effect probabilities must add to 100% they add to 130%'
 ]
 
 { #category : #'tests-accessing' }

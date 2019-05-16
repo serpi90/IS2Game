@@ -20,12 +20,6 @@ ModifyRoll class >> increaseBy: anInteger [
 ]
 
 { #category : #affecting }
-ModifyRoll >> affectGame: aGame [
-
-	^ aGame
-]
-
-{ #category : #affecting }
 ModifyRoll >> affectRoll: aDiceroll [
 
 	^ aDiceroll + change

@@ -1,29 +1,29 @@
 Class {
 	#name : #PermanentCard,
-	#superclass : #Object,
+	#superclass : #Card,
 	#category : #'IS2Game-Core-Board'
 }
 
 { #category : #visitor }
 PermanentCard >> acceptAffectEveryone: anAffectEveryone [
 
-	
+	self subclassResponsibility
 ]
 
 { #category : #visitor }
-PermanentCard >> acceptAffectSpecificPlayer: anAffectSpecificPlayer [
+PermanentCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 
-	
+	self subclassResponsibility
 ]
 
-{ #category : #affecting }
-PermanentCard >> assertValidTarget: aTarget [
+{ #category : #private }
+PermanentCard >> basicBePlayedOn: aGame by: aPlayer over: anEffectTarget [
 
-	aTarget accept: self
+	aGame playPermanent: self by: aPlayer over: anEffectTarget
 ]
 
-{ #category : #affecting }
-PermanentCard >> effectAffecting: aTarget [
+{ #category : #accessing }
+PermanentCard >> effectAffecting: anEffectTarget [
 
 	^ self subclassResponsibility
 ]

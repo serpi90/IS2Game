@@ -2,10 +2,9 @@ Class {
 	#name : #Tile,
 	#superclass : #Object,
 	#instVars : [
-		'effect',
-		'number'
+		'effect'
 	],
-	#category : 'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Board'
 }
 
 { #category : #'instance creation' }

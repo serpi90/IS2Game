@@ -4,12 +4,6 @@ Class {
 	#category : 'IS2Game-Core-Effect'
 }
 
-{ #category : #visitor }
-AffectEveryoneElse >> accept: aVisitor [
-
-	^ aVisitor acceptAffectEveryoneElse: self
-]
-
 { #category : #testing }
 AffectEveryoneElse >> appliesTo: aPlayer on: aGame [
 
@@ -20,5 +14,5 @@ AffectEveryoneElse >> appliesTo: aPlayer on: aGame [
 AffectEveryoneElse >> apply: anEffect to: aGame [
 
 	( aGame players copyWithout: aGame currentPlayer )
-		do: [ :player | anEffect affectTurnOf: player on: aGame ]
+		do: [ :player | anEffect affect: player on: aGame ]
 ]

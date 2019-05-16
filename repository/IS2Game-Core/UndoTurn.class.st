@@ -24,7 +24,7 @@ UndoTurn class >> resetTurn [
 ]
 
 { #category : #affecting }
-UndoTurn >> affectTurnOf: aPlayer on: aGame [
+UndoTurn >> affect: aPlayer on: aGame [
 
 	| previousTurnPosition |
 

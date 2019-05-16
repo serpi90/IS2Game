@@ -23,7 +23,7 @@ DiceTest >> testDiceMustHaveAtLeastTwoSides [
 		self
 			should: [ Die withSides: invalidSides ]
 			raise: InstanceCreationFailed
-			withExceptionDo: [ :signal | self assert: signal messageText equals: 'A dice must at least have 2 sides' ]
+			withMessageText: 'A dice must at least have 2 sides'
 		]
 ]
 

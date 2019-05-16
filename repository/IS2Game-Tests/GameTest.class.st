@@ -36,27 +36,36 @@ GameTest >> gameWithTiles: tiles rolling: diceRolls for: players [
 		for: players
 ]
 
-{ #category : #initialization }
+{ #category : #running }
 GameTest >> setUp [
 
+	super setUp.
 	bob := 'Bob'.
 	mary := 'Mary'
 ]
 
-{ #category : #'tests - cards' }
-GameTest >> testAccelerationCardAffectsAllPlayersAffectedPlayer [
+{ #category : #'tests - cards - acceleration' }
+GameTest >> testAccelerationCardAffectsAllPlayers [
 
-	| game |
+	| game card |
+
+	card := AccelerationCard new.
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
-	game playCard: AccelerationCard new for: bob.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assert: ( game cardsAffecting: mary ) isEmpty.
+
+	game playCard: card for: bob.
+	self assertCollection: ( game cardsAffecting: bob ) equals: {card}.
+	self assertCollection: ( game cardsAffecting: mary ) equals: {card}.
+
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 1(roll) + 1(acceleration)"
 	game rollDiceFor: mary.
 	self assert: ( game positionOf: mary ) tileNumber equals: 3	"1(current) + 1(roll) + 1(acceleration)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - acceleration' }
 GameTest >> testAccelerationCardAffectsTheThrowBeforeApplyingTileEffect [
 
 	| game tiles |
@@ -71,7 +80,7 @@ GameTest >> testAccelerationCardAffectsTheThrowBeforeApplyingTileEffect [
 	self assert: ( game positionOf: bob ) tileNumber equals: 9	"7(current) + 1(roll) + 1(acceleration)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - acceleration' }
 GameTest >> testAccelerationCardCanNotBeUsedOverAPlayer [
 
 	| game |
@@ -80,14 +89,10 @@ GameTest >> testAccelerationCardCanNotBeUsedOverAPlayer [
 	self
 		should: [ game playCard: AccelerationCard new for: bob over: mary ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | 
-			self
-				assert: signal messageText
-				equals: 'Acceleration is a global card, can not be played over a player'
-			]
+		withMessageText: 'Acceleration is a global card, can not be played over a player'
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - acceleration' }
 GameTest >> testAccelerationCardMakesThePlayerAdvance1MoreThanRolled [
 
 	| game |
@@ -100,7 +105,7 @@ GameTest >> testAccelerationCardMakesThePlayerAdvance1MoreThanRolled [
 	self assert: ( game positionOf: bob ) tileNumber equals: 5	"3(current) + 1(roll) + 1(acceleration)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - acceleration' }
 GameTest >> testAccelerationCardTiwceMakesThePlayerAdvance2MoreThanRolled [
 
 	| game |
@@ -124,7 +129,77 @@ GameTest >> testAskingForWinnerWhenGameHasNotEndedShouldFail [
 	self
 		should: [ game winner ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Can not define a winner until game has ended' ]
+		withMessageText: 'Can not define a winner until game has ended'
+]
+
+{ #category : #'tests - cards - cancellation' }
+GameTest >> testCancellationCardOverAlreadyRemovedCardIsNotAllowed [
+
+	| game playedCard |
+
+	playedCard := SpeedCard new.
+	game := self gameWithBoardLength: 10 for: {bob}.
+	game playCard: playedCard for: bob over: bob.
+	game playCard: CancellationCard new for: bob over: playedCard.
+	self
+		should: [ game playCard: CancellationCard new for: bob over: playedCard ]
+		raise: AssertionFailed
+		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: playedCard )
+]
+
+{ #category : #'tests - cards - cancellation' }
+GameTest >> testCancellationCardOverPlayerIsNotAllowed [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: {bob}.
+	self
+		should: [ game playCard: CancellationCard new for: bob over: bob ]
+		raise: AssertionFailed
+		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: bob )
+]
+
+{ #category : #'tests - cards - cancellation' }
+GameTest >> testCancellationCardOverSpeedCard [
+
+	| game targetCard notTargetCard |
+
+	targetCard := SpeedCard new.
+	notTargetCard := OverloadCard new.
+	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
+	game playCard: targetCard for: bob over: bob.
+	game playCard: notTargetCard for: bob over: mary.
+	self assertCollection: ( game cardsAffecting: bob ) equals: {targetCard}.
+	self assertCollection: ( game cardsAffecting: mary ) equals: {notTargetCard}.
+
+	game playCard: CancellationCard new for: bob over: targetCard.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assertCollection: ( game cardsAffecting: mary ) equals: {notTargetCard}
+]
+
+{ #category : #'tests - cards - cancellation' }
+GameTest >> testCancellationCardOverUnplayedCardIsNotAllowed [
+
+	| game nonPlayedCard |
+
+	nonPlayedCard := SpeedCard new.
+	game := self gameWithBoardLength: 10 for: {bob}.
+	self
+		should: [ game playCard: CancellationCard new for: bob over: nonPlayedCard ]
+		raise: AssertionFailed
+		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: nonPlayedCard )
+]
+
+{ #category : #'tests - cards - cancellation' }
+GameTest >> testCancellationCardWithoutSpecifyingTargetIsNotAllowed [
+
+	| game |
+
+	game := self gameWithBoardLength: 10 for: {bob}.
+	self
+		should: [ game playCard: CancellationCard new for: bob ]
+		raise: AssertionFailed
+		withMessageText: 'Cancellation must be played over a specific card'
 ]
 
 { #category : #tests }
@@ -138,7 +213,7 @@ GameTest >> testGameMustHaveAtLeastOneLap [
 				for: {bob}
 			]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'A game must at least have one lap' ]
+		withMessageText: 'A game must at least have one lap'
 ]
 
 { #category : #tests }
@@ -152,7 +227,7 @@ GameTest >> testGameMustHaveAtLeastOnePlayer [
 				for: #()
 			]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'A game must at least have one player' ]
+		withMessageText: 'A game must at least have one player'
 ]
 
 { #category : #'tests - cards' }
@@ -173,13 +248,20 @@ GameTest >> testMultiplePermanentCards [
 	self assert: ( game positionOf: bob ) lap equals: 0
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadCardAffectsOnlyAffectedPlayer [
 
-	| game |
+	| game card |
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
-	game playCard: OverloadCard new for: bob over: mary.
+	card := OverloadCard new.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assert: ( game cardsAffecting: mary ) isEmpty.
+
+	game playCard: card for: bob over: mary.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assertCollection: ( game cardsAffecting: mary ) equals: {card}.
+
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 2.	"1(current) + 1(roll)"
 	game rollDiceFor: mary.
@@ -187,7 +269,7 @@ GameTest >> testOverloadCardAffectsOnlyAffectedPlayer [
 	self assert: ( game positionOf: mary ) lap equals: -1
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadCardCanBeUsedOnSelf [
 
 	| game |
@@ -199,7 +281,7 @@ GameTest >> testOverloadCardCanBeUsedOnSelf [
 	self assert: ( game positionOf: bob ) lap equals: -1
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadCardCanNotBeUsedGlobally [
 
 	| game |
@@ -208,14 +290,10 @@ GameTest >> testOverloadCardCanNotBeUsedGlobally [
 	self
 		should: [ game playCard: OverloadCard new for: bob ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | 
-			self
-				assert: signal messageText
-				equals: 'Overload is a targeted card, can not be played over everybody'
-			]
+		withMessageText: 'Overload is a targeted card, can not be played over everybody'
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadCardMakesThePlayerAdvance2LessThanRolled [
 
 	| game |
@@ -230,7 +308,7 @@ GameTest >> testOverloadCardMakesThePlayerAdvance2LessThanRolled [
 	self assert: ( game positionOf: bob ) tileNumber equals: 2	"3(current) + 1(roll) - 2(overload)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - overload' }
 GameTest >> testOverloadResetsLapIfGoingBackward [
 
 	| game |
@@ -394,7 +472,7 @@ GameTest >> testPlayersCanNotPlayOutOfTurn [
 	self
 		should: [ game playCard: SpeedCard new for: mary over: bob ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Mary can not play now, it''s Bob''s turn' ]
+		withMessageText: 'Mary can not play now, it''s Bob''s turn'
 ]
 
 { #category : #tests }
@@ -416,20 +494,11 @@ GameTest >> testPlayingAfterWinningIsNotAllowed [
 		do: [ :player | 
 			self
 				should: [ game rollDiceFor: player ]
-				raise: AssertionFailed
-				withExceptionDo: [ :signal | 
-					self
-						assert: signal messageText
-						equals: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
-					].
-			self
-				should: [ game playCard: SpeedCard new for: player ]
-				raise: AssertionFailed
-				withExceptionDo: [ :signal | 
-					self
-						assert: signal messageText
-						equals: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
-					]
+					raise: AssertionFailed
+					withMessageText: ( '<1s> can not play now, the game has ended' expandMacrosWith: player );
+				should: [ game playCard: SpeedCard new for: player over: player ]
+					raise: AssertionFailed
+					withMessageText: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
 			]
 ]
 
@@ -586,20 +655,27 @@ GameTest >> testPositionForWhenNotChangingLap [
 	self assert: newPosition lap equals: 2
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardAffectsOnlyAffectedPlayer [
 
-	| game |
+	| game card |
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
-	game playCard: SpeedCard new for: bob over: bob.
+	card := SpeedCard new.
+	self assert: ( game cardsAffecting: bob ) isEmpty.
+	self assert: ( game cardsAffecting: mary ) isEmpty.
+
+	game playCard: card for: bob over: bob.
+	self assertCollection: ( game cardsAffecting: bob ) equals: {card}.
+	self assert: ( game cardsAffecting: mary ) isEmpty.
+
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 1(roll) + 1(speed)"
 	game rollDiceFor: mary.
 	self assert: ( game positionOf: mary ) tileNumber equals: 2	"1(current) + 1(roll)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardAffectsTheThrowBeforeApplyingTileEffect [
 
 	| game tiles |
@@ -614,7 +690,7 @@ GameTest >> testSpeedCardAffectsTheThrowBeforeApplyingTileEffect [
 	self assert: ( game positionOf: bob ) tileNumber equals: 9	"5(current) + 1(roll) + 1(speed)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardCanBeUsedOnAnotherPlayer [
 
 	| game |
@@ -631,7 +707,7 @@ GameTest >> testSpeedCardCanBeUsedOnAnotherPlayer [
 	self assert: ( game positionOf: mary ) tileNumber equals: 5	"3(current) + 1(roll) + 1(speed)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardCanNotBeUsedGlobally [
 
 	| game |
@@ -640,14 +716,10 @@ GameTest >> testSpeedCardCanNotBeUsedGlobally [
 	self
 		should: [ game playCard: SpeedCard new for: bob ]
 		raise: AssertionFailed
-		withExceptionDo: [ :signal | 
-			self
-				assert: signal messageText
-				equals: 'Speed is a targeted card, can not be played over everybody'
-			]
+		withMessageText: 'Speed is a targeted card, can not be played over everybody'
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardMakesThePlayerAdvance1MoreThanRolled [
 
 	| game |
@@ -660,7 +732,7 @@ GameTest >> testSpeedCardMakesThePlayerAdvance1MoreThanRolled [
 	self assert: ( game positionOf: bob ) tileNumber equals: 5	"3(current) + 1(roll) + 1(speed)"
 ]
 
-{ #category : #'tests - cards' }
+{ #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardTiwceMakesThePlayerAdvance2MoreThanRolled [
 
 	| game |

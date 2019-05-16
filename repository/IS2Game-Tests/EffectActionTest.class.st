@@ -51,9 +51,10 @@ EffectActionTest >> positionOf: aPlayer [
 	^ playerHistory last
 ]
 
-{ #category : #initialization }
+{ #category : #running }
 EffectActionTest >> setUp [
 
+	super setUp.
 	player := 'A Player'.
 	playerHistory := OrderedCollection with: ( PlayerPosition startingOf: player )
 ]
@@ -63,12 +64,11 @@ EffectActionTest >> testCanNotMoveForwardOrBackwardZeroTiles [
 
 	self
 		should: [ MovePlayer movingForward: 0 ]
-		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Move effect can not be 0' ].
-	self
+			raise: InstanceCreationFailed
+			withMessageText: 'Move effect can not be 0';
 		should: [ MovePlayer goingBack: 0 ]
-		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Move effect can not be 0' ]
+			raise: InstanceCreationFailed
+			withMessageText: 'Move effect can not be 0'
 ]
 
 { #category : #tests }
@@ -77,14 +77,14 @@ EffectActionTest >> testCanNotUndoANegativeNumberOfTurns [
 	self
 		should: [ UndoTurn goingBack: -3 ]
 		raise: InstanceCreationFailed
-		withExceptionDo: [ :signal | self assert: signal messageText equals: 'Can not undo a negative player of turns' ]
+		withMessageText: 'Can not undo a negative player of turns'
 ]
 
 { #category : #tests }
 EffectActionTest >> testMovePlayer [
 
 	self assert: player isOnLap: 0 tileNumber: 1.
-	( MovePlayer movingForward: 3 ) affectTurnOf: player on: self.
+	( MovePlayer movingForward: 3 ) affect: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 4
 ]
 
@@ -92,7 +92,7 @@ EffectActionTest >> testMovePlayer [
 EffectActionTest >> testNoEffect [
 
 	self assert: player isOnLap: 0 tileNumber: 1.
-	NoEffect new affectTurnOf: player on: self.
+	NoEffect new affect: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 1
 ]
 
@@ -112,7 +112,7 @@ EffectActionTest >> testPrintOn [
 EffectActionTest >> testRepositionPlayer [
 
 	self assert: player isOnLap: 0 tileNumber: 1.
-	( RepositionPlayer toLap: 3 tileNumber: 5 ) affectTurnOf: player on: self.
+	( RepositionPlayer toLap: 3 tileNumber: 5 ) affect: player on: self.
 	self assert: player isOnLap: 3 tileNumber: 5
 ]
 
@@ -128,7 +128,7 @@ EffectActionTest >> testResetTurn [
 	playerHistory := ( ( 1 to: 10 ) collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ] )
 		asOrderedCollection.
 	self assert: ( self positionOf: player ) equals: playerHistory last.
-	UndoTurn resetTurn affectTurnOf: player on: self.
+	UndoTurn resetTurn affect: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 10 - 2
 ]
 
@@ -149,7 +149,7 @@ EffectActionTest >> testUndoTurn [
 	playerHistory := ( ( 1 to: 10 ) collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ] )
 		asOrderedCollection.
 	self assert: ( self positionOf: player ) equals: playerHistory last.
-	( UndoTurn goingBack: turnsToGoBack ) affectTurnOf: player on: self.
+	( UndoTurn goingBack: turnsToGoBack ) affect: player on: self.
 	self assert: player isOnLap: 0 tileNumber: 10 - turnsToGoBack - 2
 ]
 
@@ -162,7 +162,7 @@ EffectActionTest >> testUndoTurnWithFewerHistoryThanNeded [
 		playerHistory := ( ( 1 to: historySize )
 			collect: [ :n | PlayerPosition of: player onLap: 0 tileNumber: n ] ) asOrderedCollection.
 		self assert: ( self positionOf: player ) equals: playerHistory last.
-		( UndoTurn goingBack: 2 ) affectTurnOf: player on: self.
+		( UndoTurn goingBack: 2 ) affect: player on: self.
 		self assert: player isOnLap: 0 tileNumber: 1
 		]
 ]

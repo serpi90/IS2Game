@@ -15,7 +15,7 @@ RepositionPlayer class >> toLap: aLap tileNumber: aNumberOfTiles [
 ]
 
 { #category : #affecting }
-RepositionPlayer >> affectTurnOf: aPlayer on: aGame [
+RepositionPlayer >> affect: aPlayer on: aGame [
 
 	aGame addPosition: ( PlayerPosition of: aPlayer onLap: lap tileNumber: tileNumber )
 ]

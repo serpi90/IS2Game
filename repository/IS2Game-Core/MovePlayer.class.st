@@ -24,7 +24,7 @@ MovePlayer class >> movingForward: aNumberOfTiles [
 ]
 
 { #category : #affecting }
-MovePlayer >> affectTurnOf: aPlayer on: aGame [
+MovePlayer >> affect: aPlayer on: aGame [
 
 	aGame move: aPlayer tiles: tilesToMove
 ]

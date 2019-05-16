@@ -4,12 +4,6 @@ Class {
 	#category : 'IS2Game-Core-Effect'
 }
 
-{ #category : #visitor }
-AffectCurrentPlayer >> accept: aVisitor [
-
-	^ aVisitor acceptAffectCurrentPlayer: self
-]
-
 { #category : #testing }
 AffectCurrentPlayer >> appliesTo: aPlayer on: aGame [
 
@@ -19,5 +13,5 @@ AffectCurrentPlayer >> appliesTo: aPlayer on: aGame [
 { #category : #affecting }
 AffectCurrentPlayer >> apply: anEffect to: aGame [
 
-	anEffect affectTurnOf: aGame currentPlayer on: aGame
+	anEffect affect: aGame currentPlayer on: aGame
 ]

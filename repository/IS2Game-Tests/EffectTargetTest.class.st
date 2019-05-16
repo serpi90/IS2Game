@@ -58,9 +58,10 @@ EffectTargetTest >> positionOf: aPlayer [
 	^ playerPositions at: aPlayer
 ]
 
-{ #category : #initialization }
+{ #category : #running }
 EffectTargetTest >> setUp [
 
+	super setUp.
 	moveOneTile := MovePlayer movingForward: 1.
 	currentPlayer := 'Player 1'.
 	anotherPlayer := 'Player 2'.
@@ -134,7 +135,7 @@ EffectTargetTest >> testAffectSpecificPlayer [
 
 	| target |
 
-	target := AffectSpecificPlayer targeting: anotherPlayer.
+	target := AffectSpecificTarget targeting: anotherPlayer.
 	self deny: ( target appliesTo: currentPlayer on: self ).
 	self assert: ( target appliesTo: anotherPlayer on: self ).
 	self deny: ( target appliesTo: yetAnotherPlayer on: self ).
