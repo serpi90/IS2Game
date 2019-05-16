@@ -149,3 +149,5 @@ Hay 2 tipos de cartas, instantaneas y permanentes. Esto afecta cuando pueden uti
 - [ ] Implementada carta Cancelación.
 - [ ] Implementada carta Rehacer.
 - [ ] Implementada carta Repetir.
+- [ ] Implementado el casillero que otorga cartas.
+- [ ] Se requiere que las cartas estén en la mano del jugador para ser jugadas

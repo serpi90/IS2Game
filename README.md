@@ -149,3 +149,5 @@ There are 2 card types, instant and permanent. This affects when they can be use
 - [ ] Implemented Cancellation card.
 - [ ] Implemented Redo card.
 - [ ] Implemented Repeat card.
+- [ ] Implemented Card giving tile.
+- [ ] Cards must be on the player's hand to be played.
