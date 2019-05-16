@@ -146,7 +146,7 @@ Hay 2 tipos de cartas, instantaneas y permanentes. Esto afecta cuando pueden uti
 - [x] Implementada carta Sobrecarga.
 - [x] Implementada carta Velocidad.
 - [x] Implementada carta Aceleración.
-- [ ] Implementada carta Cancelación.
+- [x] Implementada carta Cancelación.
 - [ ] Implementada carta Rehacer.
 - [ ] Implementada carta Repetir.
 - [ ] Implementado el casillero que otorga cartas.

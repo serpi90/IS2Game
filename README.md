@@ -146,7 +146,7 @@ There are 2 card types, instant and permanent. This affects when they can be use
 - [x] Implemented Overload card.
 - [x] Implemented Speed chart.
 - [x] Implemented Acceleration card.
-- [ ] Implemented Cancellation card.
+- [x] Implemented Cancellation card.
 - [ ] Implemented Redo card.
 - [ ] Implemented Repeat card.
 - [ ] Implemented Card giving tile.
