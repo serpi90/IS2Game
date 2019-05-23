@@ -23,14 +23,14 @@ Card >> assertValidTarget: aTarget [
 ]
 
 { #category : #private }
-Card >> basicBePlayedOn: aGame by: aPlayer over: anEffectTarget [
+Card >> basicPlayedBy: aPlayer over: aTarget on: aGame [
 
 	self subclassResponsibility
 ]
 
 { #category : #'game - double dispatch' }
-Card >> bePlayedOn: aGame by: aPlayer over: anEffectTarget [
+Card >> playedBy: aPlayer over: aTarget on: aGame [
 
-	self assertValidTarget: anEffectTarget.
-	self basicBePlayedOn: aGame by: aPlayer over: anEffectTarget
+	self assertValidTarget: aTarget.
+	self basicPlayedBy: aPlayer over: aTarget on: aGame
 ]

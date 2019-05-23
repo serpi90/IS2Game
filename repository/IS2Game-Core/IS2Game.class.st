@@ -15,21 +15,21 @@ Class {
 }
 
 { #category : #'instance creation' }
-IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: somePlayers [
+IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: aCollectionOfPlayers [
 
 	AssertionCheckerBuilder new
 		raising: InstanceCreationFailed;
 		checking: [ :asserter | 
 			asserter
 				enforce: [ aNumberOfLaps > 0 ] because: 'A game must at least have one lap';
-				enforce: [ somePlayers notEmpty ] because: 'A game must at least have one player'
+				enforce: [ aCollectionOfPlayers notEmpty ] because: 'A game must at least have one player'
 			];
 		buildAndCheck.
 	^ self new
 		initializeWithBoard: aBoard
 		laps: aNumberOfLaps
 		dice: aDice
-		for: somePlayers
+		for: aCollectionOfPlayers
 ]
 
 { #category : #playing }
@@ -82,13 +82,13 @@ IS2Game >> historyFor: aPlayer [
 ]
 
 { #category : #initialization }
-IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: somePlayers [
+IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: aPlayerCollection [
 
 	board := aBoard.
 	laps := aNumberOfLaps.
 	dice := aDice.
-	players := somePlayers.
-	playerTurn := CircularIterator cyclingOver: somePlayers.
+	players := aPlayerCollection.
+	playerTurn := CircularIterator cyclingOver: aPlayerCollection.
 	status := PlayerTurn currentOf: playerTurn current.
 	playerPositions := ( players collect: [ :player | PlayerPosition startingOf: player ] )
 		asOrderedCollection.
@@ -106,28 +106,34 @@ IS2Game >> move: aPlayer tiles: aNumberOfTiles [
 ]
 
 { #category : #playing }
-IS2Game >> playCard: aCard for: aPlayer [
+IS2Game >> playCard: aCard by: aPlayer [
 
-	aCard bePlayedOn: self by: aPlayer over: AffectEveryone new
+	self playCard: aCard by: aPlayer targeting: AffectEveryone new
 ]
 
 { #category : #playing }
-IS2Game >> playCard: aCard for: aPlayer over: aTargetPlayer [
+IS2Game >> playCard: aCard by: aPlayer over: anotherPlayer [
 
-	aCard bePlayedOn: self by: aPlayer over: ( AffectSpecificTarget targeting: aTargetPlayer )
+	self playCard: aCard by: aPlayer targeting: ( AffectSpecificTarget targeting: anotherPlayer )
 ]
 
 { #category : #playing }
-IS2Game >> playInstant: anInstantCard by: aPlayer over: anEffectTarget [
+IS2Game >> playCard: aCard by: aPlayer targeting: aTarget [
 
-	anInstantCard affect: anEffectTarget on: self
+	aCard playedBy: aPlayer over: aTarget on: self
 ]
 
 { #category : #playing }
-IS2Game >> playPermanent: aPermanentCard by: aPlayer over: target [
+IS2Game >> playInstant: anInstantCard by: aPlayer over: aTarget [
+
+	anInstantCard affect: aTarget on: self
+]
+
+{ #category : #playing }
+IS2Game >> playPermanent: aPermanentCard by: aPlayer over: aTarget [
 
 	status assertCanPlayPermanentCard: aPlayer.
-	permanentEffects at: aPermanentCard put: ( aPermanentCard effectAffecting: target )
+	permanentEffects at: aPermanentCard put: ( aPermanentCard effectAffecting: aTarget )
 ]
 
 { #category : #accessing }

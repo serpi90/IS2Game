@@ -55,7 +55,7 @@ GameTest >> testAccelerationCardAffectsAllPlayers [
 	self assert: ( game cardsAffecting: bob ) isEmpty.
 	self assert: ( game cardsAffecting: mary ) isEmpty.
 
-	game playCard: card for: bob.
+	game playCard: card by: bob.
 	self assertCollection: ( game cardsAffecting: bob ) equals: {card}.
 	self assertCollection: ( game cardsAffecting: mary ) equals: {card}.
 
@@ -73,7 +73,7 @@ GameTest >> testAccelerationCardAffectsTheThrowBeforeApplyingTileEffect [
 	tiles := self emptyTiles: 10.
 	tiles at: 3 put: ( Tile withEffect: Effect speedUp ).
 	game := self gameWithTiles: tiles rolling: #(1) for: {bob}.
-	game playCard: AccelerationCard new for: bob.
+	game playCard: AccelerationCard new by: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 7.	"1(current) + 1(roll) + 1(acceleration) + 4(SpeedUp)"
 	game rollDiceFor: bob.
@@ -87,7 +87,7 @@ GameTest >> testAccelerationCardCanNotBeUsedOverAPlayer [
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
 	self
-		should: [ game playCard: AccelerationCard new for: bob over: mary ]
+		should: [ game playCard: AccelerationCard new by: bob over: mary ]
 		raise: AssertionFailed
 		withMessageText: 'Acceleration is a global card, can not be played over a player'
 ]
@@ -98,7 +98,7 @@ GameTest >> testAccelerationCardMakesThePlayerAdvance1MoreThanRolled [
 	| game |
 
 	game := self gameWithBoardLength: 10 for: {bob}.
-	game playCard: AccelerationCard new for: bob.
+	game playCard: AccelerationCard new by: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 1(roll) + 1(acceleration)"
 	game rollDiceFor: bob.
@@ -111,8 +111,8 @@ GameTest >> testAccelerationCardTiwceMakesThePlayerAdvance2MoreThanRolled [
 	| game |
 
 	game := self gameWithBoardLength: 10 for: {bob}.
-	game playCard: AccelerationCard new for: bob.
-	game playCard: AccelerationCard new for: bob.
+	game playCard: AccelerationCard new by: bob.
+	game playCard: AccelerationCard new by: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 4.	"1(current) + 1(roll) + 1(acceleration) + 1(acceleration)"
 	game rollDiceFor: bob.
@@ -139,10 +139,10 @@ GameTest >> testCancellationCardOverAlreadyRemovedCardIsNotAllowed [
 
 	playedCard := SpeedCard new.
 	game := self gameWithBoardLength: 10 for: {bob}.
-	game playCard: playedCard for: bob over: bob.
-	game playCard: CancellationCard new for: bob over: playedCard.
+	game playCard: playedCard by: bob over: bob.
+	game playCard: CancellationCard new by: bob over: playedCard.
 	self
-		should: [ game playCard: CancellationCard new for: bob over: playedCard ]
+		should: [ game playCard: CancellationCard new by: bob over: playedCard ]
 		raise: AssertionFailed
 		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: playedCard )
 ]
@@ -154,7 +154,7 @@ GameTest >> testCancellationCardOverPlayerIsNotAllowed [
 
 	game := self gameWithBoardLength: 10 for: {bob}.
 	self
-		should: [ game playCard: CancellationCard new for: bob over: bob ]
+		should: [ game playCard: CancellationCard new by: bob over: bob ]
 		raise: AssertionFailed
 		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: bob )
 ]
@@ -167,12 +167,12 @@ GameTest >> testCancellationCardOverSpeedCard [
 	targetCard := SpeedCard new.
 	notTargetCard := OverloadCard new.
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
-	game playCard: targetCard for: bob over: bob.
-	game playCard: notTargetCard for: bob over: mary.
+	game playCard: targetCard by: bob over: bob.
+	game playCard: notTargetCard by: bob over: mary.
 	self assertCollection: ( game cardsAffecting: bob ) equals: {targetCard}.
 	self assertCollection: ( game cardsAffecting: mary ) equals: {notTargetCard}.
 
-	game playCard: CancellationCard new for: bob over: targetCard.
+	game playCard: CancellationCard new by: bob over: targetCard.
 	self assert: ( game cardsAffecting: bob ) isEmpty.
 	self assertCollection: ( game cardsAffecting: mary ) equals: {notTargetCard}
 ]
@@ -185,7 +185,7 @@ GameTest >> testCancellationCardOverUnplayedCardIsNotAllowed [
 	nonPlayedCard := SpeedCard new.
 	game := self gameWithBoardLength: 10 for: {bob}.
 	self
-		should: [ game playCard: CancellationCard new for: bob over: nonPlayedCard ]
+		should: [ game playCard: CancellationCard new by: bob over: nonPlayedCard ]
 		raise: AssertionFailed
 		withMessageText: ( '<1p> is not an active permanent card' expandMacrosWith: nonPlayedCard )
 ]
@@ -197,7 +197,7 @@ GameTest >> testCancellationCardWithoutSpecifyingTargetIsNotAllowed [
 
 	game := self gameWithBoardLength: 10 for: {bob}.
 	self
-		should: [ game playCard: CancellationCard new for: bob ]
+		should: [ game playCard: CancellationCard new by: bob ]
 		raise: AssertionFailed
 		withMessageText: 'Cancellation must be played over a specific card'
 ]
@@ -239,10 +239,10 @@ GameTest >> testMultiplePermanentCards [
 	tiles at: 6 put: ( Tile withEffect: Effect speedUp ).
 
 	game := self gameWithTiles: tiles rolling: #(4) for: {bob}.
-	game playCard: SpeedCard new for: bob over: bob.
-	game playCard: SpeedCard new for: bob over: bob.
-	game playCard: SpeedCard new for: bob over: bob.
-	game playCard: OverloadCard new for: bob over: bob.
+	game playCard: SpeedCard new by: bob over: bob.
+	game playCard: SpeedCard new by: bob over: bob.
+	game playCard: SpeedCard new by: bob over: bob.
+	game playCard: OverloadCard new by: bob over: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 10.	"1(current) + 4(roll) - 2(overload) + 3(speed) + 4(SpeedUp)"
 	self assert: ( game positionOf: bob ) lap equals: 0
@@ -258,7 +258,7 @@ GameTest >> testOverloadCardAffectsOnlyAffectedPlayer [
 	self assert: ( game cardsAffecting: bob ) isEmpty.
 	self assert: ( game cardsAffecting: mary ) isEmpty.
 
-	game playCard: card for: bob over: mary.
+	game playCard: card by: bob over: mary.
 	self assert: ( game cardsAffecting: bob ) isEmpty.
 	self assertCollection: ( game cardsAffecting: mary ) equals: {card}.
 
@@ -275,7 +275,7 @@ GameTest >> testOverloadCardCanBeUsedOnSelf [
 	| game |
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob ).
-	game playCard: OverloadCard new for: bob over: bob.
+	game playCard: OverloadCard new by: bob over: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 10.	"1(current) + 1(roll) - 2(overload) = -1 -> last of board of 10, so 10"
 	self assert: ( game positionOf: bob ) lap equals: -1
@@ -288,7 +288,7 @@ GameTest >> testOverloadCardCanNotBeUsedGlobally [
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
 	self
-		should: [ game playCard: OverloadCard new for: bob ]
+		should: [ game playCard: OverloadCard new by: bob ]
 		raise: AssertionFailed
 		withMessageText: 'Overload is a targeted card, can not be played over everybody'
 ]
@@ -299,7 +299,7 @@ GameTest >> testOverloadCardMakesThePlayerAdvance2LessThanRolled [
 	| game |
 
 	game := self gameWithTiles: ( self emptyTiles: 10 ) rolling: #(4 2 1) for: {bob}.
-	game playCard: OverloadCard new for: bob over: bob.
+	game playCard: OverloadCard new by: bob over: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 4(roll) - 2(overload)"
 	game rollDiceFor: bob.
@@ -314,7 +314,7 @@ GameTest >> testOverloadResetsLapIfGoingBackward [
 	| game |
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob ).
-	game playCard: OverloadCard new for: bob over: bob.
+	game playCard: OverloadCard new by: bob over: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 10.	"1(current) + 1(roll) - 2(overload)"
 	self assert: ( game positionOf: bob ) lap equals: -1
@@ -470,7 +470,7 @@ GameTest >> testPlayersCanNotPlayOutOfTurn [
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
 	self
-		should: [ game playCard: SpeedCard new for: mary over: bob ]
+		should: [ game playCard: SpeedCard new by: mary over: bob ]
 		raise: AssertionFailed
 		withMessageText: 'Mary can not play now, it''s Bob''s turn'
 ]
@@ -496,7 +496,7 @@ GameTest >> testPlayingAfterWinningIsNotAllowed [
 				should: [ game rollDiceFor: player ]
 					raise: AssertionFailed
 					withMessageText: ( '<1s> can not play now, the game has ended' expandMacrosWith: player );
-				should: [ game playCard: SpeedCard new for: player over: player ]
+				should: [ game playCard: SpeedCard new by: player over: player ]
 					raise: AssertionFailed
 					withMessageText: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
 			]
@@ -665,7 +665,7 @@ GameTest >> testSpeedCardAffectsOnlyAffectedPlayer [
 	self assert: ( game cardsAffecting: bob ) isEmpty.
 	self assert: ( game cardsAffecting: mary ) isEmpty.
 
-	game playCard: card for: bob over: bob.
+	game playCard: card by: bob over: bob.
 	self assertCollection: ( game cardsAffecting: bob ) equals: {card}.
 	self assert: ( game cardsAffecting: mary ) isEmpty.
 
@@ -683,7 +683,7 @@ GameTest >> testSpeedCardAffectsTheThrowBeforeApplyingTileEffect [
 	tiles := self emptyTiles: 10.
 	tiles at: 3 put: ( Tile withEffect: Effect speedUp ).
 	game := self gameWithTiles: tiles rolling: #(1) for: {bob}.
-	game playCard: SpeedCard new for: bob over: bob.
+	game playCard: SpeedCard new by: bob over: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 7.	"1(current) + 1(roll) + 1(speed) + 4(SpeedUp)"
 	game rollDiceFor: bob.
@@ -696,7 +696,7 @@ GameTest >> testSpeedCardCanBeUsedOnAnotherPlayer [
 	| game |
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
-	game playCard: SpeedCard new for: bob over: mary.
+	game playCard: SpeedCard new by: bob over: mary.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 2.	"1(current) + 1(roll)"
 	game rollDiceFor: mary.
@@ -714,7 +714,7 @@ GameTest >> testSpeedCardCanNotBeUsedGlobally [
 
 	game := self gameWithBoardLength: 10 for: ( Array with: bob with: mary ).
 	self
-		should: [ game playCard: SpeedCard new for: bob ]
+		should: [ game playCard: SpeedCard new by: bob ]
 		raise: AssertionFailed
 		withMessageText: 'Speed is a targeted card, can not be played over everybody'
 ]
@@ -725,7 +725,7 @@ GameTest >> testSpeedCardMakesThePlayerAdvance1MoreThanRolled [
 	| game |
 
 	game := self gameWithBoardLength: 10 for: {bob}.
-	game playCard: SpeedCard new for: bob over: bob.
+	game playCard: SpeedCard new by: bob over: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 3.	"1(current) + 1(roll) + 1(speed)"
 	game rollDiceFor: bob.
@@ -738,8 +738,8 @@ GameTest >> testSpeedCardTiwceMakesThePlayerAdvance2MoreThanRolled [
 	| game |
 
 	game := self gameWithBoardLength: 10 for: {bob}.
-	game playCard: SpeedCard new for: bob over: bob.
-	game playCard: SpeedCard new for: bob over: bob.
+	game playCard: SpeedCard new by: bob over: bob.
+	game playCard: SpeedCard new by: bob over: bob.
 	game rollDiceFor: bob.
 	self assert: ( game positionOf: bob ) tileNumber equals: 4.	"1(current) + 1(roll) + 1(speed) + 1(speed)"
 	game rollDiceFor: bob.

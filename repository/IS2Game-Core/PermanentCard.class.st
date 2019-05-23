@@ -4,26 +4,14 @@ Class {
 	#category : #'IS2Game-Core-Board'
 }
 
-{ #category : #visitor }
-PermanentCard >> acceptAffectEveryone: anAffectEveryone [
-
-	self subclassResponsibility
-]
-
-{ #category : #visitor }
-PermanentCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
-
-	self subclassResponsibility
-]
-
 { #category : #private }
-PermanentCard >> basicBePlayedOn: aGame by: aPlayer over: anEffectTarget [
+PermanentCard >> basicPlayedBy: aPlayer over: aTarget on: aGame [
 
-	aGame playPermanent: self by: aPlayer over: anEffectTarget
+	aGame playPermanent: self by: aPlayer over: aTarget
 ]
 
 { #category : #accessing }
-PermanentCard >> effectAffecting: anEffectTarget [
+PermanentCard >> effectAffecting: aTarget [
 
 	^ self subclassResponsibility
 ]

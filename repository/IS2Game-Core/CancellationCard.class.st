@@ -1,6 +1,6 @@
 Class {
 	#name : #CancellationCard,
-	#superclass : #Card,
+	#superclass : #InstantCard,
 	#category : #'IS2Game-Core-Board'
 }
 
@@ -17,13 +17,7 @@ CancellationCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 ]
 
 { #category : #affecting }
-CancellationCard >> affect: anEffectTarget on: aGame [
+CancellationCard >> affect: aTarget on: aGame [
 
-	anEffectTarget apply: RemoveActivePermanentCard new to: aGame
-]
-
-{ #category : #private }
-CancellationCard >> basicBePlayedOn: aGame by: aPlayer over: anEffectTarget [
-
-	aGame playInstant: self by: aPlayer over: anEffectTarget
+	aTarget apply: RemoveActivePermanentCard new to: aGame
 ]

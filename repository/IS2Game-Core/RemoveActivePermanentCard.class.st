@@ -1,7 +1,7 @@
 Class {
 	#name : #RemoveActivePermanentCard,
-	#superclass : #Object,
-	#category : #'IS2Game-Core-Board'
+	#superclass : #EffectAction,
+	#category : #'IS2Game-Core-Effect'
 }
 
 { #category : #affecting }
