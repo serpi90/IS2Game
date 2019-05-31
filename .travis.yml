@@ -10,3 +10,6 @@ smalltalk:
   - Pharo32-stable
   - Pharo64-stable
   - Pharo64-7.0
+
+directories:
+  - $SMALLTALK_CI_CACHE
