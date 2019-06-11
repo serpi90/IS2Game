@@ -662,6 +662,25 @@ GameTest >> testPositionForWhenNotChangingLap [
 	self assert: newPosition lap equals: 2
 ]
 
+{ #category : #'tests - cards - repeat' }
+GameTest >> testRepeatCardAfterSpeedUp [
+
+	| game tiles |
+
+	tiles := self emptyTiles: 10.
+	tiles at: 2 put: ( Tile withEffect: Effect speedUp ).
+
+	game := self gameWithTiles: tiles.
+	self assert: ( game positionOf: bob ) tileNumber equals: 1.
+	self assert: ( game positionOf: bob ) lap equals: 0.
+	game rollDiceFor: bob.	"rolls 1, lands on position 2 speedup, advances 4 more to position 6"
+	self assert: ( game positionOf: bob ) tileNumber equals: 6.
+	self assert: ( game positionOf: bob ) lap equals: 0.
+	game playCard: RepeatCard new by: bob.
+	self assert: ( game positionOf: bob ) tileNumber equals: 10.
+	self assert: ( game positionOf: bob ) lap equals: 0
+]
+
 { #category : #'tests - cards - speed' }
 GameTest >> testSpeedCardAffectsOnlyAffectedPlayer [
 
