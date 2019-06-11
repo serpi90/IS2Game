@@ -2,15 +2,17 @@ Class {
 	#name : #PlayerTurn,
 	#superclass : #GameState,
 	#instVars : [
-		'currentPlayer'
+		'currentPlayer',
+		'positions',
+		'previousState'
 	],
-	#category : 'IS2Game-Core-Game'
+	#category : #'IS2Game-Core-Game'
 }
 
 { #category : #'instance creation' }
-PlayerTurn class >> currentOf: aPlayer [
+PlayerTurn class >> currentOf: aPlayer precededBy: aGameState [
 
-	^ self new initializeCurrentOf: aPlayer
+	^ self new initializeCurrentOf: aPlayer precededBy: aGameState
 ]
 
 { #category : #asserting }
@@ -33,10 +35,10 @@ PlayerTurn >> assertIsTurnOf: aPlayer [
 		because: ( '<1s> can not play now, it''s <2s>''s turn' expandMacrosWith: aPlayer with: self currentPlayer )
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 PlayerTurn >> currentOf: aPlayer [
 
-	^ self class currentOf: aPlayer
+	^ self class currentOf: aPlayer precededBy: self
 ]
 
 { #category : #accessing }
@@ -51,10 +53,33 @@ PlayerTurn >> hasEnded [
 	^ false
 ]
 
-{ #category : #initialization }
-PlayerTurn >> initializeCurrentOf: aPlayer [
+{ #category : #accessing }
+PlayerTurn >> historyFor: aPlayer [
 
+	^ ( previousState historyFor: aPlayer )
+		, ( positions select: [ :position | position player = aPlayer ] )
+]
+
+{ #category : #initialization }
+PlayerTurn >> initializeCurrentOf: aPlayer precededBy: aGameState [
+
+	previousState := aGameState.
+	positions := OrderedCollection new.
 	currentPlayer := aPlayer
+]
+
+{ #category : #accessing }
+PlayerTurn >> positionOf: aPlayer [
+
+	^ positions
+		detectLast: [ :position | position player = aPlayer ]
+		ifNone: [ previousState positionOf: aPlayer ]
+]
+
+{ #category : #accessing }
+PlayerTurn >> registerPosition: aPlayerPosition [
+
+	positions add: aPlayerPosition
 ]
 
 { #category : #accessing }

@@ -5,13 +5,12 @@ Class {
 		'laps',
 		'dice',
 		'players',
-		'playerPositions',
 		'board',
-		'playerTurn',
 		'permanentEffects',
-		'status'
+		'status',
+		'playingOrder'
 	],
-	#category : 'IS2Game-Core-Game'
+	#category : #'IS2Game-Core-Game'
 }
 
 { #category : #'instance creation' }
@@ -35,9 +34,9 @@ IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: aCollect
 { #category : #playing }
 IS2Game >> addPosition: aPlayerPosition [
 
-	playerPositions add: aPlayerPosition.
+	status registerPosition: aPlayerPosition.
 	aPlayerPosition lap >= laps
-		ifTrue: [ status := GameEnded wonBy: aPlayerPosition player ]
+		ifTrue: [ self changeStatusToWonBy: aPlayerPosition player ]
 ]
 
 { #category : #private }
@@ -63,6 +62,18 @@ IS2Game >> cardsAffecting: aPlayer [
 		select: [ :card | ( permanentEffects at: card ) appliesTo: aPlayer on: self ]
 ]
 
+{ #category : #private }
+IS2Game >> changeStatusToTurnOf: aPlayer [
+
+	status := status currentOf: aPlayer
+]
+
+{ #category : #private }
+IS2Game >> changeStatusToWonBy: aPlayer [
+
+	status := GameEnded wonBy: aPlayer precededBy: status
+]
+
 { #category : #accessing }
 IS2Game >> currentPlayer [
 
@@ -78,7 +89,7 @@ IS2Game >> hasEnded [
 { #category : #accessing }
 IS2Game >> historyFor: aPlayer [
 
-	^ playerPositions select: [ :position | position player = aPlayer ]
+	^ status historyFor: aPlayer
 ]
 
 { #category : #initialization }
@@ -88,11 +99,10 @@ IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: aPla
 	laps := aNumberOfLaps.
 	dice := aDice.
 	players := aPlayerCollection.
-	playerTurn := CircularIterator cyclingOver: aPlayerCollection.
-	status := PlayerTurn currentOf: playerTurn current.
-	playerPositions := ( players collect: [ :player | PlayerPosition startingOf: player ] )
-		asOrderedCollection.
-	permanentEffects := Dictionary new
+	playingOrder := CircularIterator cyclingOver: aPlayerCollection.
+	status := GameStarting forAll: players.
+	permanentEffects := Dictionary new.
+	self changeStatusToTurnOf: playingOrder current
 ]
 
 { #category : #playing }
@@ -157,7 +167,7 @@ IS2Game >> positionFor: aPlayerPosition whenMoving: aNumberOfTiles [
 { #category : #accessing }
 IS2Game >> positionOf: aPlayer [
 
-	^ ( self historyFor: aPlayer ) last
+	^ status positionOf: aPlayer
 ]
 
 { #category : #playing }
@@ -178,7 +188,7 @@ IS2Game >> rollDiceFor: aPlayer [
 	roll := self adjustedRollFor: aPlayer whenRolled: dice roll.
 	self move: aPlayer tiles: roll.
 	self applyTileEfectOn: ( self positionOf: aPlayer ).
-	status := status currentOf: playerTurn next
+	self changeStatusToTurnOf: playingOrder next
 ]
 
 { #category : #accessing }

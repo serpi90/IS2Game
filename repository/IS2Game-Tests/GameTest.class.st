@@ -533,13 +533,20 @@ GameTest >> testPlayingUntilWinning [
 	game rollDiceFor: bob.
 	game rollDiceFor: mary.
 	game rollDiceFor: bob.
-	self assert: ( game positionOf: bob ) lap equals: 2.
-	self assert: ( game positionOf: bob ) tileNumber equals: 3.
+	self
+		assert: ( game positionOf: bob ) lap equals: 2;
+		assert: ( game positionOf: bob ) tileNumber equals: 3.
 	game rollDiceFor: mary.
-	self assert: ( game positionOf: mary ) lap equals: 3.
-	self assert: ( game positionOf: mary ) tileNumber equals: 4.
-	self assert: game hasEnded.
-	self assert: game winner equals: mary
+	self
+		assert: ( game positionOf: mary ) lap equals: 3;
+		assert: ( game positionOf: mary ) tileNumber equals: 4.
+	self
+		assert: game hasEnded;
+		assert: game winner equals: mary.
+	self
+		assertCollection: ( ( game historyFor: bob ) collect: #lap ) asArray equals: #(0 0 0 1 1 1 2);
+		assertCollection: ( ( game historyFor: bob ) collect: #tileNumber ) asArray
+			equals: #(1 2 5 1 4 5 3)
 ]
 
 { #category : #'tests - positions' }
