@@ -32,11 +32,15 @@ IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: aCollect
 ]
 
 { #category : #playing }
+IS2Game >> activatePermanentCard: aPermanentCard withEffect: anEffect [
+
+	permanentEffects at: aPermanentCard put: anEffect
+]
+
+{ #category : #playing }
 IS2Game >> addPosition: aPlayerPosition [
 
-	status registerPosition: aPlayerPosition.
-	aPlayerPosition lap >= laps
-		ifTrue: [ self changeStatusToWonBy: aPlayerPosition player ]
+	status registerEvent: aPlayerPosition
 ]
 
 { #category : #private }
@@ -50,9 +54,11 @@ IS2Game >> adjustedRollFor: aPlayer whenRolled: aDiceRoll [
 { #category : #private }
 IS2Game >> applyTileEfectOn: aPlayerPosition [
 
-	( board tileNumbered: aPlayerPosition tileNumber ) effect
-		affectTurnOf: aPlayerPosition player
-		in: self
+	| effect |
+
+	effect := ( board tileNumbered: aPlayerPosition tileNumber ) effect.
+	status registerEvent: ( TileEffect applying: effect triggeredBy: aPlayerPosition player ).
+	effect affectTurnOf: aPlayerPosition player in: self
 ]
 
 { #category : #accessing }
@@ -65,13 +71,10 @@ IS2Game >> cardsAffecting: aPlayer [
 { #category : #private }
 IS2Game >> changeStatusToTurnOf: aPlayer [
 
-	status := status currentOf: aPlayer
-]
-
-{ #category : #private }
-IS2Game >> changeStatusToWonBy: aPlayer [
-
-	status := GameEnded wonBy: aPlayer precededBy: status
+	status := players
+		detect: [ :player | ( self positionOf: player ) lap >= laps ]
+		ifFound: [ :player | GameEnded wonBy: player precededBy: status ]
+		ifNone: [ status currentOf: aPlayer ]
 ]
 
 { #category : #accessing }
@@ -84,6 +87,12 @@ IS2Game >> currentPlayer [
 IS2Game >> hasEnded [
 
 	^ status hasEnded
+]
+
+{ #category : #accessing }
+IS2Game >> history [
+
+	^ status history
 ]
 
 { #category : #accessing }
@@ -130,6 +139,8 @@ IS2Game >> playCard: aCard by: aPlayer over: anotherPlayer [
 { #category : #playing }
 IS2Game >> playCard: aCard by: aPlayer targeting: aTarget [
 
+	status assert: aPlayer canPlayCard: aCard.
+	status registerEvent: ( CardPlayed card: aCard over: aTarget ).
 	aCard playedBy: aPlayer over: aTarget on: self
 ]
 
@@ -142,8 +153,7 @@ IS2Game >> playInstant: anInstantCard by: aPlayer over: aTarget [
 { #category : #playing }
 IS2Game >> playPermanent: aPermanentCard by: aPlayer over: aTarget [
 
-	status assertCanPlayPermanentCard: aPlayer.
-	permanentEffects at: aPermanentCard put: ( aPermanentCard effectAffecting: aTarget )
+	aPermanentCard affect: aTarget on: self
 ]
 
 { #category : #accessing }

@@ -2,7 +2,7 @@ Class {
 	#name : #GameStarting,
 	#superclass : #GameState,
 	#instVars : [
-		'players'
+		'positions'
 	],
 	#category : #'IS2Game-Core-Game'
 }
@@ -14,19 +14,13 @@ GameStarting class >> forAll: aPlayercollection [
 ]
 
 { #category : #asserting }
-GameStarting >> assertCanPlayPermanentCard: aPlayer [
+GameStarting >> assert: aPlayer canPlayCard: aCard [
 
-	^ self cantPlayBecauseGameNotStarted
+	AssertionFailed signal: 'The game has not yet started'
 ]
 
 { #category : #asserting }
 GameStarting >> assertCanRollDice: aPlayer [
-
-	^ self cantPlayBecauseGameNotStarted
-]
-
-{ #category : #initialization }
-GameStarting >> cantPlayBecauseGameNotStarted [
 
 	AssertionFailed signal: 'The game has not yet started'
 ]
@@ -40,13 +34,19 @@ GameStarting >> currentOf: aPlayer [
 { #category : #accessing }
 GameStarting >> currentPlayer [
 
-	^ self cantPlayBecauseGameNotStarted
+	AssertionFailed signal: 'The game has not yet started'
 ]
 
 { #category : #testing }
 GameStarting >> hasEnded [
 
 	^ false
+]
+
+{ #category : #accessing }
+GameStarting >> history [
+
+	^ positions
 ]
 
 { #category : #accessing }
@@ -58,19 +58,19 @@ GameStarting >> historyFor: aPlayer [
 { #category : #initialization }
 GameStarting >> initializeForAll: aPlayerCollection [
 
-	players := aPlayerCollection
+	positions := aPlayerCollection collect: [ :player | PlayerPosition startingOf: player ]
 ]
 
 { #category : #accessing }
 GameStarting >> positionOf: aPlayer [
 
-	( players includes: aPlayer )
-		ifFalse: [ AssertionFailed signal: '<1p> is not a player in the game' ].
-	^ PlayerPosition startingOf: aPlayer
+	^ positions
+		detect: [ :position | position player = aPlayer ]
+		ifNone: [ AssertionFailed signal: '<1p> is not a player in the game' ]
 ]
 
 { #category : #accessing }
 GameStarting >> winner [
 
-	^ AssertionFailed signal: 'Can not define a winner until game has ended'
+	AssertionFailed signal: 'The game has not yet started'
 ]

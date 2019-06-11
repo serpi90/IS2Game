@@ -1,7 +1,7 @@
 Class {
 	#name : #CancellationCard,
 	#superclass : #InstantCard,
-	#category : #'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Cards'
 }
 
 { #category : #visitor }

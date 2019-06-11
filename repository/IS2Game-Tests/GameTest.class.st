@@ -495,10 +495,13 @@ GameTest >> testPlayingAfterWinningIsNotAllowed [
 			self
 				should: [ game rollDiceFor: player ]
 					raise: AssertionFailed
-					withMessageText: ( '<1s> can not play now, the game has ended' expandMacrosWith: player );
+					withMessageText: 'The game has ended';
 				should: [ game playCard: SpeedCard new by: player over: player ]
 					raise: AssertionFailed
-					withMessageText: ( '<1s> can not play now, the game has ended' expandMacrosWith: player )
+					withMessageText: 'The game has ended';
+				should: [ game playCard: CancellationCard new by: player over: player ]
+					raise: AssertionFailed
+					withMessageText: 'The game has ended'
 			]
 ]
 
@@ -543,6 +546,10 @@ GameTest >> testPlayingUntilWinning [
 	self
 		assert: game hasEnded;
 		assert: game winner equals: mary.
+	self
+		assertCollection: ( ( game historyFor: mary ) collect: #lap ) asArray equals: #(0 0 1 1 2 2 3);
+		assertCollection: ( ( game historyFor: mary ) collect: #tileNumber ) asArray
+			equals: #(1 3 2 4 3 5 4).
 	self
 		assertCollection: ( ( game historyFor: bob ) collect: #lap ) asArray equals: #(0 0 0 1 1 1 2);
 		assertCollection: ( ( game historyFor: bob ) collect: #tileNumber ) asArray

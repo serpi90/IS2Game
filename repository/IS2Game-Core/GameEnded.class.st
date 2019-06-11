@@ -15,21 +15,21 @@ GameEnded class >> wonBy: aPlayer precededBy: aGameState [
 ]
 
 { #category : #asserting }
+GameEnded >> assert: aPlayer canPlayCard: aCard [
+
+	AssertionFailed signal: 'The game has ended'
+]
+
+{ #category : #asserting }
 GameEnded >> assertCanPlayPermanentCard: aPlayer [
 
-	self cantPlayBecauseGameEnded: aPlayer
+	AssertionFailed signal: 'The game has ended'
 ]
 
 { #category : #asserting }
 GameEnded >> assertCanRollDice: aPlayer [
 
-	self cantPlayBecauseGameEnded: aPlayer
-]
-
-{ #category : #signaling }
-GameEnded >> cantPlayBecauseGameEnded: aPlayer [
-
-	AssertionFailed signal: ( '<1s> can not play now, the game has ended' expandMacrosWith: aPlayer )
+	AssertionFailed signal: 'The game has ended'
 ]
 
 { #category : #'instance creation' }

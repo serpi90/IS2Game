@@ -1,7 +1,7 @@
 Class {
 	#name : #InstantCard,
 	#superclass : #Card,
-	#category : #'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Cards'
 }
 
 { #category : #affecting }
@@ -10,8 +10,8 @@ InstantCard >> affect: aTarget on: aGame [
 	self subclassResponsibility
 ]
 
-{ #category : #private }
-InstantCard >> basicPlayedBy: aPlayer over: aTarget on: aGame [
+{ #category : #asserting }
+InstantCard >> assertCanBePlayedBy: aPlayer onTurnOf: aCurrentPlayer [
 
-	aGame playInstant: self by: aPlayer over: aTarget
+	
 ]

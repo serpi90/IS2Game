@@ -1,7 +1,7 @@
 Class {
 	#name : #RepeatCard,
 	#superclass : #InstantCard,
-	#category : #'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Cards'
 }
 
 { #category : #visitor }
@@ -19,5 +19,8 @@ RepeatCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 { #category : #affecting }
 RepeatCard >> affect: aTarget on: aGame [
 
-	AssertionFailed signal: 'Repeat can not be played over a specific target'
+	| event |
+
+	event := aGame history detectLast: [ :anEvent | anEvent isA: TileEffect ].
+	event effect affectTurnOf: event triggeringPlayer in: aGame
 ]

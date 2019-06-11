@@ -5,7 +5,7 @@ Class {
 		'lap',
 		'tileNumber'
 	],
-	#category : 'IS2Game-Core-Effect'
+	#category : #'IS2Game-Core-Effects'
 }
 
 { #category : #'instance creation' }

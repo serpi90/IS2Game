@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #asserting }
-GameState >> assertCanPlayPermanentCard: aPlayer [
+GameState >> assert: aPlayer canPlayCard: aCard [
 
 	self subclassResponsibility
 ]
@@ -30,6 +30,12 @@ GameState >> currentPlayer [
 
 { #category : #testing }
 GameState >> hasEnded [
+
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+GameState >> history [
 
 	self subclassResponsibility
 ]

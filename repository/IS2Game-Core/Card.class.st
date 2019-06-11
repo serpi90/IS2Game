@@ -1,7 +1,7 @@
 Class {
 	#name : #Card,
 	#superclass : #Object,
-	#category : #'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Cards'
 }
 
 { #category : #visitor }
@@ -16,21 +16,21 @@ Card >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 	self subclassResponsibility
 ]
 
+{ #category : #playing }
+Card >> affect: aTarget on: aGame [
+
+	self subclassResponsibility
+]
+
 { #category : #affecting }
 Card >> assertValidTarget: aTarget [
 
 	aTarget accept: self
 ]
 
-{ #category : #private }
-Card >> basicPlayedBy: aPlayer over: aTarget on: aGame [
-
-	self subclassResponsibility
-]
-
-{ #category : #'game - double dispatch' }
+{ #category : #playing }
 Card >> playedBy: aPlayer over: aTarget on: aGame [
 
 	self assertValidTarget: aTarget.
-	self basicPlayedBy: aPlayer over: aTarget on: aGame
+	self affect: aTarget on: aGame
 ]

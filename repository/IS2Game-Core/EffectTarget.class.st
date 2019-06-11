@@ -1,7 +1,7 @@
 Class {
 	#name : #EffectTarget,
 	#superclass : #Object,
-	#category : 'IS2Game-Core-Effect'
+	#category : #'IS2Game-Core-Effects'
 }
 
 { #category : #testing }
