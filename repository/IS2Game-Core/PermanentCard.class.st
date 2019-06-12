@@ -1,29 +1,33 @@
 Class {
 	#name : #PermanentCard,
 	#superclass : #Card,
-	#category : #'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Cards'
 }
 
-{ #category : #visitor }
-PermanentCard >> acceptAffectEveryone: anAffectEveryone [
+{ #category : #testing }
+PermanentCard class >> isAbstract [
 
-	self subclassResponsibility
+	<ignoreForCoverage>
+	^ true
 ]
 
-{ #category : #visitor }
-PermanentCard >> acceptAffectSpecificTarget: anAffectSpecificTarget [
+{ #category : #affecting }
+PermanentCard >> affect: aTarget on: aGame [
 
-	self subclassResponsibility
+	aGame activatePermanentCard: self withEffect: ( self effectAffecting: aTarget )
 ]
 
-{ #category : #private }
-PermanentCard >> basicBePlayedOn: aGame by: aPlayer over: anEffectTarget [
+{ #category : #asserting }
+PermanentCard >> assertCanBePlayedBy: aPlayer onTurnOf: aCurrentPlayer [
 
-	aGame playPermanent: self by: aPlayer over: anEffectTarget
+	aPlayer = aCurrentPlayer
+		ifFalse: [ AssertionFailed
+				signal: ( '<1s> can not play now, it''s <2s>''s turn' expandMacrosWith: aPlayer with: aCurrentPlayer )
+			]
 ]
 
 { #category : #accessing }
-PermanentCard >> effectAffecting: anEffectTarget [
+PermanentCard >> effectAffecting: aTarget [
 
 	^ self subclassResponsibility
 ]

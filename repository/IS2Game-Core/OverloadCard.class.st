@@ -1,7 +1,7 @@
 Class {
 	#name : #OverloadCard,
 	#superclass : #PermanentCard,
-	#category : #'IS2Game-Core-Board'
+	#category : #'IS2Game-Core-Cards'
 }
 
 { #category : #visitor }

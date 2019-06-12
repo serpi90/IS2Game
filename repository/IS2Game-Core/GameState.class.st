@@ -5,37 +5,49 @@ Class {
 }
 
 { #category : #asserting }
-GameState >> assertCanPlayPermanentCard: aPlayer [
+GameState >> assert: aPlayer canPlayCard: aCard [
 
-	^ self subclassResponsibility
+	self subclassResponsibility
 ]
 
 { #category : #asserting }
 GameState >> assertCanRollDice: aPlayer [
 
-	^ self subclassResponsibility
-]
-
-{ #category : #accessing }
-GameState >> currentOf: aPlayer [
-
-	^ self subclassResponsibility
+	self subclassResponsibility
 ]
 
 { #category : #accessing }
 GameState >> currentPlayer [
 
-	^ self subclassResponsibility
+	self subclassResponsibility
 ]
 
 { #category : #testing }
 GameState >> hasEnded [
 
-	^ self subclassResponsibility
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+GameState >> history [
+
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+GameState >> positionHistoryFor: aPlayer [
+
+	^ self history select: [ :event | ( event isA: PlayerPosition ) and: [ event player = aPlayer ] ]
+]
+
+{ #category : #accessing }
+GameState >> positionOf: aPlayer [
+
+	self subclassResponsibility
 ]
 
 { #category : #accessing }
 GameState >> winner [
 
-	^ self subclassResponsibility
+	self subclassResponsibility
 ]

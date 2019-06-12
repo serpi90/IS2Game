@@ -5,7 +5,7 @@ Class {
 		'lap',
 		'tileNumber'
 	],
-	#category : 'IS2Game-Core-Effect'
+	#category : #'IS2Game-Core-Effects'
 }
 
 { #category : #'instance creation' }
@@ -17,7 +17,7 @@ RepositionPlayer class >> toLap: aLap tileNumber: aNumberOfTiles [
 { #category : #affecting }
 RepositionPlayer >> affect: aPlayer on: aGame [
 
-	aGame addPosition: ( PlayerPosition of: aPlayer onLap: lap tileNumber: tileNumber )
+	aGame registerEvent: ( PlayerPosition of: aPlayer onLap: lap tileNumber: tileNumber )
 ]
 
 { #category : #initialization }

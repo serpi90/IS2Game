@@ -11,12 +11,6 @@ Class {
 	#category : 'IS2Game-Tests'
 }
 
-{ #category : #mocking }
-EffectActionTest >> addPosition: aPlayerPosition [
-
-	playerHistory add: aPlayerPosition
-]
-
 { #category : #assertions }
 EffectActionTest >> assert: aPlayer isOnLap: aLap tileNumber: aTileNumber [
 
@@ -29,26 +23,31 @@ EffectActionTest >> assert: aPlayer isOnLap: aLap tileNumber: aTileNumber [
 ]
 
 { #category : #mocking }
-EffectActionTest >> historyFor: aPlayer [
-
-	^ playerHistory
-]
-
-{ #category : #mocking }
 EffectActionTest >> move: aPlayer tiles: aNumberOfTiles [
 
 	| position |
 
 	position := self positionOf: aPlayer.
-	self
-		addPosition:
-			( PlayerPosition of: aPlayer onLap: position lap tileNumber: position tileNumber + aNumberOfTiles )
+	playerHistory
+		add: ( PlayerPosition of: aPlayer onLap: position lap tileNumber: position tileNumber + aNumberOfTiles )
+]
+
+{ #category : #mocking }
+EffectActionTest >> positionHistoryFor: aPlayer [
+
+	^ playerHistory
 ]
 
 { #category : #mocking }
 EffectActionTest >> positionOf: aPlayer [
 
 	^ playerHistory last
+]
+
+{ #category : #mocking }
+EffectActionTest >> registerEvent: aPlayerPosition [
+
+	playerHistory add: aPlayerPosition
 ]
 
 { #category : #running }

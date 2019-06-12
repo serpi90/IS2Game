@@ -5,39 +5,36 @@ Class {
 		'laps',
 		'dice',
 		'players',
-		'playerPositions',
 		'board',
-		'playerTurn',
 		'permanentEffects',
-		'status'
+		'status',
+		'playingOrder'
 	],
-	#category : 'IS2Game-Core-Game'
+	#category : #'IS2Game-Core-Game'
 }
 
 { #category : #'instance creation' }
-IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: somePlayers [
+IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: aCollectionOfPlayers [
 
 	AssertionCheckerBuilder new
 		raising: InstanceCreationFailed;
 		checking: [ :asserter | 
 			asserter
 				enforce: [ aNumberOfLaps > 0 ] because: 'A game must at least have one lap';
-				enforce: [ somePlayers notEmpty ] because: 'A game must at least have one player'
+				enforce: [ aCollectionOfPlayers notEmpty ] because: 'A game must at least have one player'
 			];
 		buildAndCheck.
 	^ self new
 		initializeWithBoard: aBoard
 		laps: aNumberOfLaps
 		dice: aDice
-		for: somePlayers
+		for: aCollectionOfPlayers
 ]
 
-{ #category : #playing }
-IS2Game >> addPosition: aPlayerPosition [
+{ #category : #effects }
+IS2Game >> activatePermanentCard: aPermanentCard withEffect: anEffect [
 
-	playerPositions add: aPlayerPosition.
-	aPlayerPosition lap >= laps
-		ifTrue: [ status := GameEnded wonBy: aPlayerPosition player ]
+	permanentEffects at: aPermanentCard put: anEffect
 ]
 
 { #category : #private }
@@ -51,9 +48,11 @@ IS2Game >> adjustedRollFor: aPlayer whenRolled: aDiceRoll [
 { #category : #private }
 IS2Game >> applyTileEfectOn: aPlayerPosition [
 
-	( board tileNumbered: aPlayerPosition tileNumber ) effect
-		affectTurnOf: aPlayerPosition player
-		in: self
+	| effect |
+
+	effect := ( board tileNumbered: aPlayerPosition tileNumber ) effect.
+	status registerEvent: ( TileEffect applying: effect triggeredBy: aPlayerPosition player ).
+	effect affectTurnOf: aPlayerPosition player in: self
 ]
 
 { #category : #accessing }
@@ -61,6 +60,15 @@ IS2Game >> cardsAffecting: aPlayer [
 
 	^ permanentEffects keys
 		select: [ :card | ( permanentEffects at: card ) appliesTo: aPlayer on: self ]
+]
+
+{ #category : #private }
+IS2Game >> changeStatusToTurnOf: aPlayer [
+
+	status := players
+		detect: [ :player | ( self positionOf: player ) lap >= laps ]
+		ifFound: [ :player | GameEnded wonBy: player precededBy: status ]
+		ifNone: [ PlayerTurn currentOf: aPlayer precededBy: status ]
 ]
 
 { #category : #accessing }
@@ -76,58 +84,55 @@ IS2Game >> hasEnded [
 ]
 
 { #category : #accessing }
-IS2Game >> historyFor: aPlayer [
+IS2Game >> history [
 
-	^ playerPositions select: [ :position | position player = aPlayer ]
+	^ status history
 ]
 
 { #category : #initialization }
-IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: somePlayers [
+IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: aPlayerCollection [
 
 	board := aBoard.
 	laps := aNumberOfLaps.
 	dice := aDice.
-	players := somePlayers.
-	playerTurn := CircularIterator cyclingOver: somePlayers.
-	status := PlayerTurn currentOf: playerTurn current.
-	playerPositions := ( players collect: [ :player | PlayerPosition startingOf: player ] )
-		asOrderedCollection.
-	permanentEffects := Dictionary new
+	players := aPlayerCollection.
+	playingOrder := CircularIterator cyclingOver: aPlayerCollection.
+	status := GameStarting forAll: players.
+	permanentEffects := Dictionary new.
+	self changeStatusToTurnOf: playingOrder current
 ]
 
-{ #category : #playing }
+{ #category : #effects }
 IS2Game >> move: aPlayer tiles: aNumberOfTiles [
 
 	| newPosition |
 
-	newPosition := self positionFor: ( self positionOf: aPlayer ) whenMoving: aNumberOfTiles.
+	newPosition := PlayerPosition
+		offsetFrom: ( self positionOf: aPlayer )
+		whenMoving: aNumberOfTiles
+		on: board.
 
-	self addPosition: newPosition
+	status registerEvent: newPosition
 ]
 
 { #category : #playing }
-IS2Game >> playCard: aCard for: aPlayer [
+IS2Game >> playCard: aCard by: aPlayer [
 
-	aCard bePlayedOn: self by: aPlayer over: AffectEveryone new
+	self playCard: aCard by: aPlayer targeting: AffectEveryone new
 ]
 
 { #category : #playing }
-IS2Game >> playCard: aCard for: aPlayer over: aTargetPlayer [
+IS2Game >> playCard: aCard by: aPlayer over: aTarget [
 
-	aCard bePlayedOn: self by: aPlayer over: ( AffectSpecificTarget targeting: aTargetPlayer )
+	self playCard: aCard by: aPlayer targeting: ( AffectSpecificTarget targeting: aTarget )
 ]
 
 { #category : #playing }
-IS2Game >> playInstant: anInstantCard by: aPlayer over: anEffectTarget [
+IS2Game >> playCard: aCard by: aPlayer targeting: aTarget [
 
-	anInstantCard affect: anEffectTarget on: self
-]
-
-{ #category : #playing }
-IS2Game >> playPermanent: aPermanentCard by: aPlayer over: target [
-
-	status assertCanPlayPermanentCard: aPlayer.
-	permanentEffects at: aPermanentCard put: ( aPermanentCard effectAffecting: target )
+	status assert: aPlayer canPlayCard: aCard.
+	status registerEvent: ( CardPlayed card: aCard over: aTarget ).
+	aCard playedBy: aPlayer over: aTarget on: self
 ]
 
 { #category : #accessing }
@@ -136,25 +141,25 @@ IS2Game >> players [
 	^ players
 ]
 
-{ #category : #private }
-IS2Game >> positionFor: aPlayerPosition whenMoving: aNumberOfTiles [
+{ #category : #accessing }
+IS2Game >> positionHistoryFor: aPlayer [
 
-	| totalMoves |
-
-	totalMoves := aPlayerPosition lap * board length + aPlayerPosition tileNumber - 1 + aNumberOfTiles.
-	^ PlayerPosition
-		of: aPlayerPosition player
-		onLap: totalMoves // board length
-		tileNumber: totalMoves \\ board length + 1
+	^ status positionHistoryFor: aPlayer
 ]
 
 { #category : #accessing }
 IS2Game >> positionOf: aPlayer [
 
-	^ ( self historyFor: aPlayer ) last
+	^ status positionOf: aPlayer
 ]
 
-{ #category : #playing }
+{ #category : #effects }
+IS2Game >> registerEvent: aPlayerPosition [
+
+	status registerEvent: aPlayerPosition
+]
+
+{ #category : #effects }
 IS2Game >> removeActivePermanentCard: aPermanentCard [
 
 	permanentEffects
@@ -172,7 +177,7 @@ IS2Game >> rollDiceFor: aPlayer [
 	roll := self adjustedRollFor: aPlayer whenRolled: dice roll.
 	self move: aPlayer tiles: roll.
 	self applyTileEfectOn: ( self positionOf: aPlayer ).
-	status := status currentOf: playerTurn next
+	self changeStatusToTurnOf: playingOrder next
 ]
 
 { #category : #accessing }

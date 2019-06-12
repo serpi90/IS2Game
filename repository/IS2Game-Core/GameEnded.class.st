@@ -2,45 +2,40 @@ Class {
 	#name : #GameEnded,
 	#superclass : #GameState,
 	#instVars : [
-		'winner'
+		'winner',
+		'previousState'
 	],
-	#category : 'IS2Game-Core-Game'
+	#category : #'IS2Game-Core-Game'
 }
 
 { #category : #'instance creation' }
-GameEnded class >> wonBy: aPlayer [
+GameEnded class >> wonBy: aPlayer precededBy: aGameState [
 
-	^ self new initializeWonBy: aPlayer
+	^ self new initializeWonBy: aPlayer precededBy: aGameState
+]
+
+{ #category : #asserting }
+GameEnded >> assert: aPlayer canPlayCard: aCard [
+
+	AssertionFailed signal: 'The game has ended'
 ]
 
 { #category : #asserting }
 GameEnded >> assertCanPlayPermanentCard: aPlayer [
 
-	self cantPlayBecauseGameEnded: aPlayer
+	AssertionFailed signal: 'The game has ended'
 ]
 
 { #category : #asserting }
 GameEnded >> assertCanRollDice: aPlayer [
 
-	self cantPlayBecauseGameEnded: aPlayer
-]
-
-{ #category : #signaling }
-GameEnded >> cantPlayBecauseGameEnded: aPlayer [
-
-	AssertionFailed signal: ( '<1s> can not play now, the game has ended' expandMacrosWith: aPlayer )
-]
-
-{ #category : #accessing }
-GameEnded >> currentOf: aPlayer [
-
-	^ self
+	AssertionFailed signal: 'The game has ended'
 ]
 
 { #category : #accessing }
 GameEnded >> currentPlayer [
 
-	^ winner
+	^ AssertionFailed signal: 'The game has ended'
 ]
 
 { #category : #testing }
@@ -49,10 +44,23 @@ GameEnded >> hasEnded [
 	^ true
 ]
 
-{ #category : #initialization }
-GameEnded >> initializeWonBy: aPlayer [
+{ #category : #accessing }
+GameEnded >> history [
 
+	^ previousState history
+]
+
+{ #category : #initialization }
+GameEnded >> initializeWonBy: aPlayer precededBy: aGameState [
+
+	previousState := aGameState.
 	winner := aPlayer
+]
+
+{ #category : #accessing }
+GameEnded >> positionOf: aPlayer [
+
+	^ previousState positionOf: aPlayer
 ]
 
 { #category : #accessing }

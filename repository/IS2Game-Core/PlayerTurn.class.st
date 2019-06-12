@@ -2,15 +2,23 @@ Class {
 	#name : #PlayerTurn,
 	#superclass : #GameState,
 	#instVars : [
-		'currentPlayer'
+		'currentPlayer',
+		'previousState',
+		'events'
 	],
-	#category : 'IS2Game-Core-Game'
+	#category : #'IS2Game-Core-Game'
 }
 
 { #category : #'instance creation' }
-PlayerTurn class >> currentOf: aPlayer [
+PlayerTurn class >> currentOf: aPlayer precededBy: aGameState [
 
-	^ self new initializeCurrentOf: aPlayer
+	^ self new initializeCurrentOf: aPlayer precededBy: aGameState
+]
+
+{ #category : #asserting }
+PlayerTurn >> assert: aPlayer canPlayCard: aCard [
+
+	aCard assertCanBePlayedBy: aPlayer onTurnOf: currentPlayer
 ]
 
 { #category : #asserting }
@@ -34,12 +42,6 @@ PlayerTurn >> assertIsTurnOf: aPlayer [
 ]
 
 { #category : #accessing }
-PlayerTurn >> currentOf: aPlayer [
-
-	^ self class currentOf: aPlayer
-]
-
-{ #category : #accessing }
 PlayerTurn >> currentPlayer [
 
 	^ currentPlayer
@@ -51,10 +53,32 @@ PlayerTurn >> hasEnded [
 	^ false
 ]
 
-{ #category : #initialization }
-PlayerTurn >> initializeCurrentOf: aPlayer [
+{ #category : #accessing }
+PlayerTurn >> history [
 
+	^ previousState history , events
+]
+
+{ #category : #initialization }
+PlayerTurn >> initializeCurrentOf: aPlayer precededBy: aGameState [
+
+	previousState := aGameState.
+	events := OrderedCollection new.
 	currentPlayer := aPlayer
+]
+
+{ #category : #accessing }
+PlayerTurn >> positionOf: aPlayer [
+
+	^ events
+		detectLast: [ :event | ( event isA: PlayerPosition ) and: [ event player = aPlayer ] ]
+		ifNone: [ previousState positionOf: aPlayer ]
+]
+
+{ #category : #accessing }
+PlayerTurn >> registerEvent: anEvent [
+
+	events add: anEvent
 ]
 
 { #category : #accessing }

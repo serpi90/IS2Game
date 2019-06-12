@@ -4,13 +4,13 @@ Class {
 	#instVars : [
 		'target'
 	],
-	#category : #'IS2Game-Core-Effect'
+	#category : #'IS2Game-Core-Effects'
 }
 
 { #category : #'instance creation' }
-AffectSpecificTarget class >> targeting: aPlayer [
+AffectSpecificTarget class >> targeting: aTarget [
 
-	^ self new initializeTargeting: aPlayer
+	^ self new initializeTargeting: aTarget
 ]
 
 { #category : #visitor }
@@ -32,7 +32,7 @@ AffectSpecificTarget >> apply: anEffect to: aGame [
 ]
 
 { #category : #initialization }
-AffectSpecificTarget >> initializeTargeting: aPlayer [
+AffectSpecificTarget >> initializeTargeting: aTarget [
 
-	target := aPlayer
+	target := aTarget
 ]
