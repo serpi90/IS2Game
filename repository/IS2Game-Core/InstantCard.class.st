@@ -4,10 +4,11 @@ Class {
 	#category : #'IS2Game-Core-Cards'
 }
 
-{ #category : #affecting }
-InstantCard >> affect: aTarget on: aGame [
+{ #category : #testing }
+InstantCard class >> isAbstract [
 
-	self subclassResponsibility
+	<ignoreForCoverage>
+	^ true
 ]
 
 { #category : #asserting }

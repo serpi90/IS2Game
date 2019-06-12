@@ -51,6 +51,12 @@ GameEnded >> hasEnded [
 ]
 
 { #category : #accessing }
+GameEnded >> history [
+
+	^ previousState history
+]
+
+{ #category : #accessing }
 GameEnded >> historyFor: aPlayer [
 
 	^ previousState historyFor: aPlayer

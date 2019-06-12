@@ -41,6 +41,12 @@ GameState >> history [
 ]
 
 { #category : #accessing }
+GameState >> historyFor: aPlayer [
+
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
 GameState >> positionOf: aPlayer [
 
 	self subclassResponsibility

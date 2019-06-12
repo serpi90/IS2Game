@@ -16,8 +16,14 @@ Card >> acceptAffectSpecificTarget: anAffectSpecificTarget [
 	self subclassResponsibility
 ]
 
-{ #category : #playing }
+{ #category : #affecting }
 Card >> affect: aTarget on: aGame [
+
+	self subclassResponsibility
+]
+
+{ #category : #asserting }
+Card >> assertCanBePlayedBy: aPlayer onTurnOf: aCurrentPlayer [
 
 	self subclassResponsibility
 ]

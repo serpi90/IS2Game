@@ -4,7 +4,14 @@ Class {
 	#category : #'IS2Game-Core-Cards'
 }
 
-{ #category : #private }
+{ #category : #testing }
+PermanentCard class >> isAbstract [
+
+	<ignoreForCoverage>
+	^ true
+]
+
+{ #category : #affecting }
 PermanentCard >> affect: aTarget on: aGame [
 
 	aGame activatePermanentCard: self withEffect: ( self effectAffecting: aTarget )

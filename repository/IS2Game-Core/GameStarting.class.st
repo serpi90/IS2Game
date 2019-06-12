@@ -34,7 +34,7 @@ GameStarting >> currentOf: aPlayer [
 { #category : #accessing }
 GameStarting >> currentPlayer [
 
-	AssertionFailed signal: 'The game has not yet started'
+	^ AssertionFailed signal: 'The game has not yet started'
 ]
 
 { #category : #testing }
@@ -72,5 +72,5 @@ GameStarting >> positionOf: aPlayer [
 { #category : #accessing }
 GameStarting >> winner [
 
-	AssertionFailed signal: 'The game has not yet started'
+	^ AssertionFailed signal: 'The game has not yet started'
 ]
