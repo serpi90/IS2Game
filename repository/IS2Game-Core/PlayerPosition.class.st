@@ -16,6 +16,18 @@ PlayerPosition class >> of: aPlayer onLap: aLap tileNumber: aTileNumber [
 ]
 
 { #category : #'instance creation' }
+PlayerPosition class >> offsetFrom: aPlayerPosition whenMoving: aNumberOfTiles on: aBoard [
+
+	| totalMoves |
+
+	totalMoves := aPlayerPosition lap * aBoard length + aPlayerPosition tileNumber - 1 + aNumberOfTiles.
+	^ self
+		of: aPlayerPosition player
+		onLap: totalMoves // aBoard length
+		tileNumber: totalMoves \\ aBoard length + 1
+]
+
+{ #category : #'instance creation' }
 PlayerPosition class >> startingOf: aPlayer [
 
 	^ self of: aPlayer onLap: 0 tileNumber: 1

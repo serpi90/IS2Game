@@ -25,12 +25,6 @@ GameStarting >> assertCanRollDice: aPlayer [
 	AssertionFailed signal: 'The game has not yet started'
 ]
 
-{ #category : #'instance creation' }
-GameStarting >> currentOf: aPlayer [
-
-	^ PlayerTurn currentOf: aPlayer precededBy: self
-]
-
 { #category : #accessing }
 GameStarting >> currentPlayer [
 
@@ -47,12 +41,6 @@ GameStarting >> hasEnded [
 GameStarting >> history [
 
 	^ positions
-]
-
-{ #category : #accessing }
-GameStarting >> historyFor: aPlayer [
-
-	^ Array with: ( self positionOf: aPlayer )
 ]
 
 { #category : #initialization }

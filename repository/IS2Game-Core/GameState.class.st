@@ -16,12 +16,6 @@ GameState >> assertCanRollDice: aPlayer [
 	self subclassResponsibility
 ]
 
-{ #category : #'instance creation' }
-GameState >> currentOf: aPlayer [
-
-	self subclassResponsibility
-]
-
 { #category : #accessing }
 GameState >> currentPlayer [
 
@@ -41,9 +35,9 @@ GameState >> history [
 ]
 
 { #category : #accessing }
-GameState >> historyFor: aPlayer [
+GameState >> positionHistoryFor: aPlayer [
 
-	self subclassResponsibility
+	^ self history select: [ :event | ( event isA: PlayerPosition ) and: [ event player = aPlayer ] ]
 ]
 
 { #category : #accessing }

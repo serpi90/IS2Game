@@ -32,16 +32,10 @@ GameEnded >> assertCanRollDice: aPlayer [
 	AssertionFailed signal: 'The game has ended'
 ]
 
-{ #category : #'instance creation' }
-GameEnded >> currentOf: aPlayer [
-
-	^ self
-]
-
 { #category : #accessing }
 GameEnded >> currentPlayer [
 
-	^ winner
+	^ AssertionFailed signal: 'The game has ended'
 ]
 
 { #category : #testing }
@@ -54,12 +48,6 @@ GameEnded >> hasEnded [
 GameEnded >> history [
 
 	^ previousState history
-]
-
-{ #category : #accessing }
-GameEnded >> historyFor: aPlayer [
-
-	^ previousState historyFor: aPlayer
 ]
 
 { #category : #initialization }

@@ -31,16 +31,10 @@ IS2Game class >> withBoard: aBoard laps: aNumberOfLaps dice: aDice for: aCollect
 		for: aCollectionOfPlayers
 ]
 
-{ #category : #playing }
+{ #category : #effects }
 IS2Game >> activatePermanentCard: aPermanentCard withEffect: anEffect [
 
 	permanentEffects at: aPermanentCard put: anEffect
-]
-
-{ #category : #playing }
-IS2Game >> addPosition: aPlayerPosition [
-
-	status registerEvent: aPlayerPosition
 ]
 
 { #category : #private }
@@ -74,7 +68,7 @@ IS2Game >> changeStatusToTurnOf: aPlayer [
 	status := players
 		detect: [ :player | ( self positionOf: player ) lap >= laps ]
 		ifFound: [ :player | GameEnded wonBy: player precededBy: status ]
-		ifNone: [ status currentOf: aPlayer ]
+		ifNone: [ PlayerTurn currentOf: aPlayer precededBy: status ]
 ]
 
 { #category : #accessing }
@@ -95,12 +89,6 @@ IS2Game >> history [
 	^ status history
 ]
 
-{ #category : #accessing }
-IS2Game >> historyFor: aPlayer [
-
-	^ status historyFor: aPlayer
-]
-
 { #category : #initialization }
 IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: aPlayerCollection [
 
@@ -114,14 +102,17 @@ IS2Game >> initializeWithBoard: aBoard laps: aNumberOfLaps dice: aDice for: aPla
 	self changeStatusToTurnOf: playingOrder current
 ]
 
-{ #category : #playing }
+{ #category : #effects }
 IS2Game >> move: aPlayer tiles: aNumberOfTiles [
 
 	| newPosition |
 
-	newPosition := self positionFor: ( self positionOf: aPlayer ) whenMoving: aNumberOfTiles.
+	newPosition := PlayerPosition
+		offsetFrom: ( self positionOf: aPlayer )
+		whenMoving: aNumberOfTiles
+		on: board.
 
-	self addPosition: newPosition
+	status registerEvent: newPosition
 ]
 
 { #category : #playing }
@@ -131,9 +122,9 @@ IS2Game >> playCard: aCard by: aPlayer [
 ]
 
 { #category : #playing }
-IS2Game >> playCard: aCard by: aPlayer over: anotherPlayer [
+IS2Game >> playCard: aCard by: aPlayer over: aTarget [
 
-	self playCard: aCard by: aPlayer targeting: ( AffectSpecificTarget targeting: anotherPlayer )
+	self playCard: aCard by: aPlayer targeting: ( AffectSpecificTarget targeting: aTarget )
 ]
 
 { #category : #playing }
@@ -144,34 +135,16 @@ IS2Game >> playCard: aCard by: aPlayer targeting: aTarget [
 	aCard playedBy: aPlayer over: aTarget on: self
 ]
 
-{ #category : #playing }
-IS2Game >> playInstant: anInstantCard by: aPlayer over: aTarget [
-
-	anInstantCard affect: aTarget on: self
-]
-
-{ #category : #playing }
-IS2Game >> playPermanent: aPermanentCard by: aPlayer over: aTarget [
-
-	aPermanentCard affect: aTarget on: self
-]
-
 { #category : #accessing }
 IS2Game >> players [
 
 	^ players
 ]
 
-{ #category : #private }
-IS2Game >> positionFor: aPlayerPosition whenMoving: aNumberOfTiles [
+{ #category : #accessing }
+IS2Game >> positionHistoryFor: aPlayer [
 
-	| totalMoves |
-
-	totalMoves := aPlayerPosition lap * board length + aPlayerPosition tileNumber - 1 + aNumberOfTiles.
-	^ PlayerPosition
-		of: aPlayerPosition player
-		onLap: totalMoves // board length
-		tileNumber: totalMoves \\ board length + 1
+	^ status positionHistoryFor: aPlayer
 ]
 
 { #category : #accessing }
@@ -180,7 +153,13 @@ IS2Game >> positionOf: aPlayer [
 	^ status positionOf: aPlayer
 ]
 
-{ #category : #playing }
+{ #category : #effects }
+IS2Game >> registerEvent: aPlayerPosition [
+
+	status registerEvent: aPlayerPosition
+]
+
+{ #category : #effects }
 IS2Game >> removeActivePermanentCard: aPermanentCard [
 
 	permanentEffects

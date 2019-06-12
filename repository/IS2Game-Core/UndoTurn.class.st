@@ -30,7 +30,7 @@ UndoTurn >> affect: aPlayer on: aGame [
 
 	previousTurnPosition := self positionOf: aPlayer toGoBackOn: aGame.
 	aGame
-		addPosition:
+		registerEvent:
 			( PlayerPosition
 				of: aPlayer
 				onLap: previousTurnPosition lap
@@ -53,7 +53,7 @@ UndoTurn >> positionOf: aPlayer toGoBackOn: aGame [
 
 	| history |
 
-	history := aGame historyFor: aPlayer.
+	history := aGame positionHistoryFor: aPlayer.
 	^ history size > ( 2 + turns )
 		ifTrue: [ ( history allButLast: 2 + turns ) last ]
 		ifFalse: [ history first ]

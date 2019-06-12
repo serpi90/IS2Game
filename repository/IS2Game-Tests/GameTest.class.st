@@ -451,7 +451,7 @@ GameTest >> testPlayerLandingOnWormholeTileGoesBack4Positions [
 	self assert: ( game positionOf: bob ) lap equals: 0
 ]
 
-{ #category : #'tests - positions' }
+{ #category : #tests }
 GameTest >> testPlayerStartsAtPositionAndLapZero [
 
 	| game |
@@ -493,6 +493,7 @@ GameTest >> testPlayingAfterWinningIsNotAllowed [
 	players
 		do: [ :player | 
 			self
+				should: [ game currentPlayer ] raise: AssertionFailed withMessageText: 'The game has ended';
 				should: [ game rollDiceFor: player ]
 					raise: AssertionFailed
 					withMessageText: 'The game has ended';
@@ -512,7 +513,7 @@ GameTest >> testPlayingUntilWinning [
 
 	game := IS2Game
 		withBoard: ( Board withTiles: ( self emptyTiles: 5 ) )
-		laps: 3
+		laps: 2
 		dice: ( Die withSides: 6 source: ( SequentialGenerator generating: #(1 2 3 4) ) )
 		for: ( Array with: bob with: mary ).
 	self deny: game hasEnded.
@@ -532,141 +533,22 @@ GameTest >> testPlayingUntilWinning [
 	game rollDiceFor: bob.
 	game rollDiceFor: mary.
 	game rollDiceFor: bob.
-	game rollDiceFor: mary.
-	game rollDiceFor: bob.
-	game rollDiceFor: mary.
-	game rollDiceFor: bob.
 	self
-		assert: ( game positionOf: bob ) lap equals: 2;
-		assert: ( game positionOf: bob ) tileNumber equals: 3.
+		assert: ( game positionOf: bob ) lap equals: 1;
+		assert: ( game positionOf: bob ) tileNumber equals: 4.
 	game rollDiceFor: mary.
 	self
-		assert: ( game positionOf: mary ) lap equals: 3;
-		assert: ( game positionOf: mary ) tileNumber equals: 4.
+		assert: ( game positionOf: mary ) lap equals: 2;
+		assert: ( game positionOf: mary ) tileNumber equals: 3.
 	self
 		assert: game hasEnded;
 		assert: game winner equals: mary.
 	self
-		assertCollection: ( ( game historyFor: mary ) collect: #lap ) asArray equals: #(0 0 1 1 2 2 3);
-		assertCollection: ( ( game historyFor: mary ) collect: #tileNumber ) asArray
-			equals: #(1 3 2 4 3 5 4).
+		assertCollection: ( ( game positionHistoryFor: bob ) collect: #lap ) asArray equals: #(0 0 0 1 1);
+		assertCollection: ( ( game positionHistoryFor: bob ) collect: #tileNumber ) asArray equals: #(1 2 5 1 4).
 	self
-		assertCollection: ( ( game historyFor: bob ) collect: #lap ) asArray equals: #(0 0 0 1 1 1 2);
-		assertCollection: ( ( game historyFor: bob ) collect: #tileNumber ) asArray
-			equals: #(1 2 5 1 4 5 3)
-]
-
-{ #category : #'tests - positions' }
-GameTest >> testPositionForBorderCaseWithBoardLengthedOne [
-
-	| position game newPosition |
-
-	game := IS2Game
-		withBoard: ( Board withTiles: {Tile withoutEffect} )
-		laps: 5
-		dice: ( Die withSides: 6 )
-		for: {bob}.
-
-	position := PlayerPosition startingOf: bob.
-	newPosition := game positionFor: position whenMoving: 1.
-	self assert: newPosition tileNumber equals: 1.
-	self assert: newPosition lap equals: 1.
-
-	newPosition := game positionFor: position whenMoving: 2.
-	self assert: newPosition tileNumber equals: 1.
-	self assert: newPosition lap equals: 2
-]
-
-{ #category : #'tests - positions' }
-GameTest >> testPositionForWhenChangingLap [
-
-	| position game newPosition |
-
-	game := IS2Game
-		withBoard: ( Board withTiles: ( self emptyTiles: 10 ) )
-		laps: 5
-		dice: ( Die withSides: 6 )
-		for: {bob}.
-	position := PlayerPosition of: bob onLap: 0 tileNumber: 10.
-	newPosition := game positionFor: position whenMoving: 1.
-	self assert: newPosition tileNumber equals: 1.
-	self assert: newPosition lap equals: 1.
-
-	position := PlayerPosition of: bob onLap: 0 tileNumber: 5.
-	newPosition := game positionFor: position whenMoving: 21.
-	self assert: newPosition tileNumber equals: 6.
-	self assert: newPosition lap equals: 2.
-
-	position := PlayerPosition of: bob onLap: 2 tileNumber: 6.
-	newPosition := game positionFor: position whenMoving: 5.
-	self assert: newPosition tileNumber equals: 1.
-	self assert: newPosition lap equals: 3
-]
-
-{ #category : #'tests - positions' }
-GameTest >> testPositionForWhenChangingLapBackwards [
-
-	| position game newPosition |
-
-	game := self gameWithBoardLength: 10 for: {bob}.
-	position := PlayerPosition of: bob onLap: 0 tileNumber: 1.
-	newPosition := game positionFor: position whenMoving: -1.
-	self assert: newPosition tileNumber equals: 10.
-	self assert: newPosition lap equals: -1
-]
-
-{ #category : #'tests - positions' }
-GameTest >> testPositionForWhenMoving [
-
-	| game position newPosition |
-
-	game := IS2Game
-		withBoard: ( Board withTiles: ( self emptyTiles: 5 ) )
-		laps: 3
-		dice: ( Die withSides: 6 )
-		for: {bob}.
-	position := PlayerPosition startingOf: bob.
-	newPosition := game positionFor: position whenMoving: 2.
-	self assert: newPosition tileNumber equals: 3.
-	self assert: newPosition lap equals: 0.
-	newPosition := game positionFor: position whenMoving: 6.
-	self assert: newPosition tileNumber equals: 2.
-	self assert: newPosition lap equals: 1.
-
-	position := PlayerPosition of: bob onLap: 3 tileNumber: 4.
-	newPosition := game positionFor: position whenMoving: 1.
-	self assert: newPosition tileNumber equals: 5.
-	self assert: newPosition lap equals: 3.
-	newPosition := game positionFor: position whenMoving: 2.
-	self assert: newPosition tileNumber equals: 1.
-	self assert: newPosition lap equals: 4
-]
-
-{ #category : #'tests - positions' }
-GameTest >> testPositionForWhenNotChangingLap [
-
-	| position game player newPosition |
-
-	player := 'bob'.
-	game := IS2Game
-		withBoard: ( Board withTiles: ( self emptyTiles: 10 ) )
-		laps: 5
-		dice: ( Die withSides: 6 )
-		for: {player}.
-	position := PlayerPosition startingOf: player.
-	newPosition := game positionFor: position whenMoving: 1.
-	self assert: newPosition tileNumber equals: 2.
-	self assert: newPosition lap equals: 0.
-
-	position := PlayerPosition of: player onLap: 2 tileNumber: 5.
-	newPosition := game positionFor: position whenMoving: 3.
-	self assert: newPosition tileNumber equals: 8.
-	self assert: newPosition lap equals: 2.
-
-	position := PlayerPosition of: player onLap: 2 tileNumber: 3.
-	newPosition := game positionFor: position whenMoving: 5.
-	self assert: newPosition tileNumber equals: 8.
-	self assert: newPosition lap equals: 2
+		assertCollection: ( ( game positionHistoryFor: mary ) collect: #lap ) asArray equals: #(0 0 1 1 2);
+		assertCollection: ( ( game positionHistoryFor: mary ) collect: #tileNumber ) asArray equals: #(1 3 2 4 3)
 ]
 
 { #category : #'tests - cards - repeat' }

@@ -41,12 +41,6 @@ PlayerTurn >> assertIsTurnOf: aPlayer [
 		because: ( '<1s> can not play now, it''s <2s>''s turn' expandMacrosWith: aPlayer with: self currentPlayer )
 ]
 
-{ #category : #'instance creation' }
-PlayerTurn >> currentOf: aPlayer [
-
-	^ self class currentOf: aPlayer precededBy: self
-]
-
 { #category : #accessing }
 PlayerTurn >> currentPlayer [
 
@@ -63,13 +57,6 @@ PlayerTurn >> hasEnded [
 PlayerTurn >> history [
 
 	^ previousState history , events
-]
-
-{ #category : #accessing }
-PlayerTurn >> historyFor: aPlayer [
-
-	^ ( previousState historyFor: aPlayer ) , events
-		select: [ :event | ( event isA: PlayerPosition ) and: [ event player = aPlayer ] ]
 ]
 
 { #category : #initialization }
