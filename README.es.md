@@ -32,7 +32,7 @@ El tablero tiene N casilleros en secuencia. La cantidad de dados, las caras de l
 
 ## Versión 2
 
-El tablero pasa a ser circular, una vez que se llega cruza la meta se vuelve al primer casillero. 
+El tablero pasa a ser circular, una vez que se llega cruza la meta se vuelve al primer casillero.
 Gana quien da X vueltas al tablero.
 
 Además algunos casilleros tienen efectos.
