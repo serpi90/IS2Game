@@ -62,15 +62,14 @@ Each tile has a probability of being placed on the board upon generation.
   - Everyone goes back to the first tile of the board.
   - The number of laps done by each player does not change.
 - Time Machine
-  - The player goes back to the position it started on the previous turn, not at the beginning of the current one.
+  - The player goes back to the position it started on his previous turn, not at the beginning of the current one.
   - Example
     1. Position: 3. Roll: 2, Land on 5 _Empty_, no effect.
     2. Position: 5. Roll: 4, Land on 9 _Time machine_, go back to position 3.
   - Another example
-    1. Position: 3. Roll: 2, Land on 5 _Empty_, no effect.
-    2. During another player's turn, it lands on _Moonwalk (2)_ changing Position: 1
-    3. Position: 1. Roll: 5, Land on 6 _Time machine_, go back to position 3.
-
+    1. Player: Bob. Position: 3. Roll: 2, Land on 5 _Empty_, no effect.
+    2. Player: Mary. Lands on _Moonwalk (2)_ (in Mary's turn) changing Bob to position: 1.
+    3. Player: Bob. Position: 1. Roll: 5, Land on 6 _Time machine_, go back to position 3.
 
 ### Requirements for version 2
 
