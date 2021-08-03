@@ -32,7 +32,7 @@ El tablero tiene N casilleros en secuencia. La cantidad de dados, las caras de l
 
 ## Versión 2
 
-El tablero pasa a ser circular, una vez que se llega cruza la meta se vuelve al primer casillero. 
+El tablero pasa a ser circular, una vez que se llega cruza la meta se vuelve al primer casillero.
 Gana quien da X vueltas al tablero.
 
 Además algunos casilleros tienen efectos.
@@ -66,6 +66,10 @@ Los casilleros en promedio tienen la siguiente distibución:
   - Ejemplo:
     1. Posición: 3. Tira: 2, Cae en 5, _Vacío_, no hay efecto.
     2. Posición: 5. Tira: 4, Cae en 9, _Máquina del tiempo_, vuelve a la posición 3.
+  - Otro ejemplo:
+    1. Player: Bob. Posición: 3. Tira: 2, Cae en 5, _Vacío_, no hay efecto.
+    2. Player: Mary. Cae en _Moonwalk (2)_ (en el turno de Mary) cambiando a Bob a la posición 1.
+    3. Player: Bob. Posición: 1. Tira: 5, Cae en 6, _Máquina del tiempo_, vuelve a la posición 3.
 
 ### Requisitos de aprobación para la versión 2
 
