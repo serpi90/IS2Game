@@ -22,7 +22,7 @@ The board has N tiles in sequence. The number of dice, the number faces of those
 ### Requirements for version 1
 
 - [x] Support N sided dice.
-- [x] Support M dices with varying sizes.
+- [x] Support M dice with varying sizes.
 - [x] Game supports more than one player.
 - [x] Turn order must be enforced.
 - [x] You can tell if the game ended.
